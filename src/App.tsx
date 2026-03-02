@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react
 import { motion, AnimatePresence } from 'motion/react';
 import React, { useState, ReactNode, useEffect } from 'react';
 import { cn } from '@/src/lib/utils';
+import { Analytics } from '@vercel/analytics/react';
 import { 
   FileText, 
   Image as ImageIcon, 
@@ -1273,6 +1274,7 @@ const ScrollToTop = () => {
 export default function App() {
   return (
     <Router>
+      <Analytics />
       <ScrollToTop />
       <AppLayout>
         <Routes>
