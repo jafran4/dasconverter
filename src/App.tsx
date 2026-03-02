@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import React, { useState, ReactNode, useEffect, createContext, useContext, useRef } from 'react';
+import { SpeedInsights } from "@vercel/speed-insights/react";
+import { Analytics } from "@vercel/analytics/react";
 import { cn } from '@/src/lib/utils';
 import { 
   FileText, 
@@ -1407,6 +1409,8 @@ export default function App() {
             <Route path="/pet-breeding-calc" element={<PetBreedingCalculator />} />
           </Routes>
         </AppLayout>
+        <SpeedInsights />
+        <Analytics />
       </SearchProvider>
     </Router>
   );
