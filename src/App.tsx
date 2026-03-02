@@ -1001,7 +1001,7 @@ const Dashboard = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-5xl font-bold tracking-tight text-zinc-900 mb-4"
         >
-          OmniTool
+          Das Converters
         </motion.h1>
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
@@ -1166,7 +1166,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
               <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center group-hover:rotate-12 transition-transform">
                 <LayoutGrid className="w-5 h-5 text-white" />
               </div>
-              <span className="font-bold text-xl tracking-tight">OmniTool</span>
+              <span className="font-bold text-xl tracking-tight">Das Converters</span>
             </Link>
           </div>
 
@@ -1246,7 +1246,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex items-center gap-2">
             <LayoutGrid className="w-5 h-5 text-zinc-400" />
-            <span className="font-semibold text-zinc-900">OmniTool</span>
+            <span className="font-semibold text-zinc-900">Das Converters</span>
             <span className="text-zinc-400 text-sm ml-2">© 2024</span>
           </div>
           <div className="flex gap-8">
