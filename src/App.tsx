@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react
 import { motion, AnimatePresence } from 'motion/react';
 import React, { useState, ReactNode, useEffect } from 'react';
 import { cn } from '@/src/lib/utils';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { 
   FileText, 
   Image as ImageIcon, 
@@ -1274,6 +1275,7 @@ export default function App() {
   return (
     <Router>
       <ScrollToTop />
+      <SpeedInsights />
       <AppLayout>
         <Routes>
           <Route path="/" element={<Dashboard />} />
