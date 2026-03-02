@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import React, { useState, ReactNode, useEffect } from 'react';
+import React, { useState, ReactNode, useEffect, createContext, useContext, useRef } from 'react';
 import { cn } from '@/src/lib/utils';
 import { 
   FileText, 
@@ -188,8 +188,45 @@ const HOVER_BG_MAP: Record<string, string> = {
   'bg-stone-50': 'hover:bg-stone-50',
 };
 
-const Dashboard = () => {
+// Search Context
+interface SearchContextType {
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+  searchRef: React.RefObject<HTMLInputElement | null>;
+  focusSearch: () => void;
+}
+
+const SearchContext = createContext<SearchContextType | undefined>(undefined);
+
+const useSearch = () => {
+  const context = useContext(SearchContext);
+  if (!context) throw new Error('useSearch must be used within a SearchProvider');
+  return context;
+};
+
+const SearchProvider = ({ children }: { children: ReactNode }) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const searchRef = useRef<HTMLInputElement>(null);
+  const location = useLocation();
+
+  const focusSearch = () => {
+    if (location.pathname !== '/') {
+      window.location.href = '/';
+    } else {
+      searchRef.current?.focus();
+      searchRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
+  return (
+    <SearchContext.Provider value={{ searchQuery, setSearchQuery, searchRef, focusSearch }}>
+      {children}
+    </SearchContext.Provider>
+  );
+};
+
+const Dashboard = () => {
+  const { searchQuery, setSearchQuery, searchRef } = useSearch();
   const [isFocused, setIsFocused] = useState(false);
 
   const categories = [
@@ -1023,6 +1060,7 @@ const Dashboard = () => {
               <Search className="h-5 w-5 text-zinc-400" />
             </div>
             <input
+              ref={searchRef}
               type="text"
               placeholder="Search for a tool (e.g., BMI, PDF, Tree...)"
               value={searchQuery}
@@ -1084,7 +1122,10 @@ const Dashboard = () => {
               )}
             </AnimatePresence>
           </div>
-          <button className="px-8 py-4 bg-zinc-900 text-white rounded-2xl font-semibold hover:bg-zinc-800 transition-all shadow-lg shadow-zinc-900/20 active:scale-95 shrink-0">
+          <button 
+            onClick={() => searchRef.current?.focus()}
+            className="px-8 py-4 bg-zinc-900 text-white rounded-2xl font-semibold hover:bg-zinc-800 transition-all shadow-lg shadow-zinc-900/20 active:scale-95 shrink-0"
+          >
             Search
           </button>
         </motion.div>
@@ -1147,6 +1188,7 @@ const Dashboard = () => {
 const AppLayout = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { focusSearch } = useSearch();
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -1171,13 +1213,13 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
           </div>
 
           <div className="flex items-center gap-2 md:gap-4">
-            <Link 
-              to="/" 
+            <button 
+              onClick={focusSearch}
               className="p-2 text-zinc-600 hover:bg-zinc-100 rounded-xl transition-all"
               title="Search tools"
             >
               <Search className="w-5 h-5" />
-            </Link>
+            </button>
             
             <nav className="hidden md:flex items-center gap-4">
               <Link to="/" className="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 rounded-xl transition-all">Tools</Link>
@@ -1273,97 +1315,99 @@ const ScrollToTop = () => {
 export default function App() {
   return (
     <Router>
-      <ScrollToTop />
-      <AppLayout>
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/pdf-merger" element={<PdfMerger />} />
-          <Route path="/pdf-splitter" element={<PdfSplitter />} />
-          <Route path="/pdf-organizer" element={<PdfOrganizer />} />
-          <Route path="/pdf-editor" element={<PdfEditor />} />
-          <Route path="/pdf-cropper" element={<PdfCropper />} />
-          <Route path="/pdf-rotator" element={<PdfRotator />} />
-          <Route path="/pdf-page-numbers" element={<PdfPageNumbers />} />
-          <Route path="/pdf-to-word" element={<PdfToWord />} />
-          <Route path="/pdf-to-ppt" element={<PdfToPpt />} />
-          <Route path="/pdf-to-excel" element={<PdfToExcel />} />
-          <Route path="/word-to-pdf" element={<WordToPdf />} />
-          <Route path="/html-to-pdf" element={<HtmlToPdf />} />
-          <Route path="/image-to-pdf" element={<ImageToPdf />} />
-          <Route path="/pdf-to-image" element={<PdfToImage />} />
-          <Route path="/pdf-to-text" element={<PdfToText />} />
-          <Route path="/pdf-compressor" element={<PdfCompressor />} />
-          <Route path="/pdf-protector" element={<PdfProtector />} />
-          <Route path="/pdf-unlocker" element={<PdfUnlocker />} />
-          <Route path="/pdf-redactor" element={<PdfRedactor />} />
-          <Route path="/epub-to-pdf" element={<EpubToPdf />} />
-          <Route path="/mobi-to-pdf" element={<MobiToPdf />} />
-          <Route path="/json-to-csv" element={<JsonToCsv />} />
-          <Route path="/csv-to-markdown" element={<CsvToMarkdown />} />
-          <Route path="/metadata-checker" element={<MetadataChecker />} />
-          <Route path="/image-resizer" element={<ImageResizer />} />
-          <Route path="/text-converter" element={<TextConverter />} />
-          <Route path="/json-formatter" element={<JsonFormatter />} />
-          
-          <Route path="/bmi-calculator" element={<BmiCalculator />} />
-          <Route path="/bmr-calculator" element={<BmrCalculator />} />
-          <Route path="/body-fat-calculator" element={<BodyFatCalculator />} />
-          <Route path="/ideal-weight" element={<IdealWeightCalculator />} />
-          <Route path="/water-intake" element={<WaterIntakeCalculator />} />
-          <Route path="/calorie-deficit" element={<CalorieDeficitCalculator />} />
-          <Route path="/protein-intake" element={<ProteinIntakeCalculator />} />
-          <Route path="/pregnancy-weight" element={<PregnancyWeightCalculator />} />
-          <Route path="/ovulation-calculator" element={<OvulationCalculator />} />
-          <Route path="/child-height" element={<ChildHeightPredictor />} />
-          <Route path="/creatine-calculator" element={<CreatineCalculator />} />
+      <SearchProvider>
+        <ScrollToTop />
+        <AppLayout>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/pdf-merger" element={<PdfMerger />} />
+            <Route path="/pdf-splitter" element={<PdfSplitter />} />
+            <Route path="/pdf-organizer" element={<PdfOrganizer />} />
+            <Route path="/pdf-editor" element={<PdfEditor />} />
+            <Route path="/pdf-cropper" element={<PdfCropper />} />
+            <Route path="/pdf-rotator" element={<PdfRotator />} />
+            <Route path="/pdf-page-numbers" element={<PdfPageNumbers />} />
+            <Route path="/pdf-to-word" element={<PdfToWord />} />
+            <Route path="/pdf-to-ppt" element={<PdfToPpt />} />
+            <Route path="/pdf-to-excel" element={<PdfToExcel />} />
+            <Route path="/word-to-pdf" element={<WordToPdf />} />
+            <Route path="/html-to-pdf" element={<HtmlToPdf />} />
+            <Route path="/image-to-pdf" element={<ImageToPdf />} />
+            <Route path="/pdf-to-image" element={<PdfToImage />} />
+            <Route path="/pdf-to-text" element={<PdfToText />} />
+            <Route path="/pdf-compressor" element={<PdfCompressor />} />
+            <Route path="/pdf-protector" element={<PdfProtector />} />
+            <Route path="/pdf-unlocker" element={<PdfUnlocker />} />
+            <Route path="/pdf-redactor" element={<PdfRedactor />} />
+            <Route path="/epub-to-pdf" element={<EpubToPdf />} />
+            <Route path="/mobi-to-pdf" element={<MobiToPdf />} />
+            <Route path="/json-to-csv" element={<JsonToCsv />} />
+            <Route path="/csv-to-markdown" element={<CsvToMarkdown />} />
+            <Route path="/metadata-checker" element={<MetadataChecker />} />
+            <Route path="/image-resizer" element={<ImageResizer />} />
+            <Route path="/text-converter" element={<TextConverter />} />
+            <Route path="/json-formatter" element={<JsonFormatter />} />
+            
+            <Route path="/bmi-calculator" element={<BmiCalculator />} />
+            <Route path="/bmr-calculator" element={<BmrCalculator />} />
+            <Route path="/body-fat-calculator" element={<BodyFatCalculator />} />
+            <Route path="/ideal-weight" element={<IdealWeightCalculator />} />
+            <Route path="/water-intake" element={<WaterIntakeCalculator />} />
+            <Route path="/calorie-deficit" element={<CalorieDeficitCalculator />} />
+            <Route path="/protein-intake" element={<ProteinIntakeCalculator />} />
+            <Route path="/pregnancy-weight" element={<PregnancyWeightCalculator />} />
+            <Route path="/ovulation-calculator" element={<OvulationCalculator />} />
+            <Route path="/child-height" element={<ChildHeightPredictor />} />
+            <Route path="/creatine-calculator" element={<CreatineCalculator />} />
 
-          <Route path="/tree-age" element={<TreeAgeEstimator />} />
-          <Route path="/tree-carbon" element={<TreeCarbonCalculator />} />
-          <Route path="/tree-water" element={<TreeWaterCalculator />} />
-          <Route path="/tree-growth" element={<TreeGrowthCalculator />} />
-          <Route path="/tree-spacing" element={<TreeSpacingCalculator />} />
-          <Route path="/fruit-yield" element={<FruitYieldEstimator />} />
-          <Route path="/tree-canopy" element={<TreeCanopyCalculator />} />
-          <Route path="/timber-volume" element={<TimberVolumeCalculator />} />
-          <Route path="/tree-maintenance" element={<TreeMaintenanceCalculator />} />
-          <Route path="/forest-offset" element={<ForestCarbonOffset />} />
+            <Route path="/tree-age" element={<TreeAgeEstimator />} />
+            <Route path="/tree-carbon" element={<TreeCarbonCalculator />} />
+            <Route path="/tree-water" element={<TreeWaterCalculator />} />
+            <Route path="/tree-growth" element={<TreeGrowthCalculator />} />
+            <Route path="/tree-spacing" element={<TreeSpacingCalculator />} />
+            <Route path="/fruit-yield" element={<FruitYieldEstimator />} />
+            <Route path="/tree-canopy" element={<TreeCanopyCalculator />} />
+            <Route path="/timber-volume" element={<TimberVolumeCalculator />} />
+            <Route path="/tree-maintenance" element={<TreeMaintenanceCalculator />} />
+            <Route path="/forest-offset" element={<ForestCarbonOffset />} />
 
-          <Route path="/discount-calculator" element={<DiscountCalculator />} />
-          <Route path="/vat-calculator" element={<VATCalculator />} />
-          <Route path="/emi-calculator" element={<EMICalculator />} />
-          <Route path="/loan-interest" element={<LoanInterestCalculator />} />
-          <Route path="/salary-tax" element={<SalaryTaxCalculator />} />
-          <Route path="/freelance-profit" element={<FreelanceProfitCalculator />} />
-          <Route path="/ecommerce-profit" element={<EcommerceProfitCalculator />} />
-          <Route path="/paypal-fees" element={<PaypalFeeCalculator />} />
-          <Route path="/fiverr-fees" element={<FiverrFeeCalculator />} />
+            <Route path="/discount-calculator" element={<DiscountCalculator />} />
+            <Route path="/vat-calculator" element={<VATCalculator />} />
+            <Route path="/emi-calculator" element={<EMICalculator />} />
+            <Route path="/loan-interest" element={<LoanInterestCalculator />} />
+            <Route path="/salary-tax" element={<SalaryTaxCalculator />} />
+            <Route path="/freelance-profit" element={<FreelanceProfitCalculator />} />
+            <Route path="/ecommerce-profit" element={<EcommerceProfitCalculator />} />
+            <Route path="/paypal-fees" element={<PaypalFeeCalculator />} />
+            <Route path="/fiverr-fees" element={<FiverrFeeCalculator />} />
 
-          <Route path="/age-calculator" element={<AgeCalculator />} />
-          <Route path="/date-difference" element={<DateDifferenceCalculator />} />
-          <Route path="/time-duration" element={<TimeDurationCalculator />} />
-          <Route path="/percentage-calculator" element={<PercentageCalculator />} />
-          <Route path="/ratio-calculator" element={<RatioCalculator />} />
-          <Route path="/scientific-calculator" element={<ScientificCalculator />} />
-          <Route path="/fraction-calculator" element={<FractionCalculator />} />
+            <Route path="/age-calculator" element={<AgeCalculator />} />
+            <Route path="/date-difference" element={<DateDifferenceCalculator />} />
+            <Route path="/time-duration" element={<TimeDurationCalculator />} />
+            <Route path="/percentage-calculator" element={<PercentageCalculator />} />
+            <Route path="/ratio-calculator" element={<RatioCalculator />} />
+            <Route path="/scientific-calculator" element={<ScientificCalculator />} />
+            <Route path="/fraction-calculator" element={<FractionCalculator />} />
 
-          <Route path="/gpa-calculator-bd" element={<GpaCalculatorBD />} />
-          <Route path="/cgpa-to-percentage" element={<CgpaToPercentage />} />
-          <Route path="/study-time" element={<StudyTimeCalculator />} />
-          <Route path="/exam-marks" element={<ExamMarksPercentage />} />
-          <Route path="/attendance-calc" element={<AttendancePercentage />} />
+            <Route path="/gpa-calculator-bd" element={<GpaCalculatorBD />} />
+            <Route path="/cgpa-to-percentage" element={<CgpaToPercentage />} />
+            <Route path="/study-time" element={<StudyTimeCalculator />} />
+            <Route path="/exam-marks" element={<ExamMarksPercentage />} />
+            <Route path="/attendance-calc" element={<AttendancePercentage />} />
 
-          <Route path="/dog-food-calc" element={<DogFoodCalculator />} />
-          <Route path="/cat-food-calc" element={<CatFoodCalculator />} />
-          <Route path="/pet-age-calc" element={<PetAgeCalculator />} />
-          <Route path="/pet-growth-chart" element={<PetGrowthChart />} />
-          <Route path="/pet-vax-schedule" element={<PetVaccinationSchedule />} />
-          <Route path="/pet-water-intake" element={<PetWaterIntake />} />
-          <Route path="/pet-cost-calc" element={<PetCostCalculator />} />
-          <Route path="/pet-weight-tracker" element={<PetWeightTracker />} />
-          <Route path="/pet-travel-safety" element={<PetTravelSafety />} />
-          <Route path="/pet-breeding-calc" element={<PetBreedingCalculator />} />
-        </Routes>
-      </AppLayout>
+            <Route path="/dog-food-calc" element={<DogFoodCalculator />} />
+            <Route path="/cat-food-calc" element={<CatFoodCalculator />} />
+            <Route path="/pet-age-calc" element={<PetAgeCalculator />} />
+            <Route path="/pet-growth-chart" element={<PetGrowthChart />} />
+            <Route path="/pet-vax-schedule" element={<PetVaccinationSchedule />} />
+            <Route path="/pet-water-intake" element={<PetWaterIntake />} />
+            <Route path="/pet-cost-calc" element={<PetCostCalculator />} />
+            <Route path="/pet-weight-tracker" element={<PetWeightTracker />} />
+            <Route path="/pet-travel-safety" element={<PetTravelSafety />} />
+            <Route path="/pet-breeding-calc" element={<PetBreedingCalculator />} />
+          </Routes>
+        </AppLayout>
+      </SearchProvider>
     </Router>
   );
 }

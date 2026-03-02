@@ -23,7 +23,19 @@ const FAQS = [
   },
   {
     question: "Can I convert a JSON file to CSV online for free?",
-    answer: "Yes! OmniTool provides a completely free, browser-based JSON to CSV converter. Your data never leaves your computer, ensuring total privacy and security."
+    answer: "Yes! Das Converters provides a completely free, browser-based JSON to CSV converter. Your data never leaves your computer, ensuring total privacy and security."
+  },
+  {
+    question: "Can json be converted to csv?",
+    answer: "Yes, JSON can be converted to CSV easily using our online tool. It takes your structured JSON data and transforms it into a comma-separated values format suitable for spreadsheets."
+  },
+  {
+    question: "Can we convert json to csv?",
+    answer: "Absolutely! We can convert json to csv instantly. Just paste your code or upload your file to get started."
+  },
+  {
+    question: "Can you convert csv to json?",
+    answer: "Yes, our tool is bi-directional. You can convert csv to json just as easily as converting json to csv."
   }
 ];
 
@@ -181,8 +193,26 @@ export const JsonToCsv = () => {
       <div className="prose prose-zinc max-w-none mb-16">
         <h2 className="text-2xl font-bold text-zinc-900 mb-4">Why use our JSON to CSV Converter?</h2>
         <p className="text-zinc-600 leading-relaxed">
-          When working with data, you often need to <strong>convert json to csv</strong> to analyze it in spreadsheet software like Excel or Google Sheets. Our <strong>json to csv converter</strong> is designed to be fast, secure, and easy to use. Whether you are a developer needing to export API data or a data analyst working with <strong>json format to csv</strong>, OmniTool provides a reliable solution. We also support the reverse process, allowing you to <strong>convert csv to json</strong> with a single click.
+          When working with data, you often need to <strong>convert json to csv</strong> to analyze it in spreadsheet software like Excel or Google Sheets. Our <strong>json to csv converter</strong> is designed to be fast, secure, and easy to use. Whether you are a developer needing to export API data or a data analyst working with <strong>json format to csv</strong>, Das Converters provides a reliable solution. We also support the reverse process, allowing you to <strong>convert csv to json</strong> with a single click.
         </p>
+        <p className="text-zinc-600 leading-relaxed mt-4">
+          Our tool is a great alternative to writing complex scripts. Instead of searching for how to <strong>python convert json to csv</strong> or <strong>convert json to csv python</strong>, you can simply use our web interface. It's the easiest way to <strong>convert .json to csv</strong>, <strong>convert a json file to csv</strong>, or <strong>convert from json to csv</strong> without any coding knowledge.
+        </p>
+        <div className="mt-8 p-6 bg-zinc-50 rounded-2xl border border-zinc-100">
+          <h3 className="text-sm font-bold text-zinc-400 uppercase tracking-wider mb-4">Common Search Terms</h3>
+          <div className="flex flex-wrap gap-2">
+            {[
+              'python convert json to csv', 'convert json to csv python', 'convert .json to csv',
+              'convert a json file to csv', 'convert from json to csv', 'python to convert json to csv',
+              'convert json file to csv', 'convert json to csv excel', 'convert json to csv in excel',
+              'convert json to csv online'
+            ].map(keyword => (
+              <span key={keyword} className="text-xs text-zinc-400 bg-white px-2 py-1 rounded-md border border-zinc-200">
+                {keyword}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* FAQ Section */}
