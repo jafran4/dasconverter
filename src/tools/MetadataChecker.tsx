@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import exifr from 'exifr';
+import exifr from 'exifr/dist/lite.esm.mjs';
 import { Dropzone } from '@/src/components/Dropzone';
 import { Search, Info, ArrowLeft, Loader2, FileJson, MapPin, Camera, Calendar } from 'lucide-react';
 import { Link } from 'react-router-dom';

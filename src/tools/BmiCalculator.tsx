@@ -209,6 +209,7 @@ export const BmiCalculator = () => {
           While BMI is a useful screening tool, it has limitations. It does not account for muscle mass, bone density, overall body composition, and racial and sex differences. For example, athletes may have a high BMI due to increased muscle mass rather than increased body fatness.
         </p>
       </article>
+
     </div>
   );
 };

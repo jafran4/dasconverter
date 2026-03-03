@@ -261,30 +261,6 @@ export const TimeDurationCalculator = () => {
         </div>
       </div>
 
-      {/* Related Tools */}
-      <div className="border-t border-zinc-200 pt-12">
-        <h3 className="text-lg font-bold text-zinc-900 mb-6">Related Time Tools</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <Link to="/age-calculator" className="p-4 bg-white border border-zinc-200 rounded-xl hover:border-amber-500 transition-colors flex items-center gap-3">
-            <div className="w-10 h-10 bg-amber-50 rounded-lg flex items-center justify-center">
-              <Clock className="w-5 h-5 text-amber-600" />
-            </div>
-            <span className="font-medium text-zinc-900">Age Calculator</span>
-          </Link>
-          <Link to="/date-difference" className="p-4 bg-white border border-zinc-200 rounded-xl hover:border-amber-500 transition-colors flex items-center gap-3">
-            <div className="w-10 h-10 bg-zinc-50 rounded-lg flex items-center justify-center">
-              <ArrowRightLeft className="w-5 h-5 text-zinc-600" />
-            </div>
-            <span className="font-medium text-zinc-900">Date Difference</span>
-          </Link>
-          <Link to="/study-time" className="p-4 bg-white border border-zinc-200 rounded-xl hover:border-amber-500 transition-colors flex items-center gap-3">
-            <div className="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center">
-              <FileSpreadsheet className="w-5 h-5 text-indigo-600" />
-            </div>
-            <span className="font-medium text-zinc-900">Study Planner</span>
-          </Link>
-        </div>
-      </div>
     </div>
   );
 };

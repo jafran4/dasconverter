@@ -253,30 +253,41 @@ export const JsonToCsv = () => {
         </div>
       </div>
 
-      {/* Related Tools */}
-      <div className="border-t border-zinc-200 pt-12">
-        <h3 className="text-lg font-bold text-zinc-900 mb-6">Related Data Tools</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <Link to="/json-formatter" className="p-4 bg-white border border-zinc-200 rounded-xl hover:border-amber-500 transition-colors flex items-center gap-3">
-            <div className="w-10 h-10 bg-amber-50 rounded-lg flex items-center justify-center">
-              <FileJson className="w-5 h-5 text-amber-600" />
-            </div>
-            <span className="font-medium text-zinc-900">JSON Formatter</span>
-          </Link>
-          <Link to="/pdf-to-text" className="p-4 bg-white border border-zinc-200 rounded-xl hover:border-amber-500 transition-colors flex items-center gap-3">
-            <div className="w-10 h-10 bg-zinc-50 rounded-lg flex items-center justify-center">
-              <FileText className="w-5 h-5 text-zinc-600" />
-            </div>
-            <span className="font-medium text-zinc-900">PDF to Text</span>
-          </Link>
-          <Link to="/text-converter" className="p-4 bg-white border border-zinc-200 rounded-xl hover:border-amber-500 transition-colors flex items-center gap-3">
-            <div className="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center">
-              <ArrowRightLeft className="w-5 h-5 text-indigo-600" />
-            </div>
-            <span className="font-medium text-zinc-900">Text Converter</span>
-          </Link>
+      {/* Blog / SEO Section */}
+      <div className="mt-16 bg-white border border-zinc-200 rounded-3xl p-8 md:p-12 mb-16">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-zinc-900 mb-6">Mastering Data Conversion: JSON to CSV and Beyond</h2>
+          <div className="prose prose-zinc prose-lg max-w-none">
+            <p>
+              In today's data-driven world, the ability to seamlessly move information between different formats is crucial. 
+              Our <strong>JSON to CSV Converter</strong> is designed to bridge the gap between developer-friendly JSON 
+              and analyst-preferred CSV formats.
+            </p>
+            
+            <h3 className="text-xl font-bold text-zinc-900 mt-8 mb-4">Why Convert JSON to CSV?</h3>
+            <p>
+              While JSON (JavaScript Object Notation) is the standard for web APIs and modern applications, 
+              CSV (Comma-Separated Values) remains the king of data analysis. Tools like Microsoft Excel, 
+              Google Sheets, and various BI platforms are optimized for tabular data. Converting your JSON 
+              to CSV allows you to:
+            </p>
+            <ul>
+              <li>Perform complex statistical analysis in spreadsheets.</li>
+              <li>Import data into legacy systems that don't support JSON.</li>
+              <li>Create quick visualizations and charts.</li>
+              <li>Share data with non-technical team members in a familiar format.</li>
+            </ul>
+
+            <h3 className="text-xl font-bold text-zinc-900 mt-8 mb-4">How Our Converter Works</h3>
+            <p>
+              Our tool uses advanced flattening algorithms to handle nested JSON structures. When you paste 
+              your JSON, we automatically detect the schema and map it to a tabular format. If your JSON 
+              contains arrays of objects, each object becomes a row, and its properties become columns.
+            </p>
+          </div>
         </div>
       </div>
+
     </div>
   );
 };
