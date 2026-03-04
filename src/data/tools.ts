@@ -62,7 +62,19 @@ import {
   FileSpreadsheet,
   Book,
   BookOpen,
-  Ruler
+  Ruler,
+  Keyboard,
+  MousePointer2,
+  Circle,
+  Square,
+  QrCode,
+  Monitor,
+  Smartphone,
+  Mouse,
+  Info,
+  Maximize,
+  MousePointerClick,
+  ArrowDownUp
 } from 'lucide-react';
 
 export const CATEGORIES = [
@@ -869,6 +881,182 @@ export const CATEGORIES = [
         color: 'text-zinc-600',
         bg: 'bg-zinc-50',
         path: '/screen-ruler'
+      }
+    ]
+  },
+  {
+    name: 'Utility & Fun',
+    icon: Zap,
+    color: 'text-indigo-600',
+    tools: [
+      {
+        id: 'typing-test',
+        name: 'Typing Speed',
+        description: 'Test your WPM and accuracy.',
+        icon: Keyboard,
+        color: 'text-indigo-600',
+        bg: 'bg-indigo-50',
+        path: '/typing-test'
+      },
+      {
+        id: 'click-speed',
+        name: 'Click Speed',
+        description: 'Test your clicking speed in 10s.',
+        icon: MousePointer2,
+        color: 'text-rose-600',
+        bg: 'bg-rose-50',
+        path: '/click-speed'
+      },
+      {
+        id: 'cps-counter',
+        name: 'CPS Counter',
+        description: 'Clicks per second burst test.',
+        icon: Zap,
+        color: 'text-emerald-600',
+        bg: 'bg-emerald-50',
+        path: '/cps-counter'
+      },
+      {
+        id: 'stopwatch',
+        name: 'Stopwatch',
+        description: 'Online stopwatch with laps.',
+        icon: Timer,
+        color: 'text-blue-600',
+        bg: 'bg-blue-50',
+        path: '/stopwatch'
+      },
+      {
+        id: 'countdown',
+        name: 'Countdown',
+        description: 'Simple countdown timer with alert.',
+        icon: Timer,
+        color: 'text-amber-600',
+        bg: 'bg-amber-50',
+        path: '/countdown'
+      },
+      {
+        id: 'random-number',
+        name: 'Random Number',
+        description: 'Pick random numbers in a range.',
+        icon: Hash,
+        color: 'text-emerald-600',
+        bg: 'bg-emerald-50',
+        path: '/random-number'
+      },
+      {
+        id: 'coin-flip',
+        name: 'Coin Flip',
+        description: 'Heads or Tails? Let fate decide.',
+        icon: Circle,
+        color: 'text-amber-600',
+        bg: 'bg-amber-50',
+        path: '/coin-flip'
+      },
+      {
+        id: 'dice-roller',
+        name: 'Dice Roller',
+        description: 'Roll up to 5 six-sided dice.',
+        icon: Square,
+        color: 'text-indigo-600',
+        bg: 'bg-indigo-50',
+        path: '/dice-roller'
+      },
+      {
+        id: 'qr-generator',
+        name: 'QR Generator',
+        description: 'Create custom QR codes easily.',
+        icon: QrCode,
+        color: 'text-emerald-600',
+        bg: 'bg-emerald-50',
+        path: '/qr-generator'
+      },
+      {
+        id: 'url-encoder',
+        name: 'URL Encoder',
+        description: 'Encode or decode URLs safely.',
+        icon: Globe,
+        color: 'text-blue-600',
+        bg: 'bg-blue-50',
+        path: '/url-encoder'
+      }
+    ]
+  },
+  {
+    name: 'Hardware & Browser',
+    icon: Monitor,
+    color: 'text-rose-600',
+    tools: [
+      {
+        id: 'keyboard-tester',
+        name: 'Keyboard Tester',
+        description: 'Test every key on your keyboard.',
+        icon: Keyboard,
+        color: 'text-indigo-600',
+        bg: 'bg-indigo-50',
+        path: '/keyboard-tester'
+      },
+      {
+        id: 'mouse-click-tester',
+        name: 'Mouse Tester',
+        description: 'Test mouse buttons and clicks.',
+        icon: MousePointerClick,
+        color: 'text-rose-600',
+        bg: 'bg-rose-50',
+        path: '/mouse-click-tester'
+      },
+      {
+        id: 'double-click-test',
+        name: 'Double Click Test',
+        description: 'Check for double-clicking issues.',
+        icon: MousePointer2,
+        color: 'text-emerald-600',
+        bg: 'bg-emerald-50',
+        path: '/double-click-test'
+      },
+      {
+        id: 'scroll-wheel-tester',
+        name: 'Scroll Tester',
+        description: 'Test your mouse scroll wheel.',
+        icon: ArrowDownUp,
+        color: 'text-blue-600',
+        bg: 'bg-blue-50',
+        path: '/scroll-wheel-tester'
+      },
+      {
+        id: 'screen-resolution',
+        name: 'Resolution Checker',
+        description: 'Check your screen resolution.',
+        icon: Monitor,
+        color: 'text-amber-600',
+        bg: 'bg-amber-50',
+        path: '/screen-resolution'
+      },
+      {
+        id: 'screen-size',
+        name: 'Screen Size',
+        description: 'Detect your screen dimensions.',
+        icon: Maximize,
+        color: 'text-emerald-600',
+        bg: 'bg-emerald-50',
+        path: '/screen-size'
+      },
+      {
+        id: 'viewport-size',
+        name: 'Viewport Size',
+        description: 'Check current window dimensions.',
+        icon: Smartphone,
+        color: 'text-indigo-600',
+        bg: 'bg-indigo-50',
+        path: '/viewport-size'
+      },
+      {
+        id: 'browser-info',
+        name: 'Browser Info',
+        description: 'Detailed browser and OS info.',
+        icon: Info,
+        color: 'text-blue-600',
+        bg: 'bg-blue-50',
+        path: '/browser-info'
       }
     ]
   }

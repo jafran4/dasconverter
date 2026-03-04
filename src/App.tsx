@@ -77,7 +77,14 @@ import {
   Eraser,
   Layout as LayoutIcon,
   Book,
-  FileSpreadsheet
+  FileSpreadsheet,
+  Monitor,
+  Smartphone,
+  Mouse,
+  Info,
+  Maximize,
+  MousePointerClick,
+  ArrowDownUp
 } from 'lucide-react';
 
 // Tool Components
@@ -174,6 +181,28 @@ import { PetTravelSafety } from '@/src/tools/PetTravelSafety';
 import { PetBreedingCalculator } from '@/src/tools/PetBreedingCalculator';
 import { UnitConverter } from '@/src/tools/UnitConverter';
 import { ScreenRuler } from '@/src/tools/ScreenRuler';
+
+// Utility & Fun Tool Components
+import { TypingSpeedTester } from '@/src/tools/TypingSpeedTester';
+import { ClickSpeedTest } from '@/src/tools/ClickSpeedTest';
+import { CpsCounter } from '@/src/tools/CpsCounter';
+import { Stopwatch } from '@/src/tools/Stopwatch';
+import { CountdownTimer } from '@/src/tools/CountdownTimer';
+import { RandomNumberPicker } from '@/src/tools/RandomNumberPicker';
+import { CoinFlip } from '@/src/tools/CoinFlip';
+import { DiceRoller } from '@/src/tools/DiceRoller';
+import { QrGenerator } from '@/src/tools/QrGenerator';
+import { UrlEncoder } from '@/src/tools/UrlEncoder';
+
+// Hardware & Browser Tool Components
+import { KeyboardTester } from '@/src/tools/KeyboardTester';
+import { MouseTester } from '@/src/tools/MouseTester';
+import { DoubleClickTester } from '@/src/tools/DoubleClickTester';
+import { ScrollTester } from '@/src/tools/ScrollTester';
+import { ScreenResolution } from '@/src/tools/ScreenResolution';
+import { ScreenSize } from '@/src/tools/ScreenSize';
+import { ViewportSize } from '@/src/tools/ViewportSize';
+import { BrowserInfo } from '@/src/tools/BrowserInfo';
 
 const HOVER_BG_MAP: Record<string, string> = {
   'bg-amber-50': 'hover:bg-amber-50',
@@ -638,6 +667,27 @@ export default function App() {
             <Route path="/pet-breeding-calc" element={<ToolWrapper toolId="pet-breeding-calc"><PetBreedingCalculator /></ToolWrapper>} />
             <Route path="/unit-converter" element={<ToolWrapper toolId="unit-converter"><UnitConverter /></ToolWrapper>} />
             <Route path="/screen-ruler" element={<ToolWrapper toolId="screen-ruler"><ScreenRuler /></ToolWrapper>} />
+
+            <Route path="/typing-test" element={<ToolWrapper toolId="typing-test"><TypingSpeedTester /></ToolWrapper>} />
+            <Route path="/click-speed" element={<ToolWrapper toolId="click-speed"><ClickSpeedTest /></ToolWrapper>} />
+            <Route path="/cps-counter" element={<ToolWrapper toolId="cps-counter"><CpsCounter /></ToolWrapper>} />
+            <Route path="/stopwatch" element={<ToolWrapper toolId="stopwatch"><Stopwatch /></ToolWrapper>} />
+            <Route path="/countdown" element={<ToolWrapper toolId="countdown"><CountdownTimer /></ToolWrapper>} />
+            <Route path="/random-number" element={<ToolWrapper toolId="random-number"><RandomNumberPicker /></ToolWrapper>} />
+            <Route path="/coin-flip" element={<ToolWrapper toolId="coin-flip"><CoinFlip /></ToolWrapper>} />
+            <Route path="/dice-roller" element={<ToolWrapper toolId="dice-roller"><DiceRoller /></ToolWrapper>} />
+            <Route path="/qr-generator" element={<ToolWrapper toolId="qr-generator"><QrGenerator /></ToolWrapper>} />
+            <Route path="/url-encoder" element={<ToolWrapper toolId="url-encoder"><UrlEncoder /></ToolWrapper>} />
+            
+            {/* Hardware & Browser Routes */}
+            <Route path="/keyboard-tester" element={<ToolWrapper toolId="keyboard-tester"><KeyboardTester /></ToolWrapper>} />
+            <Route path="/mouse-click-tester" element={<ToolWrapper toolId="mouse-click-tester"><MouseTester /></ToolWrapper>} />
+            <Route path="/double-click-test" element={<ToolWrapper toolId="double-click-test"><DoubleClickTester /></ToolWrapper>} />
+            <Route path="/scroll-wheel-tester" element={<ToolWrapper toolId="scroll-wheel-tester"><ScrollTester /></ToolWrapper>} />
+            <Route path="/screen-resolution" element={<ToolWrapper toolId="screen-resolution"><ScreenResolution /></ToolWrapper>} />
+            <Route path="/screen-size" element={<ToolWrapper toolId="screen-size"><ScreenSize /></ToolWrapper>} />
+            <Route path="/viewport-size" element={<ToolWrapper toolId="viewport-size"><ViewportSize /></ToolWrapper>} />
+            <Route path="/browser-info" element={<ToolWrapper toolId="browser-info"><BrowserInfo /></ToolWrapper>} />
           </Routes>
         </AppLayout>
       </SearchProvider>
