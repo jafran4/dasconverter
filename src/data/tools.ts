@@ -59,6 +59,7 @@ import {
   Cat,
   Calendar,
   Car,
+  Home,
   FileSpreadsheet,
   Book,
   BookOpen,
@@ -452,6 +453,42 @@ export const CATEGORIES = [
         color: 'text-emerald-600',
         bg: 'bg-emerald-50',
         path: '/fiverr-fees'
+      },
+      {
+        id: 'car-insurance-estimate',
+        name: 'Car Insurance Estimate',
+        description: 'Anonymous car insurance estimate without personal info.',
+        icon: Car,
+        color: 'text-blue-600',
+        bg: 'bg-blue-50',
+        path: '/car-insurance-estimate'
+      },
+      {
+        id: 'term-life-insurance',
+        name: 'Term Life Insurance',
+        description: 'Calculate term life insurance rates and premiums.',
+        icon: Heart,
+        color: 'text-rose-600',
+        bg: 'bg-rose-50',
+        path: '/term-life-insurance'
+      },
+      {
+        id: 'affinity-mortgage',
+        name: 'Affinity Mortgage',
+        description: 'Advanced mortgage calculator for monthly payments.',
+        icon: Home,
+        color: 'text-emerald-600',
+        bg: 'bg-emerald-50',
+        path: '/affinity-mortgage'
+      },
+      {
+        id: 'loan-emi-calculator',
+        name: 'Loan EMI Calculator',
+        description: 'Calculate monthly installments for any loan.',
+        icon: Calculator,
+        color: 'text-emerald-500',
+        bg: 'bg-emerald-50',
+        path: '/loan-emi-calculator'
       }
     ]
   },

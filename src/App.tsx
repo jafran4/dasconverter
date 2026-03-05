@@ -155,6 +155,10 @@ import { FreelanceProfitCalculator } from '@/src/tools/FreelanceProfitCalculator
 import { EcommerceProfitCalculator } from '@/src/tools/EcommerceProfitCalculator';
 import { PaypalFeeCalculator } from '@/src/tools/PaypalFeeCalculator';
 import { FiverrFeeCalculator } from '@/src/tools/FiverrFeeCalculator';
+import { CarInsuranceEstimator } from '@/src/tools/CarInsuranceEstimator';
+import { TermLifeInsuranceCalculator } from '@/src/tools/TermLifeInsuranceCalculator';
+import { AffinityMortgageCalculator } from '@/src/tools/AffinityMortgageCalculator';
+import { LoanEmiCalculator } from '@/src/tools/LoanEmiCalculator';
 
 // Math & Time Tool Components
 import { AgeCalculator } from '@/src/tools/AgeCalculator';
@@ -656,6 +660,10 @@ export default function App() {
             <Route path="/ecommerce-profit" element={<ToolWrapper toolId="ecommerce-profit"><EcommerceProfitCalculator /></ToolWrapper>} />
             <Route path="/paypal-fees" element={<ToolWrapper toolId="paypal-fees"><PaypalFeeCalculator /></ToolWrapper>} />
             <Route path="/fiverr-fees" element={<ToolWrapper toolId="fiverr-fees"><FiverrFeeCalculator /></ToolWrapper>} />
+            <Route path="/car-insurance-estimate" element={<ToolWrapper toolId="car-insurance-estimate"><CarInsuranceEstimator /></ToolWrapper>} />
+            <Route path="/term-life-insurance" element={<ToolWrapper toolId="term-life-insurance"><TermLifeInsuranceCalculator /></ToolWrapper>} />
+            <Route path="/affinity-mortgage" element={<ToolWrapper toolId="affinity-mortgage"><AffinityMortgageCalculator /></ToolWrapper>} />
+            <Route path="/loan-emi-calculator" element={<ToolWrapper toolId="loan-emi-calculator"><LoanEmiCalculator /></ToolWrapper>} />
 
             <Route path="/age-calculator" element={<ToolWrapper toolId="age-calculator"><AgeCalculator /></ToolWrapper>} />
             <Route path="/date-difference" element={<ToolWrapper toolId="date-difference"><DateDifferenceCalculator /></ToolWrapper>} />
