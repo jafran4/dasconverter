@@ -22,11 +22,6 @@ export const CoinFlip = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 pt-24 pb-12">
-      <Link to="/" className="inline-flex items-center gap-2 text-zinc-500 hover:text-zinc-900 mb-8 transition-colors group">
-        <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-        Back to Tools
-      </Link>
-
       <div className="text-center mb-12">
         <motion.div 
           initial={{ scale: 0.5, opacity: 0 }}

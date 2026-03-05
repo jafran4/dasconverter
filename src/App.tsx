@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate, useNavigationType } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import React, { useState, ReactNode, useEffect, createContext, useContext, useRef } from 'react';
 import { CATEGORIES } from '@/src/data/tools';
@@ -249,10 +249,16 @@ const SearchProvider = ({ children }: { children: ReactNode }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const searchRef = useRef<HTMLInputElement>(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const focusSearch = () => {
     if (location.pathname !== '/') {
-      window.location.href = '/';
+      navigate('/');
+      // Use a small timeout to ensure navigation completes before focusing
+      setTimeout(() => {
+        searchRef.current?.focus();
+        searchRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
     } else {
       searchRef.current?.focus();
       searchRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -444,6 +450,7 @@ const Dashboard = () => {
 
 const AppLayout = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { focusSearch } = useSearch();
 
@@ -453,13 +460,13 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-4">
             {location.pathname !== '/' && (
-              <Link 
-                to="/" 
+              <button 
+                onClick={() => navigate(-1)}
                 className="flex items-center gap-1.5 px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-600 rounded-lg transition-all text-sm font-medium group/back"
               >
                 <ArrowLeft className="w-4 h-4 group-hover/back:-translate-x-0.5 transition-transform" />
                 <span>Back</span>
-              </Link>
+              </button>
             )}
             <Link to="/" className="flex items-center gap-2 group">
               <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center group-hover:rotate-12 transition-transform">
@@ -573,10 +580,15 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
+  const navType = useNavigationType();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    // Only scroll to top on PUSH (new navigation) or REPLACE
+    // Don't scroll to top on POP (back/forward browser buttons)
+    if (navType !== 'POP') {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname, navType]);
 
   return null;
 };
