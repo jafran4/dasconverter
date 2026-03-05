@@ -39,11 +39,6 @@ export const PaypalFeeCalculator = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
-      <Link to="/" className="inline-flex items-center gap-2 text-zinc-500 hover:text-zinc-900 mb-8 transition-colors group">
-        <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-        Back to Tools
-      </Link>
-
       <div className="bg-white border border-zinc-200 rounded-3xl p-8 md:p-12 shadow-sm mb-12">
         <div className="flex items-center gap-4 mb-8">
           <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center">
