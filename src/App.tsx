@@ -116,6 +116,10 @@ import { ImageResizer } from '@/src/tools/ImageResizer';
 import { TextConverter } from '@/src/tools/TextConverter';
 import { JsonFormatter } from '@/src/tools/JsonFormatter';
 
+// Pages
+import { About } from '@/src/pages/About';
+import { Privacy } from '@/src/pages/Privacy';
+
 // Health Tool Components
 import { BmiCalculator } from '@/src/tools/BmiCalculator';
 import { BmrCalculator } from '@/src/tools/BmrCalculator';
@@ -472,8 +476,8 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
             
             <nav className="hidden md:flex items-center gap-4">
               <Link to="/" className="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 rounded-xl transition-all">Tools</Link>
-              <a href="#" className="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 rounded-xl transition-all">About</a>
-              <a href="#" className="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 rounded-xl transition-all">Privacy</a>
+              <Link to="/about" className="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 rounded-xl transition-all">About</Link>
+              <Link to="/privacy" className="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 rounded-xl transition-all">Privacy</Link>
               <div className="h-4 w-px bg-zinc-200 mx-2" />
               <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 rounded-xl transition-all">
                 <Github className="w-5 h-5" />
@@ -506,8 +510,20 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
                 >
                   Tools
                 </Link>
-                <a href="#" className="block text-lg font-medium text-zinc-600">About</a>
-                <a href="#" className="block text-lg font-medium text-zinc-600">Privacy</a>
+                <Link 
+                  to="/about" 
+                  className="block text-lg font-medium text-zinc-600"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  About
+                </Link>
+                <Link 
+                  to="/privacy" 
+                  className="block text-lg font-medium text-zinc-600"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Privacy
+                </Link>
                 <div className="pt-4 border-t border-zinc-100 flex gap-6">
                   <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-zinc-400">
                     <Github className="w-6 h-6" />
@@ -541,8 +557,8 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
             <span className="text-zinc-400 text-sm ml-2">© 2024</span>
           </div>
           <div className="flex gap-8">
-            <a href="#" className="text-sm text-zinc-500 hover:text-zinc-900">Terms</a>
-            <a href="#" className="text-sm text-zinc-500 hover:text-zinc-900">Privacy</a>
+            <Link to="/about" className="text-sm text-zinc-500 hover:text-zinc-900">About</Link>
+            <Link to="/privacy" className="text-sm text-zinc-500 hover:text-zinc-900">Privacy</Link>
             <a href="#" className="text-sm text-zinc-500 hover:text-zinc-900">Contact</a>
           </div>
         </div>
@@ -688,6 +704,10 @@ export default function App() {
             <Route path="/screen-size" element={<ToolWrapper toolId="screen-size"><ScreenSize /></ToolWrapper>} />
             <Route path="/viewport-size" element={<ToolWrapper toolId="viewport-size"><ViewportSize /></ToolWrapper>} />
             <Route path="/browser-info" element={<ToolWrapper toolId="browser-info"><BrowserInfo /></ToolWrapper>} />
+            
+            {/* Static Pages */}
+            <Route path="/about" element={<About />} />
+            <Route path="/privacy" element={<Privacy />} />
           </Routes>
         </AppLayout>
       </SearchProvider>
