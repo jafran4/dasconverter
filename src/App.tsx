@@ -312,7 +312,7 @@ const Dashboard = () => {
           transition={{ delay: 0.1 }}
           className="text-xl text-zinc-500 max-w-2xl mx-auto mb-8"
         >
-          A powerful suite of simple, privacy-focused online tools. All processing happens in your browser.
+          A powerful site of simple, privacy-focused online tools. All processing happens in your browser.
         </motion.p>
 
         <motion.div

@@ -15,7 +15,7 @@ export const Contact = () => {
         </div>
         <h1 className="text-4xl font-bold text-zinc-900 mb-6">Contact Us</h1>
         <p className="text-xl text-zinc-600 leading-relaxed">
-          Have questions, suggestions, or feedback? We'd love to hear from you. Our team is dedicated to making Das Converters the best tool suite for everyone.
+          Have questions, suggestions, or feedback? We'd love to hear from you. Our team is dedicated to making Das Converters the best tool site for everyone.
         </p>
       </motion.div>
 
