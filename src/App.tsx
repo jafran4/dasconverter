@@ -119,6 +119,9 @@ import { JsonFormatter } from '@/src/tools/JsonFormatter';
 // Pages
 import { About } from '@/src/pages/About';
 import { Privacy } from '@/src/pages/Privacy';
+import { Contact } from '@/src/pages/Contact';
+import { Terms } from '@/src/pages/Terms';
+import { Disclaimer } from '@/src/pages/Disclaimer';
 
 // Health Tool Components
 import { BmiCalculator } from '@/src/tools/BmiCalculator';
@@ -567,10 +570,12 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
             <span className="font-semibold text-zinc-900">Das Converters</span>
             <span className="text-zinc-400 text-sm ml-2">© 2024</span>
           </div>
-          <div className="flex gap-8">
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
             <Link to="/about" className="text-sm text-zinc-500 hover:text-zinc-900">About</Link>
             <Link to="/privacy" className="text-sm text-zinc-500 hover:text-zinc-900">Privacy</Link>
-            <a href="#" className="text-sm text-zinc-500 hover:text-zinc-900">Contact</a>
+            <Link to="/terms" className="text-sm text-zinc-500 hover:text-zinc-900">Terms & Conditions</Link>
+            <Link to="/disclaimer" className="text-sm text-zinc-500 hover:text-zinc-900">Disclaimer</Link>
+            <Link to="/contact" className="text-sm text-zinc-500 hover:text-zinc-900">Contact Us</Link>
           </div>
         </div>
       </footer>
@@ -728,6 +733,9 @@ export default function App() {
             {/* Static Pages */}
             <Route path="/about" element={<About />} />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/disclaimer" element={<Disclaimer />} />
           </Routes>
         </AppLayout>
       </SearchProvider>
