@@ -40,6 +40,7 @@ import {
   FileOutput,
   Presentation,
   Table,
+  Package,
   FileInput,
   Globe,
   FileJson,
@@ -68,6 +69,7 @@ import {
   MousePointer2,
   Circle,
   Square,
+  Gamepad2,
   QrCode,
   Monitor,
   Smartphone,
@@ -997,6 +999,24 @@ export const CATEGORIES = [
         color: 'text-indigo-600',
         bg: 'bg-indigo-50',
         path: '/dice-roller'
+      },
+      {
+        id: 'basket-random',
+        name: 'Basket Random Unblocked',
+        description: 'Play the chaotic 2-player physics-based basketball game.',
+        icon: Gamepad2,
+        color: 'text-orange-600',
+        bg: 'bg-orange-50',
+        path: '/basket-random'
+      },
+      {
+        id: 'random-object-generator',
+        name: 'Random Object Generator',
+        description: 'Generate up to 100 random objects for drawing or shows.',
+        icon: Package,
+        color: 'text-indigo-600',
+        bg: 'bg-indigo-50',
+        path: '/random-object-generator'
       },
       {
         id: 'qr-generator',

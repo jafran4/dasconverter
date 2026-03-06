@@ -200,6 +200,8 @@ import { CpsCounter } from '@/src/tools/CpsCounter';
 import { Stopwatch } from '@/src/tools/Stopwatch';
 import { CountdownTimer } from '@/src/tools/CountdownTimer';
 import { RandomNumberPicker } from '@/src/tools/RandomNumberPicker';
+import { RandomObjectGenerator } from '@/src/tools/RandomObjectGenerator';
+import { BasketRandom } from '@/src/tools/BasketRandom';
 import { CoinFlip } from '@/src/tools/CoinFlip';
 import { DiceRoller } from '@/src/tools/DiceRoller';
 import { QrGenerator } from '@/src/tools/QrGenerator';
@@ -312,7 +314,7 @@ const Dashboard = () => {
           transition={{ delay: 0.1 }}
           className="text-xl text-zinc-500 max-w-2xl mx-auto mb-8"
         >
-          A powerful site of simple, privacy-focused online tools. All processing happens in your browser.
+          A powerful suite of simple, privacy-focused online tools. All processing happens in your browser.
         </motion.p>
 
         <motion.div
@@ -463,13 +465,13 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-4">
             {location.pathname !== '/' && (
-              <button 
-                onClick={() => navigate(-1)}
+              <Link 
+                to="/"
                 className="flex items-center gap-1.5 px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-600 rounded-lg transition-all text-sm font-medium group/back"
               >
                 <ArrowLeft className="w-4 h-4 group-hover/back:-translate-x-0.5 transition-transform" />
                 <span>Back</span>
-              </button>
+              </Link>
             )}
             <Link to="/" className="flex items-center gap-2 group">
               <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center group-hover:rotate-12 transition-transform">
@@ -715,6 +717,8 @@ export default function App() {
             <Route path="/stopwatch" element={<ToolWrapper toolId="stopwatch"><Stopwatch /></ToolWrapper>} />
             <Route path="/countdown" element={<ToolWrapper toolId="countdown"><CountdownTimer /></ToolWrapper>} />
             <Route path="/random-number" element={<ToolWrapper toolId="random-number"><RandomNumberPicker /></ToolWrapper>} />
+            <Route path="/random-object-generator" element={<ToolWrapper toolId="random-object-generator"><RandomObjectGenerator /></ToolWrapper>} />
+            <Route path="/basket-random" element={<ToolWrapper toolId="basket-random"><BasketRandom /></ToolWrapper>} />
             <Route path="/coin-flip" element={<ToolWrapper toolId="coin-flip"><CoinFlip /></ToolWrapper>} />
             <Route path="/dice-roller" element={<ToolWrapper toolId="dice-roller"><DiceRoller /></ToolWrapper>} />
             <Route path="/qr-generator" element={<ToolWrapper toolId="qr-generator"><QrGenerator /></ToolWrapper>} />
