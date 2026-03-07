@@ -461,51 +461,54 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-200 hover:bg-zinc-50 transition-colors duration-300">
-        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            {location.pathname !== '/' && (
-              <Link 
-                to="/"
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-600 rounded-lg transition-all text-sm font-medium group/back"
-              >
-                <ArrowLeft className="w-4 h-4 group-hover/back:-translate-x-0.5 transition-transform" />
-                <span>Back</span>
+      <header className="sticky top-4 z-50 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-white/40 backdrop-blur-xl border border-white/40 rounded-3xl shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.15)] transition-all duration-500 h-16 flex items-center justify-between px-6 relative overflow-hidden group/header">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/header:animate-shimmer pointer-events-none" />
+            <div className="flex items-center gap-4">
+              {location.pathname !== '/' && (
+                <Link 
+                  to="/"
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-white/50 hover:bg-white/80 backdrop-blur-sm text-zinc-600 rounded-xl transition-all text-sm font-medium group/back border border-white/20"
+                >
+                  <ArrowLeft className="w-4 h-4 group-hover/back:-translate-x-0.5 transition-transform" />
+                  <span>Back</span>
+                </Link>
+              )}
+              <Link to="/" className="flex items-center gap-2 group">
+                <div className="w-9 h-9 bg-zinc-900 rounded-xl flex items-center justify-center group-hover:rotate-12 transition-transform shadow-lg shadow-zinc-900/20">
+                  <LayoutGrid className="w-5 h-5 text-white" />
+                </div>
+                <span className="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-zinc-900 to-zinc-600">Das Converters</span>
               </Link>
-            )}
-            <Link to="/" className="flex items-center gap-2 group">
-              <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center group-hover:rotate-12 transition-transform">
-                <LayoutGrid className="w-5 h-5 text-white" />
-              </div>
-              <span className="font-bold text-xl tracking-tight">Das Converters</span>
-            </Link>
-          </div>
+            </div>
 
-          <div className="flex items-center gap-2 md:gap-4">
-            <button 
-              onClick={focusSearch}
-              className="p-2 text-zinc-600 hover:bg-zinc-100 rounded-xl transition-all"
-              title="Search tools"
-            >
-              <Search className="w-5 h-5" />
-            </button>
-            
-            <nav className="hidden md:flex items-center gap-4">
-              <Link to="/" className="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 rounded-xl transition-all">Tools</Link>
-              <Link to="/about" className="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 rounded-xl transition-all">About</Link>
-              <Link to="/privacy" className="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 rounded-xl transition-all">Privacy</Link>
-              <div className="h-4 w-px bg-zinc-200 mx-2" />
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 rounded-xl transition-all">
-                <Github className="w-5 h-5" />
-              </a>
-            </nav>
+            <div className="flex items-center gap-2 md:gap-4">
+              <button 
+                onClick={focusSearch}
+                className="p-2.5 text-zinc-600 hover:bg-white/60 rounded-xl transition-all border border-transparent hover:border-white/40"
+                title="Search tools"
+              >
+                <Search className="w-5 h-5" />
+              </button>
+              
+              <nav className="hidden md:flex items-center gap-1">
+                <Link to="/" className="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-white/60 rounded-xl transition-all">Tools</Link>
+                <Link to="/about" className="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-white/60 rounded-xl transition-all">About</Link>
+                <Link to="/privacy" className="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-white/60 rounded-xl transition-all">Privacy</Link>
+                <div className="h-4 w-px bg-zinc-200/50 mx-2" />
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-2.5 text-zinc-400 hover:text-zinc-900 hover:bg-white/60 rounded-xl transition-all">
+                  <Github className="w-5 h-5" />
+                </a>
+              </nav>
 
-            <button 
-              className="md:hidden p-2 text-zinc-600"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+              <button 
+                className="md:hidden p-2.5 text-zinc-600 hover:bg-white/60 rounded-xl transition-all"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+              >
+                {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -513,35 +516,35 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-zinc-100 bg-white overflow-hidden"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="md:hidden mt-2 max-w-7xl mx-auto"
             >
-              <div className="px-4 py-6 space-y-4">
+              <div className="bg-white/60 backdrop-blur-xl border border-white/40 rounded-3xl shadow-xl p-6 space-y-4">
                 <Link 
                   to="/" 
-                  className="block text-lg font-medium text-zinc-900"
+                  className="block text-lg font-medium text-zinc-900 hover:bg-white/40 p-2 rounded-xl transition-all"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Tools
                 </Link>
                 <Link 
                   to="/about" 
-                  className="block text-lg font-medium text-zinc-600"
+                  className="block text-lg font-medium text-zinc-600 hover:bg-white/40 p-2 rounded-xl transition-all"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   About
                 </Link>
                 <Link 
                   to="/privacy" 
-                  className="block text-lg font-medium text-zinc-600"
+                  className="block text-lg font-medium text-zinc-600 hover:bg-white/40 p-2 rounded-xl transition-all"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Privacy
                 </Link>
-                <div className="pt-4 border-t border-zinc-100 flex gap-6">
-                  <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-zinc-400">
+                <div className="pt-4 border-t border-white/20 flex gap-6">
+                  <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-zinc-900 transition-colors">
                     <Github className="w-6 h-6" />
                   </a>
                 </div>
@@ -551,7 +554,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
         </AnimatePresence>
       </header>
 
-      <main className="flex-grow">
+      <main className="flex-grow pt-4">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
@@ -565,19 +568,23 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
         </AnimatePresence>
       </main>
 
-      <footer className="bg-white border-t border-zinc-200 py-12">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex items-center gap-2">
-            <LayoutGrid className="w-5 h-5 text-zinc-400" />
-            <span className="font-semibold text-zinc-900">Das Converters</span>
-            <span className="text-zinc-400 text-sm ml-2">© 2024</span>
-          </div>
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
-            <Link to="/about" className="text-sm text-zinc-500 hover:text-zinc-900">About</Link>
-            <Link to="/privacy" className="text-sm text-zinc-500 hover:text-zinc-900">Privacy</Link>
-            <Link to="/terms" className="text-sm text-zinc-500 hover:text-zinc-900">Terms & Conditions</Link>
-            <Link to="/disclaimer" className="text-sm text-zinc-500 hover:text-zinc-900">Disclaimer</Link>
-            <Link to="/contact" className="text-sm text-zinc-500 hover:text-zinc-900">Contact Us</Link>
+      <footer className="mt-auto py-12 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-white/40 backdrop-blur-xl border border-white/40 rounded-3xl p-8 flex flex-col md:flex-row justify-between items-center gap-8 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)]">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center">
+                <LayoutGrid className="w-4 h-4 text-white" />
+              </div>
+              <span className="font-bold text-zinc-900">Das Converters</span>
+              <span className="text-zinc-400 text-sm ml-2">© 2024</span>
+            </div>
+            <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
+              <Link to="/about" className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">About</Link>
+              <Link to="/privacy" className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">Privacy</Link>
+              <Link to="/terms" className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">Terms & Conditions</Link>
+              <Link to="/disclaimer" className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">Disclaimer</Link>
+              <Link to="/contact" className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">Contact Us</Link>
+            </div>
           </div>
         </div>
       </footer>
