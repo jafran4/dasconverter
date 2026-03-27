@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Monitor, ArrowLeft, RefreshCw, Maximize, Layers, Palette } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const ScreenResolution = () => {
   const [screenInfo, setScreenInfo] = useState({
@@ -142,6 +143,8 @@ export const ScreenResolution = () => {
           </div>
         </div>
       </div>
+
+      <RelatedToCd toolName="Screen Resolution Checker" category="Utility" />
     </div>
   );
 };

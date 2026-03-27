@@ -3,6 +3,7 @@ import { TrendingUp, ArrowLeft, Info, HelpCircle, Target, Flame } from 'lucide-r
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const CalorieDeficitCalculator = () => {
   const [gender, setGender] = useState<'male' | 'female'>('male');
@@ -221,6 +222,8 @@ export const CalorieDeficitCalculator = () => {
           Women generally have lower TDEEs than men, meaning their calorie targets for weight loss may be lower. It is important not to drop below 1200 calories per day without medical supervision to ensure you are still getting essential nutrients.
         </p>
       </article>
+
+      <RelatedToCd toolName="Calorie Deficit Calculator" category="Health" />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Dog, Calculator, Info, BookOpen, Utensils, Scale, Activity, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const DogFoodCalculator = () => {
   const [weight, setWeight] = useState<string>('10');
@@ -214,6 +215,7 @@ export const DogFoodCalculator = () => {
           </div>
         </section>
       </div>
+      <RelatedToCd toolName="Dog Food Calculator" category="Pet" />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Sprout, Calculator, Info, BookOpen, ArrowLeft, Ruler, TreePine, TreeDeciduous } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 const TREE_SPREADS: Record<string, number> = {
   'Large Shade Tree (Oak, Maple)': 50,
@@ -249,6 +250,7 @@ export const TreeSpacingCalculator = () => {
           </div>
         </div>
       </div>
+      <RelatedToCd toolName="Tree Planting Spacing Calculator" category="Nature" />
     </div>
   );
 };

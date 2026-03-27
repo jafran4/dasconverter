@@ -3,6 +3,7 @@ import { CalendarDays, ArrowLeft, Info, HelpCircle, Heart, Sparkles } from 'luci
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const OvulationCalculator = () => {
   const [lastPeriod, setLastPeriod] = useState<string>('');
@@ -164,6 +165,8 @@ export const OvulationCalculator = () => {
           Our ovulation calculator uses the "Calendar Method." It estimates your next ovulation date by subtracting 14 days (the average length of the luteal phase) from the date of your next expected period. For more precision, consider using ovulation predictor kits (OPKs) or tracking your basal body temperature.
         </p>
       </article>
+
+      <RelatedToCd toolName="Ovulation Calculator" category="Health" />
     </div>
   );
 };

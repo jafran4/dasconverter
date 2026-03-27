@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
+import RelatedToCd from '../components/RelatedToCd';
 
 const OBJECTS = [
   "Apple", "Banana", "Pencil", "Notebook", "Chair", "Table", "Lamp", "Phone", "Computer", "Keyboard",
@@ -381,6 +382,8 @@ export const RandomObjectGenerator = () => {
           </div>
         </div>
       </div>
+
+      <RelatedToCd toolName="Random Object Generator" category="Utility" />
     </div>
   );
 };

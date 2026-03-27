@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Keyboard, ArrowLeft, RefreshCw } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
+import RelatedToCd from '../components/RelatedToCd';
 
 const KEY_ROWS = [
   ['Escape', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12'],
@@ -161,6 +162,8 @@ export const KeyboardTester = () => {
           </div>
         </div>
       </div>
+
+      <RelatedToCd toolName="Keyboard Tester" category="Utility" />
     </div>
   );
 };

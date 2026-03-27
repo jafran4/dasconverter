@@ -3,6 +3,7 @@ import { Ruler, ArrowLeft, Info, HelpCircle, Users, Baby } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const ChildHeightPredictor = () => {
   const [gender, setGender] = useState<'male' | 'female'>('male');
@@ -168,6 +169,8 @@ export const ChildHeightPredictor = () => {
           If you are concerned about your child's growth, it's always best to consult a pediatrician. They can track your child's growth on a standardized growth chart and determine if any further investigation is needed.
         </p>
       </article>
+
+      <RelatedToCd toolName="Child Height Predictor" category="Health" />
     </div>
   );
 };

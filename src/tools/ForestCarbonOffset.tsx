@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Mountain, Calculator, Info, BookOpen, ArrowLeft, Globe, Car, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const ForestCarbonOffset = () => {
   const [treeCount, setTreeCount] = useState<string>('100');
@@ -209,6 +210,7 @@ export const ForestCarbonOffset = () => {
           </div>
         </div>
       </div>
+      <RelatedToCd toolName="Forest Carbon Offset Calculator" category="Nature" />
     </div>
   );
 };

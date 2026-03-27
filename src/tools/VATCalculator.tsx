@@ -3,6 +3,7 @@ import { Landmark, ArrowLeft, Info, HelpCircle, Calculator, Globe } from 'lucide
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
+import RelatedToCd from '../components/RelatedToCd';
 
 const VAT_RATES: Record<string, number> = {
   "United Kingdom": 20,
@@ -243,6 +244,8 @@ export const VATCalculator = () => {
           <li><strong>Cross-Border Sales:</strong> Different rules apply when selling to businesses (B2B) versus consumers (B2C) in other countries.</li>
         </ul>
       </article>
+
+      <RelatedToCd toolName="VAT Calculator" category="Finance" />
     </div>
   );
 };

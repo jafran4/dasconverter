@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { MousePointer2, ArrowLeft, RotateCcw, Zap, Target, Timer } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const ClickSpeedTest = () => {
   const [clicks, setClicks] = useState(0);
@@ -156,6 +157,8 @@ export const ClickSpeedTest = () => {
           </div>
         </div>
       </div>
+
+      <RelatedToCd toolName="Click Speed Test" category="Utility" />
     </div>
   );
 };

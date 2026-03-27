@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Maximize, ArrowLeft, Smartphone, Monitor, Laptop } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const ScreenSize = () => {
   const [screenInfo, setScreenInfo] = useState({
@@ -159,6 +160,8 @@ export const ScreenSize = () => {
           </div>
         </div>
       </div>
+
+      <RelatedToCd toolName="Screen Size Detector" category="Utility" />
     </div>
   );
 };

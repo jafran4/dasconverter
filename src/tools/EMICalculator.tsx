@@ -3,6 +3,7 @@ import { Landmark, ArrowLeft, Info, HelpCircle, Calculator, PieChart } from 'luc
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
+import RelatedToCd from '../components/RelatedToCd';
 
 const COUNTRIES = [
   { name: "United States", currency: "$", code: "USD" },
@@ -198,6 +199,8 @@ export const EMICalculator = () => {
           Whether you're taking a home loan in India (INR), a car loan in the US (USD), or a personal loan in the UK (GBP), the fundamental math of EMI remains the same. However, local banking regulations and processing fees can vary. Always check with your local bank for the most accurate final figures.
         </p>
       </article>
+
+      <RelatedToCd toolName="EMI Calculator" category="Finance" />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { FileText, ArrowLeft, FileOutput, Download, FileUp, Loader2, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 import * as pdfjs from 'pdfjs-dist';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
 
@@ -173,6 +174,7 @@ export const PdfToWord = () => {
           )}
         </button>
       </div>
+      <RelatedToCd toolName="PDF to Word" category="PDF" />
     </div>
   );
 };

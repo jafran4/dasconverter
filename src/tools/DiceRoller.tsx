@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Square, ArrowLeft, RefreshCw, History } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const DiceRoller = () => {
   const [diceCount, setDiceCount] = useState(1);
@@ -156,6 +157,8 @@ export const DiceRoller = () => {
           </div>
         </div>
       </div>
+
+      <RelatedToCd toolName="Dice Roller" category="Utility" />
     </div>
   );
 };

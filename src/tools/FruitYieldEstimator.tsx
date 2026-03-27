@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Sun, Calculator, Info, BookOpen, ArrowLeft, ShoppingCart, Apple, TreeDeciduous } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 const FRUIT_YIELDS: Record<string, { dwarf: number, semi: number, standard: number }> = {
   'Apple': { dwarf: 2, semi: 6, standard: 15 },
@@ -236,6 +237,7 @@ export const FruitYieldEstimator = () => {
           </div>
         </div>
       </div>
+      <RelatedToCd toolName="Fruit Yield Estimator" category="Nature" />
     </div>
   );
 };

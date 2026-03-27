@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { FileText, ArrowLeft, Presentation, Download, FileUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const PdfToPpt = () => {
   const [files, setFiles] = useState<File[]>([]);
@@ -64,6 +65,7 @@ export const PdfToPpt = () => {
           )}
         </button>
       </div>
+      <RelatedToCd toolName="PDF to PowerPoint" category="PDF" />
     </div>
   );
 };

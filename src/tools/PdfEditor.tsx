@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { FileText, ArrowLeft, Edit, Download, FileUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const PdfEditor = () => {
   const [files, setFiles] = useState<File[]>([]);
@@ -64,6 +65,7 @@ export const PdfEditor = () => {
           )}
         </button>
       </div>
+      <RelatedToCd toolName="PDF Editor" category="PDF" />
     </div>
   );
 };

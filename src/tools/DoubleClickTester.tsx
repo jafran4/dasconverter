@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { MousePointer2, ArrowLeft, RefreshCw, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
+import RelatedToCd from '../components/RelatedToCd';
 
 interface ClickRecord {
   id: number;
@@ -202,6 +203,8 @@ export const DoubleClickTester = () => {
           </div>
         </div>
       </div>
+
+      <RelatedToCd toolName="Double Click Tester" category="Utility" />
     </div>
   );
 };

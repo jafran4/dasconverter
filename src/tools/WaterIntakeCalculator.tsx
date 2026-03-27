@@ -3,6 +3,7 @@ import { Droplets, ArrowLeft, Info, HelpCircle, GlassWater } from 'lucide-react'
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const WaterIntakeCalculator = () => {
   const [gender, setGender] = useState<'male' | 'female'>('male');
@@ -194,6 +195,8 @@ export const WaterIntakeCalculator = () => {
           Women's hydration needs can change during pregnancy and breastfeeding. It is generally recommended that pregnant women drink about 2.3 liters (10 cups) of fluids daily, and breastfeeding women drink about 3.1 liters (13 cups) daily.
         </p>
       </article>
+
+      <RelatedToCd toolName="Water Intake Calculator" category="Health" />
     </div>
   );
 };

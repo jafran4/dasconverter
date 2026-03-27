@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { FileSpreadsheet, ArrowLeft, Download, FileUp, HelpCircle, ChevronDown, ChevronUp, FileText, ArrowRightLeft, Copy, Check, FileJson } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
+import RelatedToCd from '../components/RelatedToCd';
 
 const FAQS = [
   {
@@ -255,6 +256,10 @@ export const CsvToMarkdown = () => {
             <span className="font-medium text-zinc-900">Text Converter</span>
           </Link>
         </div>
+      </div>
+
+      <div className="mt-12">
+        <RelatedToCd toolName="CSV to Markdown" category="Utility" />
       </div>
     </div>
   );

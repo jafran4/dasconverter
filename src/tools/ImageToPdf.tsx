@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { FileText, ArrowLeft, ImageIcon, Download, FileUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 import { jsPDF } from 'jspdf';
 
 export const ImageToPdf = () => {
@@ -93,6 +94,7 @@ export const ImageToPdf = () => {
           )}
         </button>
       </div>
+      <RelatedToCd toolName="Image to PDF Converter" category="PDF" />
     </div>
   );
 };

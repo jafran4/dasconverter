@@ -3,6 +3,7 @@ import { Calculator, ArrowLeft, Info, HelpCircle, ArrowRightLeft, Scale } from '
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const RatioCalculator = () => {
   const [a, setA] = useState<string>('');
@@ -176,6 +177,7 @@ export const RatioCalculator = () => {
           While the math behind ratios is straightforward, it's easy to make mistakes, especially with large numbers or complex proportions. Our ratio calculator provides an instant and accurate way to simplify and solve ratios, saving you time and ensuring your results are always correct.
         </p>
       </article>
+      <RelatedToCd toolName="Ratio Calculator" category="Math" />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Trophy, Gamepad2, Info, Star, Share2, Maximize2, Play, Users, Zap, ArrowLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const BasketRandom: React.FC = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -242,6 +243,10 @@ export const BasketRandom: React.FC = () => {
               is the key to becoming a champion in <strong>unblocked games basket random</strong>.
             </p>
           </article>
+
+          <div className="mt-12">
+            <RelatedToCd toolName="Basket Random" category="Utility" />
+          </div>
         </div>
       </section>
 

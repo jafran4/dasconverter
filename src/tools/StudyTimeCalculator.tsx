@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Clock, BookOpen, Plus, Trash2, Calculator, Info, Target, Brain, Coffee, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 interface StudySession {
   id: string;
@@ -196,6 +197,8 @@ export const StudyTimeCalculator = () => {
           </div>
         </section>
       </div>
+
+      <RelatedToCd toolName="Study Time Calculator" category="Student" />
     </div>
   );
 };

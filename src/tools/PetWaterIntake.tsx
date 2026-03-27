@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Droplets, Calculator, Info, BookOpen, Dog, Cat, Activity, Scale, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const PetWaterIntake = () => {
   const [petType, setPetType] = useState<'dog' | 'cat'>('dog');
@@ -212,6 +213,7 @@ export const PetWaterIntake = () => {
           </div>
         </section>
       </div>
+      <RelatedToCd toolName="Pet Water Intake" category="Pet" />
     </div>
   );
 };

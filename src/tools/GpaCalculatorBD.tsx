@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { GraduationCap, Plus, Trash2, Calculator, BookOpen, Info, CheckCircle2, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 interface Subject {
   id: string;
@@ -244,6 +245,8 @@ export const GpaCalculatorBD = () => {
           </div>
         </section>
       </div>
+
+      <RelatedToCd toolName="GPA Calculator" category="Student" />
     </div>
   );
 };

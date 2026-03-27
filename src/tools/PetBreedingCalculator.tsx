@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Heart, Calculator, Info, BookOpen, Calendar, Baby, AlertCircle, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const PetBreedingCalculator = () => {
   const [startDate, setStartDate] = useState<string>(new Date().toISOString().split('T')[0]);
@@ -194,6 +195,7 @@ export const PetBreedingCalculator = () => {
           </div>
         </section>
       </div>
+      <RelatedToCd toolName="Pet Breeding Calculator" category="Pet" />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { ShieldCheck, Calculator, Info, BookOpen, Dog, Cat, Calendar, AlertCircle, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const PetVaccinationSchedule = () => {
   const [petType, setPetType] = useState<'dog' | 'cat'>('dog');
@@ -170,6 +171,7 @@ export const PetVaccinationSchedule = () => {
           </div>
         </section>
       </div>
+      <RelatedToCd toolName="Pet Vaccination Schedule" category="Pet" />
     </div>
   );
 };

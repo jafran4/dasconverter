@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Leaf, Calculator, Info, BookOpen, ArrowLeft, Wind, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const TreeCarbonCalculator = () => {
   const [diameter, setDiameter] = useState<string>('15');
@@ -216,6 +217,7 @@ export const TreeCarbonCalculator = () => {
           </div>
         </div>
       </div>
+      <RelatedToCd toolName="Tree Carbon Sequestration Calculator" category="Nature" />
     </div>
   );
 };

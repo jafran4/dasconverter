@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Percent, Calculator, Info, BookOpen, GraduationCap, ArrowRightLeft, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const CgpaToPercentage = () => {
   const [cgpa, setCgpa] = useState<string>('3.5');
@@ -204,6 +205,8 @@ export const CgpaToPercentage = () => {
           </div>
         </section>
       </div>
+
+      <RelatedToCd toolName="CGPA to Percentage Converter" category="Student" />
     </div>
   );
 };

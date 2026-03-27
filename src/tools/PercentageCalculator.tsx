@@ -3,6 +3,7 @@ import { Percent, ArrowLeft, Info, HelpCircle, Calculator, TrendingUp, TrendingD
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const PercentageCalculator = () => {
   const [val1, setVal1] = useState<string>('');
@@ -142,6 +143,8 @@ export const PercentageCalculator = () => {
           <li><strong>Health & Fitness:</strong> Track the percentage change in your weight, body fat, or strength over time.</li>
         </ul>
       </article>
+
+      <RelatedToCd toolName="Percentage Calculator" category="Math" />
     </div>
   );
 };

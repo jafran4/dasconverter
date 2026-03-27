@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Keyboard, ArrowLeft, RotateCcw, Timer, Zap, Target } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 const SAMPLE_TEXTS = [
   "The quick brown fox jumps over the lazy dog. This classic sentence contains every letter of the English alphabet, making it perfect for typing practice and testing keyboards.",
@@ -203,6 +204,8 @@ export const TypingSpeedTester = () => {
           </div>
         </div>
       </div>
+
+      <RelatedToCd toolName="Typing Speed Tester" category="Utility" />
     </div>
   );
 };

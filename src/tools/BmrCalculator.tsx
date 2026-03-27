@@ -3,6 +3,7 @@ import { Flame, ArrowLeft, Info, HelpCircle, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const BmrCalculator = () => {
   const [gender, setGender] = useState<'male' | 'female'>('male');
@@ -171,6 +172,8 @@ export const BmrCalculator = () => {
           Our calculator uses the Mifflin-St Jeor Equation, which is currently considered the most accurate way to estimate BMR without laboratory testing. It was developed in 1990 and has been validated in numerous studies.
         </p>
       </article>
+
+      <RelatedToCd toolName="BMR Calculator" category="Health" />
     </div>
   );
 };

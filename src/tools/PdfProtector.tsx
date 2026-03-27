@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { FileText, ArrowLeft, ShieldCheck, Download, FileUp, Lock } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 import { PDFDocument } from 'pdf-lib';
 
 export const PdfProtector = () => {
@@ -110,6 +111,7 @@ export const PdfProtector = () => {
           )}
         </button>
       </div>
+      <RelatedToCd toolName="PDF Protector" category="PDF" />
     </div>
   );
 };

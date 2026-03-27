@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Wallet, Calculator, Info, BookOpen, ArrowLeft, ShieldCheck, TrendingUp, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const TreeMaintenanceCalculator = () => {
   const [treeSize, setTreeSize] = useState<'small' | 'medium' | 'large'>('medium');
@@ -214,6 +215,7 @@ export const TreeMaintenanceCalculator = () => {
           </div>
         </div>
       </div>
+      <RelatedToCd toolName="Tree Maintenance Cost Calculator" category="Nature" />
     </div>
   );
 };

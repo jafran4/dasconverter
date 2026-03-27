@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Smartphone, ArrowLeft, RefreshCw, Maximize2, Minimize2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const ViewportSize = () => {
   const [viewport, setViewport] = useState({
@@ -116,6 +117,8 @@ export const ViewportSize = () => {
           </div>
         </div>
       </div>
+
+      <RelatedToCd toolName="Viewport Size Checker" category="Utility" />
     </div>
   );
 };

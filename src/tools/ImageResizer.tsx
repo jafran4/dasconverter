@@ -4,6 +4,7 @@ import { Image as ImageIcon, ArrowLeft, Download, Loader2, Maximize, Settings2 }
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '@/src/lib/utils';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const ImageResizer = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -191,6 +192,9 @@ export const ImageResizer = () => {
         )}
       </div>
       <canvas ref={canvasRef} className="hidden" />
+      <div className="mt-12">
+        <RelatedToCd toolName="Image Resizer" category="Utility" />
+      </div>
     </div>
   );
 };

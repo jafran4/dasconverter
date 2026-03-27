@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { FileText, ArrowLeft, BookOpen, Download, FileUp, HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 import { cn } from '@/src/lib/utils';
 
 const FAQS = [
@@ -190,6 +191,7 @@ export const MobiToPdf = () => {
           </Link>
         </div>
       </div>
+      <RelatedToCd toolName="MOBI to PDF Converter" category="PDF" />
     </div>
   );
 };

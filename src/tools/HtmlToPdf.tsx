@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { FileText, ArrowLeft, Globe, Download, FileUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const HtmlToPdf = () => {
   const [url, setUrl] = useState('');
@@ -43,6 +44,7 @@ export const HtmlToPdf = () => {
           )}
         </button>
       </div>
+      <RelatedToCd toolName="HTML to PDF Converter" category="PDF" />
     </div>
   );
 };

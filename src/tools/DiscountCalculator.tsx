@@ -3,6 +3,7 @@ import { Tag, ArrowLeft, Info, HelpCircle, Percent, ShoppingBag } from 'lucide-r
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const DiscountCalculator = () => {
   const [price, setPrice] = useState<string>('');
@@ -168,6 +169,8 @@ export const DiscountCalculator = () => {
           <li><strong>Check the "Original" Price:</strong> Some retailers raise prices right before a sale to make the discount look bigger.</li>
         </ul>
       </article>
+
+      <RelatedToCd toolName="Discount Calculator" category="Finance" />
     </div>
   );
 };

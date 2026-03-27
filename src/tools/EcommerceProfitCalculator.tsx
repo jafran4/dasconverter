@@ -3,6 +3,7 @@ import { ShoppingCart, ArrowLeft, Info, HelpCircle, Calculator, TrendingUp, Glob
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
+import RelatedToCd from '../components/RelatedToCd';
 
 const PLATFORMS = [
   { name: "Shopify", fee: 2.9, fixed: 0.30 },
@@ -229,6 +230,8 @@ export const EcommerceProfitCalculator = () => {
           Selling internationally? Don't forget to account for customs duties, international shipping surcharges, and currency conversion fees. Our calculator provides a solid baseline, but always double-check your local tax and duty requirements when expanding into new countries.
         </p>
       </article>
+
+      <RelatedToCd toolName="eCommerce Profit Calculator" category="Finance" />
     </div>
   );
 };

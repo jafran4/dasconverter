@@ -3,6 +3,7 @@ import { Activity, ArrowLeft, Info, HelpCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const BmiCalculator = () => {
   const [gender, setGender] = useState<'male' | 'female'>('male');
@@ -205,6 +206,7 @@ export const BmiCalculator = () => {
         </p>
       </article>
 
+      <RelatedToCd toolName="BMI Calculator" category="Health" />
     </div>
   );
 };

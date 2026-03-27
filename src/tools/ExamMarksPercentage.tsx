@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Percent, Calculator, Info, BookOpen, GraduationCap, Target, CheckCircle2, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const ExamMarksPercentage = () => {
   const [obtainedMarks, setObtainedMarks] = useState<string>('85');
@@ -162,6 +163,8 @@ export const ExamMarksPercentage = () => {
           </div>
         </section>
       </div>
+
+      <RelatedToCd toolName="Exam Marks Percentage Calculator" category="Student" />
     </div>
   );
 };

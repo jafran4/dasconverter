@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Heart, ArrowLeft, ShieldCheck, Zap, Info, Calculator, HelpCircle, CheckCircle2, TrendingUp, Wallet } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const TermLifeInsuranceCalculator = () => {
   const [coverageAmount, setCoverageAmount] = useState<string>('500000');
@@ -258,6 +259,8 @@ export const TermLifeInsuranceCalculator = () => {
             </div>
           ))}
         </div>
+
+        <RelatedToCd toolName="Term Life Insurance Calculator" category="Finance" />
       </div>
     </div>
   );

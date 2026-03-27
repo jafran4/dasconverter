@@ -3,6 +3,7 @@ import { Calendar, ArrowLeft, Info, HelpCircle, Clock, ArrowRightLeft } from 'lu
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
+import RelatedToCd from '../components/RelatedToCd';
 
 export const DateDifferenceCalculator = () => {
   const [startDate, setStartDate] = useState<string>('');
@@ -146,6 +147,7 @@ export const DateDifferenceCalculator = () => {
           <li><strong>Financial Planning:</strong> Calculate the number of days for interest accrual on loans or investments.</li>
         </ul>
       </article>
+      <RelatedToCd toolName="Date Difference Calculator" category="Time" />
     </div>
   );
 };
