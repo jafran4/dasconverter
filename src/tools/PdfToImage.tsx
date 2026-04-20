@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { FileText, ArrowLeft, Image as ImageIcon, Download, FileUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 import * as pdfjsLib from 'pdfjs-dist';
 
 // Set worker source for pdfjs
@@ -102,7 +101,6 @@ export const PdfToImage = () => {
           )}
         </button>
       </div>
-      <RelatedToCd toolName="PDF to Image" category="PDF" />
     </div>
   );
 };

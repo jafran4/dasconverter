@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { FileText, ArrowLeft, RotateCw, Download, FileUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 import { PDFDocument, degrees } from 'pdf-lib';
 
 export const PdfRotator = () => {
@@ -45,10 +44,6 @@ export const PdfRotator = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 pt-24 pb-12">
-      <Link to="/" className="inline-flex items-center gap-2 text-zinc-500 hover:text-zinc-900 mb-8 transition-colors group">
-        <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-        Back to Tools
-      </Link>
       <div className="text-center mb-12">
         <div className="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
           <RotateCw className="w-8 h-8 text-indigo-600" />
@@ -94,7 +89,6 @@ export const PdfRotator = () => {
           )}
         </button>
       </div>
-      <RelatedToCd toolName="Rotate PDF" category="PDF" />
     </div>
   );
 };

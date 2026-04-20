@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { FileText, ArrowLeft, FileJson, Download, FileUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 import * as pdfjsLib from 'pdfjs-dist';
 
 // Set worker source for pdfjs
@@ -99,7 +98,7 @@ export const PdfToText = () => {
           )}
         </button>
       </div>
-      <RelatedToCd toolName="PDF to Text/JSON" category="PDF" />
+
     </div>
   );
 };

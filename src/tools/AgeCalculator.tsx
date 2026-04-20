@@ -3,7 +3,6 @@ import { Calendar, ArrowLeft, Info, HelpCircle, Clock, User } from 'lucide-react
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const AgeCalculator = () => {
   const [birthDate, setBirthDate] = useState<string>('');
@@ -170,8 +169,6 @@ export const AgeCalculator = () => {
           The calculator subtracts the birth date from the current (or target) date. If the current day is less than the birth day, it "borrows" a month from the month count and adds the appropriate number of days from the previous month to the day count. This ensures a precise result every time.
         </p>
       </article>
-
-      <RelatedToCd toolName="Age Calculator" category="Time" />
     </div>
   );
 };

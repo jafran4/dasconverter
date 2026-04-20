@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Activity, Calculator, Info, BookOpen, Droplets, Scale, Zap, ArrowLeft, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const CreatineCalculator = () => {
   const [weight, setWeight] = useState<string>('75');
@@ -273,8 +272,6 @@ export const CreatineCalculator = () => {
           </div>
         </section>
       </div>
-
-      <RelatedToCd toolName="Creatine Calculator" category="Health" />
     </div>
   );
 };

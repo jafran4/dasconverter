@@ -3,7 +3,6 @@ import { Target, ArrowLeft, Info, HelpCircle, Scale } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const IdealWeightCalculator = () => {
   const [gender, setGender] = useState<'male' | 'female'>('male');
@@ -167,8 +166,6 @@ export const IdealWeightCalculator = () => {
           For teenagers, ideal weight is much more variable due to growth spurts and hormonal changes. It is best to use BMI-for-age percentiles to track healthy growth rather than a single "ideal weight" number.
         </p>
       </article>
-
-      <RelatedToCd toolName="Ideal Weight Calculator" category="Health" />
     </div>
   );
 };

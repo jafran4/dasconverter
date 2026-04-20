@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { TrendingUp, Calculator, Info, BookOpen, Dog, Scale, Activity, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const PetGrowthChart = () => {
   const [breedSize, setBreedSize] = useState<'small' | 'medium' | 'large' | 'giant'>('medium');
@@ -178,7 +177,6 @@ export const PetGrowthChart = () => {
           </div>
         </section>
       </div>
-      <RelatedToCd toolName="Pet Growth Chart" category="Pet" />
     </div>
   );
 };

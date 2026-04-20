@@ -3,7 +3,6 @@ import { Scale, ArrowLeft, Info, HelpCircle, Ruler } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const BodyFatCalculator = () => {
   const [gender, setGender] = useState<'male' | 'female'>('male');
@@ -226,8 +225,6 @@ export const BodyFatCalculator = () => {
           Excess body fat, especially visceral fat (fat stored around the organs), is linked to various health issues, including heart disease, type 2 diabetes, and certain cancers. Maintaining a healthy body fat percentage is key to long-term health and longevity.
         </p>
       </article>
-
-      <RelatedToCd toolName="Body Fat Calculator" category="Health" />
     </div>
   );
 };

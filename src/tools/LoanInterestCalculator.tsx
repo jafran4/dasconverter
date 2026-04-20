@@ -3,7 +3,6 @@ import { Landmark, ArrowLeft, Info, HelpCircle, Calculator, TrendingUp } from 'l
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
-import RelatedToCd from '../components/RelatedToCd';
 
 const COUNTRIES = [
   { name: "United States", currency: "$", code: "USD" },
@@ -208,8 +207,6 @@ export const LoanInterestCalculator = () => {
           While interest rates are legally required to be gender-neutral in many countries, financial literacy and negotiation play a huge role in the final rate you receive. Whether you are a man or a woman, being informed about the current market rates and understanding the math behind your loan is the best way to ensure you're getting a fair deal.
         </p>
       </article>
-
-      <RelatedToCd toolName="Loan Interest Calculator" category="Finance" />
     </div>
   );
 };

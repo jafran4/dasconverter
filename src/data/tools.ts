@@ -376,15 +376,6 @@ export const CATEGORIES = [
     color: 'text-emerald-500',
     tools: [
       {
-        id: 'cd-calculator',
-        name: 'CD Calculator',
-        description: 'Calculate Certificate of Deposit growth and interest.',
-        icon: Calculator,
-        color: 'text-emerald-600',
-        bg: 'bg-emerald-50',
-        path: '/cd-calculator'
-      },
-      {
         id: 'discount-calculator',
         name: 'Discount Tool',
         description: 'Calculate sale prices and total savings.',

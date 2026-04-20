@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'motion/react';
 import { MousePointerClick, ArrowLeft, RefreshCw, Mouse } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
-import RelatedToCd from '../components/RelatedToCd';
 
 interface ClickEvent {
   id: number;
@@ -207,8 +206,6 @@ export const MouseTester = () => {
           </div>
         </div>
       </div>
-
-      <RelatedToCd toolName="Mouse Tester" category="Utility" />
     </div>
   );
 };

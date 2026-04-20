@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Globe, ArrowLeft, Copy, Check, RefreshCw, ShieldCheck, ShieldAlert } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const UrlEncoder = () => {
   const [input, setInput] = useState('');
@@ -150,8 +149,6 @@ export const UrlEncoder = () => {
           </div>
         </div>
       </div>
-
-      <RelatedToCd toolName="URL Encoder / Decoder" category="Utility" />
     </div>
   );
 };

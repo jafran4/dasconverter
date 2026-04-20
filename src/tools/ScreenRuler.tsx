@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Minimize, ArrowLeft, HelpCircle, ChevronDown, ChevronUp, Move, Maximize2, MousePointer2, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import RelatedToCd from '../components/RelatedToCd';
 
 const FAQS = [
   {
@@ -267,8 +266,6 @@ export const ScreenRuler = () => {
           ))}
         </div>
       </div>
-
-      <RelatedToCd toolName="Screen Ruler" category="Utility" />
     </div>
   );
 };

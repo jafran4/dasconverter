@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Car, ArrowLeft, ShieldCheck, Zap, Info, Calculator, Search, HelpCircle, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const CarInsuranceEstimator = () => {
   const [vehicleValue, setVehicleValue] = useState<string>('25000');
@@ -248,7 +247,6 @@ export const CarInsuranceEstimator = () => {
           ))}
         </div>
       </div>
-      <RelatedToCd toolName="Car Insurance Estimator" category="Finance" />
     </div>
   );
 };

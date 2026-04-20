@@ -3,7 +3,6 @@ import { Briefcase, ArrowLeft, Info, HelpCircle, Calculator, TrendingUp } from '
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const FiverrFeeCalculator = () => {
   const [amount, setAmount] = useState<string>('');
@@ -167,8 +166,6 @@ export const FiverrFeeCalculator = () => {
           The gig economy has opened up incredible opportunities for people of all genders to work on their own terms. Whether you are a woman offering graphic design services or a man providing voice-over work, Fiverr provides a global platform to showcase your skills. By understanding the fee structure, you can better manage your freelance business and ensure you're being fairly compensated for your time and expertise.
         </p>
       </article>
-
-      <RelatedToCd toolName="Fiverr Fee Calculator" category="Finance" />
     </div>
   );
 };

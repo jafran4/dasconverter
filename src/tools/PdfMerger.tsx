@@ -5,7 +5,6 @@ import { FileText, Download, Loader2, Trash2, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const PdfMerger = () => {
   const [files, setFiles] = useState<File[]>([]);
@@ -140,8 +139,6 @@ export const PdfMerger = () => {
           <p className="text-sm text-zinc-500 leading-relaxed">Merge large PDF files in seconds without any limits or hidden costs.</p>
         </div>
       </div>
-
-      <RelatedToCd toolName="PDF Merger" category="PDF" />
     </div>
   );
 };

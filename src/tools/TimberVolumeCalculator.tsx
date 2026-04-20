@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Scale, Calculator, Info, BookOpen, ArrowLeft, Ruler, TreePine, TreeDeciduous } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const TimberVolumeCalculator = () => {
   const [diameter, setDiameter] = useState<string>('20');
@@ -221,7 +220,6 @@ export const TimberVolumeCalculator = () => {
           </div>
         </div>
       </div>
-      <RelatedToCd toolName="Timber Volume Calculator" category="Nature" />
     </div>
   );
 };

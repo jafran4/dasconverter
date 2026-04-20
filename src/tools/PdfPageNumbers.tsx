@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { FileText, ArrowLeft, Hash, Download, FileUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 
 export const PdfPageNumbers = () => {
@@ -102,7 +101,6 @@ export const PdfPageNumbers = () => {
           )}
         </button>
       </div>
-      <RelatedToCd toolName="PDF Page Numbers" category="PDF" />
     </div>
   );
 };

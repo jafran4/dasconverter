@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Hash, ArrowLeft, RefreshCw, Settings, Copy, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const RandomNumberPicker = () => {
   const [min, setMin] = useState(1);
@@ -160,8 +159,6 @@ export const RandomNumberPicker = () => {
           </div>
         </div>
       </div>
-
-      <RelatedToCd toolName="Random Number Picker" category="Utility" />
     </div>
   );
 };

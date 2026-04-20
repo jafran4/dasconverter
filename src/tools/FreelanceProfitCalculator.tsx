@@ -3,7 +3,6 @@ import { Briefcase, ArrowLeft, Info, HelpCircle, Calculator, TrendingUp } from '
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const FreelanceProfitCalculator = () => {
   const [revenue, setRevenue] = useState<string>('');
@@ -188,8 +187,6 @@ export const FreelanceProfitCalculator = () => {
           Unlike employees, freelancers usually don't have taxes withheld from their payments. It is critical to set aside a portion of every payment (usually 20-30%) in a separate savings account to cover your tax bill at the end of the year. Failing to do this can lead to significant financial stress when tax season arrives.
         </p>
       </article>
-
-      <RelatedToCd toolName="Freelance Profit Calculator" category="Finance" />
     </div>
   );
 };

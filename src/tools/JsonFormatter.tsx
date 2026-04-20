@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Code, Copy, Check, ArrowLeft, RefreshCw, FileJson, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import RelatedToCd from '../components/RelatedToCd';
 import { cn } from '@/src/lib/utils';
 
 export const JsonFormatter = () => {
@@ -43,10 +42,6 @@ export const JsonFormatter = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
-      <Link to="/" className="inline-flex items-center gap-2 text-zinc-500 hover:text-zinc-900 mb-8 transition-colors group">
-        <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-        Back to Tools
-      </Link>
       <div className="bg-white border border-zinc-200 rounded-3xl p-8 md:p-12 shadow-sm">
         <div className="flex items-center gap-4 mb-8">
           <div className="w-12 h-12 bg-purple-50 rounded-2xl flex items-center justify-center">
@@ -127,7 +122,6 @@ export const JsonFormatter = () => {
           </div>
         </div>
       </div>
-      <RelatedToCd toolName="JSON Formatter" category="Utility" />
     </div>
   );
 };

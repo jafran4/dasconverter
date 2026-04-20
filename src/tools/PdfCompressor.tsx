@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { FileText, ArrowLeft, Minimize, Download, FileUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const PdfCompressor = () => {
   const [files, setFiles] = useState<File[]>([]);
@@ -65,7 +64,6 @@ export const PdfCompressor = () => {
           )}
         </button>
       </div>
-      <RelatedToCd toolName="PDF Compressor" category="PDF" />
     </div>
   );
 };

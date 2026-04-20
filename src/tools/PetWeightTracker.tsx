@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Scale, Calculator, Info, BookOpen, Target, TrendingDown, TrendingUp, AlertCircle, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const PetWeightTracker = () => {
   const [currentWeight, setCurrentWeight] = useState<string>('12');
@@ -180,7 +179,6 @@ export const PetWeightTracker = () => {
           </div>
         </section>
       </div>
-      <RelatedToCd toolName="Pet Weight Tracker" category="Pet" />
     </div>
   );
 };

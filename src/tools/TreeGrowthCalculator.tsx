@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { TrendingUp, Calculator, Info, BookOpen, ArrowLeft, Sprout, TreePine, Mountain } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 const GROWTH_RATES: Record<string, { height: number, spread: number }> = {
   'Fast (Willow, Poplar, Empress)': { height: 4.5, spread: 3.0 },
@@ -214,7 +213,6 @@ export const TreeGrowthCalculator = () => {
           </div>
         </div>
       </div>
-      <RelatedToCd toolName="Tree Growth Rate Calculator" category="Nature" />
     </div>
   );
 };

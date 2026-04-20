@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Ruler, ArrowLeft, HelpCircle, ChevronDown, ChevronUp, ArrowRightLeft, Scale, Thermometer, Box, Square } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import RelatedToCd from '../components/RelatedToCd';
 
 const UNIT_TYPES = {
   length: {
@@ -340,8 +339,6 @@ export const UnitConverter = () => {
           ))}
         </div>
       </div>
-
-      <RelatedToCd toolName="Unit Converter" category="Utility" />
     </div>
   );
 };

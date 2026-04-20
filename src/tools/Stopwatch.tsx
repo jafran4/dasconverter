@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Timer, ArrowLeft, Play, Pause, RotateCcw, List } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const Stopwatch = () => {
   const [time, setTime] = useState(0);
@@ -147,8 +146,6 @@ export const Stopwatch = () => {
           </div>
         </div>
       </div>
-
-      <RelatedToCd toolName="Stopwatch Online" category="Time" />
     </div>
   );
 };

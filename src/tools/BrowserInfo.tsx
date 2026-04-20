@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Info, ArrowLeft, Globe, Shield, Cpu, Layout, Languages, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const BrowserInfo = () => {
   const [info, setInfo] = useState<any>(null);
@@ -175,8 +174,6 @@ export const BrowserInfo = () => {
           </div>
         </div>
       </div>
-
-      <RelatedToCd toolName="Browser Info Checker" category="Utility" />
     </div>
   );
 };

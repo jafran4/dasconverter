@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { User, Calculator, Info, BookOpen, Dog, Cat, Calendar, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const PetAgeCalculator = () => {
   const [petType, setPetType] = useState<'dog' | 'cat'>('dog');
@@ -210,8 +209,6 @@ export const PetAgeCalculator = () => {
           </div>
         </section>
       </div>
-
-      <RelatedToCd toolName="Pet Age Calculator" category="Pet" />
     </div>
   );
 };

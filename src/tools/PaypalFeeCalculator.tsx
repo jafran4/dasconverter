@@ -3,7 +3,6 @@ import { CreditCard, ArrowLeft, Info, HelpCircle, Calculator, ShieldCheck } from
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
-import RelatedToCd from '../components/RelatedToCd';
 
 const PAYPAL_RATES = [
   { name: "Standard (US)", rate: 2.9, fixed: 0.30 },
@@ -158,8 +157,6 @@ export const PaypalFeeCalculator = () => {
           In the global digital economy, PayPal is a vital tool for entrepreneurs of all genders. Whether you are a woman running a boutique Etsy shop or a man offering freelance coding services, understanding transaction costs is a fundamental part of business literacy. By using a fee calculator, you can ensure your pricing is accurate and your business remains profitable.
         </p>
       </article>
-
-      <RelatedToCd toolName="PayPal Fee Calculator" category="Finance" />
     </div>
   );
 };

@@ -3,7 +3,6 @@ import { Calculator, ArrowLeft, Info, HelpCircle, History, RefreshCcw } from 'lu
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const ScientificCalculator = () => {
   const [display, setDisplay] = useState<string>('0');
@@ -186,7 +185,6 @@ export const ScientificCalculator = () => {
           <li><strong>Statistics:</strong> Calculate logarithms and base-10 functions for data analysis.</li>
         </ul>
       </article>
-      <RelatedToCd toolName="Scientific Calculator" category="Math" />
     </div>
   );
 };

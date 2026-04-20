@@ -3,7 +3,6 @@ import { Clock, ArrowLeft, Info, HelpCircle, Calculator, History, Timer, Chevron
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '@/src/lib/utils';
-import RelatedToCd from '../components/RelatedToCd';
 
 const FAQS = [
   {
@@ -261,7 +260,7 @@ export const TimeDurationCalculator = () => {
           </div>
         </div>
       </div>
-      <RelatedToCd toolName="Time Duration Calculator" category="Time" />
+
     </div>
   );
 };

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { TreeDeciduous, Calculator, Info, BookOpen, ArrowLeft, Ruler } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 const SPECIES_FACTORS: Record<string, number> = {
   'White Oak': 5.0,
@@ -199,8 +198,6 @@ export const TreeAgeEstimator = () => {
           </div>
         </section>
       </div>
-
-      <RelatedToCd toolName="Tree Age Estimator" category="Nature" />
     </div>
   );
 };

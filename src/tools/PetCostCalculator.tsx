@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Wallet, Calculator, Info, BookOpen, ShoppingCart, Plus, Trash2, CreditCard, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 interface Expense {
   id: string;
@@ -222,7 +221,6 @@ export const PetCostCalculator = () => {
           </div>
         </section>
       </div>
-      <RelatedToCd toolName="Pet Cost Calculator" category="Pet" />
     </div>
   );
 };

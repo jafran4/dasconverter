@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Circle, ArrowLeft, RefreshCw, History } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const CoinFlip = () => {
   const [result, setResult] = useState<'Heads' | 'Tails' | null>(null);
@@ -130,8 +129,6 @@ export const CoinFlip = () => {
           </div>
         </div>
       </div>
-
-      <RelatedToCd toolName="Coin Flip Simulator" category="Utility" />
     </div>
   );
 };

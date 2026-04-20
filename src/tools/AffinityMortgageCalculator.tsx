@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Home, ArrowLeft, ShieldCheck, Zap, Info, Calculator, HelpCircle, CheckCircle2, Globe, Landmark } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const AffinityMortgageCalculator = () => {
   const [homePrice, setHomePrice] = useState<string>('400000');
@@ -235,7 +234,6 @@ export const AffinityMortgageCalculator = () => {
           ))}
         </div>
       </div>
-      <RelatedToCd toolName="Affinity Mortgage Calculator" category="Finance" />
     </div>
   );
 };

@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'motion/react';
 import { QrCode, ArrowLeft, Download, RefreshCw, Settings, Palette, Layout } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { QRCodeCanvas } from 'qrcode.react';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const QrGenerator = () => {
   const [text, setText] = useState('https://dasconverters.com');
@@ -161,8 +160,6 @@ export const QrGenerator = () => {
           </div>
         </div>
       </div>
-
-      <RelatedToCd toolName="Simple QR Code Generator" category="Utility" />
     </div>
   );
 };

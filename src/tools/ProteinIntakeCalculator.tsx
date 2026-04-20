@@ -3,7 +3,6 @@ import { Beef, ArrowLeft, Info, HelpCircle, Dumbbell, Apple } from 'lucide-react
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const ProteinIntakeCalculator = () => {
   const [weight, setWeight] = useState<string>('');
@@ -178,8 +177,6 @@ export const ProteinIntakeCalculator = () => {
           </div>
         </div>
       </article>
-
-      <RelatedToCd toolName="Protein Intake Calculator" category="Health" />
     </div>
   );
 };

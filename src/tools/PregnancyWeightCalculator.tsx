@@ -3,7 +3,6 @@ import { Baby, ArrowLeft, Info, HelpCircle, Heart, Calendar } from 'lucide-react
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const PregnancyWeightCalculator = () => {
   const [preWeight, setPreWeight] = useState<string>('');
@@ -201,8 +200,6 @@ export const PregnancyWeightCalculator = () => {
           <li>Fat stores for delivery/breastfeeding: ~3 kg</li>
         </ul>
       </article>
-
-      <RelatedToCd toolName="Pregnancy Weight Calculator" category="Health" />
     </div>
   );
 };

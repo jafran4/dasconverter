@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Type, Copy, Check, ArrowLeft, RefreshCw } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import RelatedToCd from '../components/RelatedToCd';
 import { cn } from '@/src/lib/utils';
 
 export const TextConverter = () => {
@@ -87,7 +86,6 @@ export const TextConverter = () => {
           </div>
         </div>
       </div>
-      <RelatedToCd toolName="Text Case Converter" category="Utility" />
     </div>
   );
 };

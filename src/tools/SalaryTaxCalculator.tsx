@@ -3,7 +3,6 @@ import { Wallet, ArrowLeft, Info, HelpCircle, Calculator, Landmark } from 'lucid
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
-import RelatedToCd from '../components/RelatedToCd';
 
 const COUNTRIES = [
   { name: "United States", currency: "$", code: "USD" },
@@ -202,8 +201,6 @@ export const SalaryTaxCalculator = () => {
           While tax laws are gender-neutral, the "gender pay gap" often means that men and women fall into different tax brackets on average. Understanding your tax obligations is a key part of financial independence. Whether you are a man or a woman, knowing how much of your hard-earned money you get to keep is essential for budgeting and long-term financial planning.
         </p>
       </article>
-
-      <RelatedToCd toolName="Salary Tax Calculator" category="Finance" />
     </div>
   );
 };

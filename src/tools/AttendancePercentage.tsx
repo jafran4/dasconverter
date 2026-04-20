@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { UserCheck, Calculator, Info, BookOpen, GraduationCap, CheckCircle2, AlertCircle, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const AttendancePercentage = () => {
   const [attended, setAttended] = useState<string>('45');
@@ -175,8 +174,6 @@ export const AttendancePercentage = () => {
           </div>
         </section>
       </div>
-
-      <RelatedToCd toolName="Attendance Percentage Calculator" category="Student" />
     </div>
   );
 };

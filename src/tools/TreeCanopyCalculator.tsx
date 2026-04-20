@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { TreePine, Calculator, Info, BookOpen, ArrowLeft, Ruler, Sun, Cloud } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const TreeCanopyCalculator = () => {
   const [diameter, setDiameter] = useState<string>('30');
@@ -192,7 +191,6 @@ export const TreeCanopyCalculator = () => {
           </div>
         </div>
       </div>
-      <RelatedToCd toolName="Tree Canopy Calculator" category="Nature" />
     </div>
   );
 };

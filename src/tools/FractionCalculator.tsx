@@ -3,7 +3,6 @@ import { Calculator, ArrowLeft, Info, HelpCircle, ArrowRightLeft, Scale, Divide 
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const FractionCalculator = () => {
   const [num1, setNum1] = useState<string>('');
@@ -204,7 +203,6 @@ export const FractionCalculator = () => {
           <li><strong>Financial Planning:</strong> Calculate fractional shares of stocks or portions of an investment portfolio.</li>
         </ul>
       </article>
-      <RelatedToCd toolName="Fraction Calculator" category="Math" />
     </div>
   );
 };

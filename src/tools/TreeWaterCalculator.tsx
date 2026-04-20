@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { CloudRain, Calculator, Info, BookOpen, ArrowLeft, Droplets, Sun, Wind } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const TreeWaterCalculator = () => {
   const [diameter, setDiameter] = useState<string>('5');
@@ -247,7 +246,6 @@ export const TreeWaterCalculator = () => {
           </div>
         </div>
       </div>
-      <RelatedToCd toolName="Tree Water Requirement Calculator" category="Nature" />
     </div>
   );
 };

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Timer, ArrowLeft, Play, Pause, RotateCcw, Bell, BellOff } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const CountdownTimer = () => {
   const [hours, setHours] = useState(0);
@@ -201,8 +200,6 @@ export const CountdownTimer = () => {
           </div>
         </div>
       </div>
-
-      <RelatedToCd toolName="Countdown Timer" category="Time" />
     </div>
   );
 };

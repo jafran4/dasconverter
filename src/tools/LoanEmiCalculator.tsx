@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Calculator, ArrowLeft, ShieldCheck, Info, HelpCircle, CheckCircle2, Landmark, Wallet, TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const LoanEmiCalculator = () => {
   const [loanAmount, setLoanAmount] = useState<string>('1000000');
@@ -219,8 +218,6 @@ export const LoanEmiCalculator = () => {
           ))}
         </div>
       </div>
-
-      <RelatedToCd toolName="Loan EMI Calculator" category="Finance" />
     </div>
   );
 };

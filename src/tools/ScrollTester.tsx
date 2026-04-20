@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowDownUp, ArrowLeft, RefreshCw, Mouse, ArrowUp, ArrowDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
-import RelatedToCd from '../components/RelatedToCd';
 
 interface ScrollEvent {
   id: number;
@@ -216,8 +215,6 @@ export const ScrollTester = () => {
           </div>
         </div>
       </div>
-
-      <RelatedToCd toolName="Scroll Wheel Tester" category="Utility" />
     </div>
   );
 };

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Plane, Calculator, Info, BookOpen, Car, MapPin, ShieldAlert, Clock, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import RelatedToCd from '../components/RelatedToCd';
 
 export const PetTravelSafety = () => {
   const [distance, setDistance] = useState<string>('300');
@@ -208,7 +207,6 @@ export const PetTravelSafety = () => {
           </div>
         </section>
       </div>
-      <RelatedToCd toolName="Pet Travel Safety" category="Pet" />
     </div>
   );
 };
