@@ -1,4 +1,6 @@
 import { 
+  Video,
+  Instagram,
   FileText, 
   Image as ImageIcon, 
   Type, 
@@ -367,6 +369,15 @@ export const CATEGORIES = [
         color: 'text-rose-500',
         bg: 'bg-rose-50',
         path: '/fraction-calculator'
+      },
+      {
+        id: 'interval-of-convergence',
+        name: 'Convergence Tool',
+        description: 'Calculate radius and interval of convergence.',
+        icon: TrendingUp,
+        color: 'text-blue-600',
+        bg: 'bg-blue-50',
+        path: '/interval-of-convergence'
       }
     ]
   },
@@ -928,6 +939,15 @@ export const CATEGORIES = [
     icon: Zap,
     color: 'text-indigo-600',
     tools: [
+      {
+        id: 'instragram-downloader',
+        name: 'Instragram Video Downloader',
+        description: 'Download Instragram videos and reels.',
+        icon: Instagram,
+        color: 'text-pink-600',
+        bg: 'bg-pink-50',
+        path: '/instragram-downloader'
+      },
       {
         id: 'typing-test',
         name: 'Typing Speed',

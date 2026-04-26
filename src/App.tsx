@@ -171,6 +171,7 @@ import { PercentageCalculator } from '@/src/tools/PercentageCalculator';
 import { RatioCalculator } from '@/src/tools/RatioCalculator';
 import { ScientificCalculator } from '@/src/tools/ScientificCalculator';
 import { FractionCalculator } from '@/src/tools/FractionCalculator';
+import { IntervalOfConvergenceCalculator } from '@/src/tools/IntervalOfConvergenceCalculator';
 
 // Student Tool Components
 import { GpaCalculatorBD } from '@/src/tools/GpaCalculatorBD';
@@ -206,6 +207,7 @@ import { CoinFlip } from '@/src/tools/CoinFlip';
 import { DiceRoller } from '@/src/tools/DiceRoller';
 import { QrGenerator } from '@/src/tools/QrGenerator';
 import { UrlEncoder } from '@/src/tools/UrlEncoder';
+import { InstragramVideoDownloader } from '@/src/tools/InstragramVideoDownloader';
 
 // Hardware & Browser Tool Components
 import { KeyboardTester } from '@/src/tools/KeyboardTester';
@@ -698,6 +700,7 @@ export default function App() {
             <Route path="/ratio-calculator" element={<ToolWrapper toolId="ratio-calculator"><RatioCalculator /></ToolWrapper>} />
             <Route path="/scientific-calculator" element={<ToolWrapper toolId="scientific-calculator"><ScientificCalculator /></ToolWrapper>} />
             <Route path="/fraction-calculator" element={<ToolWrapper toolId="fraction-calculator"><FractionCalculator /></ToolWrapper>} />
+            <Route path="/interval-of-convergence" element={<ToolWrapper toolId="interval-of-convergence"><IntervalOfConvergenceCalculator /></ToolWrapper>} />
 
             <Route path="/gpa-calculator-bd" element={<ToolWrapper toolId="gpa-calculator-bd"><GpaCalculatorBD /></ToolWrapper>} />
             <Route path="/cgpa-to-percentage" element={<ToolWrapper toolId="cgpa-to-percentage"><CgpaToPercentage /></ToolWrapper>} />
@@ -730,6 +733,7 @@ export default function App() {
             <Route path="/dice-roller" element={<ToolWrapper toolId="dice-roller"><DiceRoller /></ToolWrapper>} />
             <Route path="/qr-generator" element={<ToolWrapper toolId="qr-generator"><QrGenerator /></ToolWrapper>} />
             <Route path="/url-encoder" element={<ToolWrapper toolId="url-encoder"><UrlEncoder /></ToolWrapper>} />
+            <Route path="/instragram-downloader" element={<ToolWrapper toolId="instragram-downloader"><InstragramVideoDownloader /></ToolWrapper>} />
             
             {/* Hardware & Browser Routes */}
             <Route path="/keyboard-tester" element={<ToolWrapper toolId="keyboard-tester"><KeyboardTester /></ToolWrapper>} />
