@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate, useNavigationType } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import React, { useState, ReactNode, useEffect, createContext, useContext, useRef } from 'react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { CATEGORIES } from '@/src/data/tools';
 import { cn } from '@/src/lib/utils';
 import { RecommendedTools } from '@/src/components/RecommendedTools';
@@ -754,6 +755,7 @@ export default function App() {
           </Routes>
         </AppLayout>
       </SearchProvider>
+      <SpeedInsights />
     </Router>
   );
 }
