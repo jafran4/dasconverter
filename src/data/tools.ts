@@ -79,7 +79,8 @@ import {
   Info,
   Maximize,
   MousePointerClick,
-  ArrowDownUp
+  ArrowDownUp,
+  Footprints
 } from 'lucide-react';
 
 export const CATEGORIES = [
@@ -149,6 +150,15 @@ export const CATEGORIES = [
     icon: Heart,
     color: 'text-rose-500',
     tools: [
+      {
+        id: 'steps-to-miles',
+        name: 'Steps to Miles',
+        description: 'Convert daily steps to miles and kilometers.',
+        icon: Footprints,
+        color: 'text-orange-500',
+        bg: 'bg-orange-50',
+        path: '/steps-to-miles'
+      },
       {
         id: 'bmi-calculator',
         name: 'BMI Calculator',
@@ -257,8 +267,8 @@ export const CATEGORIES = [
     tools: [
       {
         id: 'gpa-calculator-bd',
-        name: 'GPA Calc (BD)',
-        description: 'SSC/HSC GPA calculator for Bangladesh board.',
+        name: 'High School GPA Calculator',
+        description: 'GPA calculator for high school students.',
         icon: GraduationCap,
         color: 'text-indigo-600',
         bg: 'bg-indigo-50',
@@ -495,6 +505,24 @@ export const CATEGORIES = [
         path: '/affinity-mortgage'
       },
       {
+        id: 'capital-gains-tax',
+        name: 'Capital Gains Tax',
+        description: 'Estimated tax on property and asset sales.',
+        icon: TrendingUp,
+        color: 'text-emerald-600',
+        bg: 'bg-emerald-50',
+        path: '/capital-gains-tax'
+      },
+      {
+        id: 'pokemon-go-cp',
+        name: 'Pokemon Go CP',
+        description: 'Predict Pokemon CP after evolution.',
+        icon: Zap,
+        color: 'text-yellow-500',
+        bg: 'bg-yellow-50',
+        path: '/pokemon-go-cp'
+      },
+      {
         id: 'loan-emi-calculator',
         name: 'Loan EMI Calculator',
         description: 'Calculate monthly installments for any loan.',
@@ -502,6 +530,15 @@ export const CATEGORIES = [
         color: 'text-emerald-500',
         bg: 'bg-emerald-50',
         path: '/loan-emi-calculator'
+      },
+      {
+        id: 'reverse-mortgage',
+        name: 'Reverse Mortgage',
+        description: 'Estimate home equity conversion benefits.',
+        icon: Home,
+        color: 'text-indigo-600',
+        bg: 'bg-indigo-50',
+        path: '/reverse-mortgage'
       }
     ]
   },

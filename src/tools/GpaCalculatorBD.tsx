@@ -70,124 +70,137 @@ export const GpaCalculatorBD = () => {
   const gpaResult = calculateGPA();
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
-      <div className="text-center mb-12">
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          className="inline-flex items-center justify-center p-3 bg-indigo-100 rounded-2xl mb-4"
-        >
-          <GraduationCap className="w-8 h-8 text-indigo-600" />
-        </motion.div>
-        <h1 className="text-4xl font-bold text-zinc-900 mb-4">GPA Calculator (SSC/HSC Bangladesh)</h1>
-        <p className="text-lg text-zinc-600 max-w-2xl mx-auto">
-          Calculate your SSC or HSC GPA accurately based on the official Bangladesh Education Board grading system.
-        </p>
-      </div>
+    <div className="max-w-4xl mx-auto px-4 font-sans">
+      {/* Main Tool Section - Full Screen Height */}
+      <section className="min-h-screen flex flex-col justify-center pt-24 pb-12">
+        <Link to="/" className="inline-flex items-center gap-2 text-zinc-500 hover:text-zinc-900 mb-8 transition-colors group">
+          <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+          Back to Tools
+        </Link>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white rounded-3xl p-6 shadow-sm border border-zinc-200">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-semibold text-zinc-900">Subjects & Grades</h2>
-              <button
-                onClick={addSubject}
-                className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-colors text-sm font-medium"
-              >
-                <Plus className="w-4 h-4" /> Add Subject
-              </button>
-            </div>
+        <div className="text-center mb-12">
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="w-20 h-20 bg-indigo-100 rounded-3xl flex items-center justify-center mx-auto mb-6"
+          >
+            <GraduationCap className="w-10 h-10 text-indigo-600" />
+          </motion.div>
+          <h1 className="text-4xl font-bold text-zinc-900 mb-4 tracking-tight">High School GPA Calculator</h1>
+          <p className="text-lg text-zinc-600 max-w-2xl mx-auto">
+            Calculate your high school GPA accurately based on the standard 5.0 grading system.
+          </p>
+        </div>
 
-            <div className="space-y-4">
-              {subjects.map((subject) => (
-                <div key={subject.id} className="flex flex-wrap md:flex-nowrap gap-4 items-end p-4 bg-zinc-50 rounded-2xl border border-zinc-100">
-                  <div className="flex-grow">
-                    <label className="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">Subject Name</label>
-                    <input
-                      type="text"
-                      value={subject.name}
-                      onChange={(e) => updateSubject(subject.id, 'name', e.target.value)}
-                      placeholder="e.g. Physics"
-                      className="w-full bg-white border border-zinc-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
-                    />
-                  </div>
-                  <div className="w-32">
-                    <label className="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2">Grade</label>
-                    <select
-                      value={subject.grade}
-                      onChange={(e) => updateSubject(subject.id, 'grade', e.target.value)}
-                      className="w-full bg-white border border-zinc-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2 space-y-6">
+            <div className="bg-white rounded-[32px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-zinc-200">
+              <div className="flex justify-between items-center mb-8">
+                <h2 className="text-xl font-bold text-zinc-900">Subjects & Grades</h2>
+                <button
+                  onClick={addSubject}
+                  className="flex items-center gap-2 px-4 py-2.5 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-all font-bold text-sm shadow-lg shadow-indigo-100"
+                >
+                  <Plus className="w-4 h-4" /> Add Subject
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                {subjects.map((subject) => (
+                  <div key={subject.id} className="flex flex-wrap md:flex-nowrap gap-4 items-end p-5 bg-zinc-50 rounded-2xl border border-zinc-100 transition-all hover:bg-white hover:shadow-sm">
+                    <div className="flex-grow">
+                      <label className="block text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-2">Subject Name</label>
+                      <input
+                        type="text"
+                        value={subject.name}
+                        onChange={(e) => updateSubject(subject.id, 'name', e.target.value)}
+                        placeholder="e.g. Physics"
+                        className="w-full bg-white border border-zinc-200 rounded-xl px-4 py-3 focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 outline-none transition-all font-medium"
+                      />
+                    </div>
+                    <div className="w-32">
+                      <label className="block text-[10px] font-black text-zinc-400 uppercase tracking-widest mb-2">Grade</label>
+                      <select
+                        value={subject.grade}
+                        onChange={(e) => updateSubject(subject.id, 'grade', e.target.value)}
+                        className="w-full bg-white border border-zinc-200 rounded-xl px-4 py-3 focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500 outline-none transition-all font-medium appearance-none"
+                      >
+                        {Object.keys(GRADE_POINTS).map(grade => (
+                          <option key={grade} value={grade}>{grade}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="flex items-center gap-3 mb-4 bg-white px-3 py-2 rounded-xl border border-zinc-100">
+                      <input
+                        type="checkbox"
+                        id={`fourth-${subject.id}`}
+                        checked={subject.isFourthSubject}
+                        onChange={(e) => updateSubject(subject.id, 'isFourthSubject', e.target.checked)}
+                        className="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500 transition-all"
+                      />
+                      <label htmlFor={`fourth-${subject.id}`} className="text-[10px] font-black text-zinc-500 uppercase tracking-widest cursor-pointer">4th</label>
+                    </div>
+                    <button
+                      onClick={() => removeSubject(subject.id)}
+                      className="p-3 text-zinc-300 hover:text-rose-500 transition-colors"
                     >
-                      {Object.keys(GRADE_POINTS).map(grade => (
-                        <option key={grade} value={grade}>{grade}</option>
-                      ))}
-                    </select>
+                      <Trash2 className="w-5 h-5" />
+                    </button>
                   </div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <input
-                      type="checkbox"
-                      id={`fourth-${subject.id}`}
-                      checked={subject.isFourthSubject}
-                      onChange={(e) => updateSubject(subject.id, 'isFourthSubject', e.target.checked)}
-                      className="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500"
-                    />
-                    <label htmlFor={`fourth-${subject.id}`} className="text-xs font-medium text-zinc-600">4th Subject</label>
-                  </div>
-                  <button
-                    onClick={() => removeSubject(subject.id)}
-                    className="p-2.5 text-zinc-400 hover:text-rose-500 transition-colors"
-                  >
-                    <Trash2 className="w-5 h-5" />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="space-y-6">
-          <div className="bg-indigo-600 rounded-3xl p-8 text-white shadow-lg shadow-indigo-200 sticky top-6">
-            <h3 className="text-lg font-medium opacity-90 mb-2">Your Calculated GPA</h3>
-            <div className="text-6xl font-bold mb-4">{gpaResult}</div>
-            <div className="space-y-3 pt-4 border-t border-white/20">
-              <div className="flex justify-between text-sm">
-                <span className="opacity-80">Grading System:</span>
-                <span className="font-medium">BD Board (5.0 Scale)</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="opacity-80">Total Subjects:</span>
-                <span className="font-medium">{subjects.length}</span>
+                ))}
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-3xl p-6 shadow-sm border border-zinc-200">
-            <h3 className="font-semibold text-zinc-900 mb-4 flex items-center gap-2">
-              <Info className="w-4 h-4 text-indigo-500" /> Grading Scale
-            </h3>
-            <div className="space-y-2">
-              {Object.entries(GRADE_POINTS).map(([grade, points]) => (
-                <div key={grade} className="flex justify-between text-sm py-1 border-b border-zinc-50 last:border-0">
-                  <span className="font-medium text-zinc-700">{grade}</span>
-                  <span className="text-zinc-500">{points.toFixed(2)} Points</span>
+          <div className="space-y-6">
+            <div className="bg-zinc-900 rounded-[32px] p-8 text-white shadow-xl relative overflow-hidden">
+              <div className="relative z-10">
+                <h3 className="text-zinc-500 text-xs font-black uppercase tracking-widest mb-2">Your Calculated GPA</h3>
+                <div className="text-7xl font-black text-indigo-400 mb-6">{gpaResult}</div>
+                <div className="space-y-4 pt-6 border-t border-white/10">
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-zinc-500 font-bold uppercase tracking-widest text-[10px]">Grading System</span>
+                    <span className="font-bold">5.0 Scale</span>
+                  </div>
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-zinc-500 font-bold uppercase tracking-widest text-[10px]">Total Subjects</span>
+                    <span className="font-bold">{subjects.length}</span>
+                  </div>
                 </div>
-              ))}
+              </div>
+              {/* Background Accent */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 blur-3xl -mr-16 -mt-16 rounded-full" />
+            </div>
+
+            <div className="bg-indigo-50 rounded-[32px] p-8 border border-indigo-100">
+              <h3 className="font-bold text-indigo-900 mb-6 flex items-center gap-2">
+                <Info className="w-5 h-5 text-indigo-500" /> 
+                Grading Scale
+              </h3>
+              <div className="space-y-3">
+                {Object.entries(GRADE_POINTS).map(([grade, points]) => (
+                  <div key={grade} className="flex justify-between items-center py-2 border-b border-indigo-100/50 last:border-0">
+                    <span className="font-black text-indigo-900 text-sm tracking-widest">{grade}</span>
+                    <span className="text-indigo-600 font-bold text-sm bg-white px-2 py-1 rounded-lg border border-indigo-100">{points.toFixed(2)} Points</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* SEO Content & Blog Posts */}
-      <div className="mt-20 space-y-16">
+      {/* Blog & FAQ Section - Below the Tool */}
+      <div className="mt-24 space-y-24 pb-24">
         <section>
-          <h2 className="text-3xl font-bold text-zinc-900 mb-8">Understanding the Bangladesh GPA System</h2>
+          <h2 className="text-3xl font-bold text-zinc-900 mb-8">Understanding the High School GPA System</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-zinc-50 p-8 rounded-3xl border border-zinc-100">
               <h3 className="text-xl font-semibold mb-4 flex items-center gap-2 text-indigo-600">
-                <BookOpen className="w-5 h-5" /> How SSC/HSC GPA is Calculated
+                <BookOpen className="w-5 h-5" /> How High School GPA is Calculated
               </h3>
               <p className="text-zinc-600 leading-relaxed">
-                The Secondary School Certificate (SSC) and Higher Secondary Certificate (HSC) in Bangladesh use a 5.0 grade point average system. Each subject is assigned a grade from A+ to F. The GPA is calculated by averaging the points of all main subjects and adding the "bonus points" from the 4th subject.
+                The Secondary School Certificate (SSC) and Higher Secondary Certificate (HSC) exams often use a 5.0 grade point average system. Each subject is assigned a grade from A+ to F. The GPA is calculated by averaging the points of all main subjects and adding the "bonus points" from the optional subjects.
               </p>
             </div>
             <div className="bg-zinc-50 p-8 rounded-3xl border border-zinc-100">
@@ -206,14 +219,14 @@ export const GpaCalculatorBD = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                title: "Top 5 Tips for SSC Candidates",
-                desc: "How to balance your main subjects and maximize your 4th subject bonus points.",
-                tag: "SSC Tips"
+                title: "Top 5 Tips for High School Students",
+                desc: "How to balance your main subjects and maximize your optional subject bonus points.",
+                tag: "Academic Tips"
               },
               {
-                title: "HSC Science vs Commerce GPA",
-                desc: "A comparison of subject difficulty and how it impacts your final board results.",
-                tag: "HSC Guide"
+                title: "High School GPA Strategy",
+                desc: "A comparison of subject difficulty and how it impacts your final grade results.",
+                tag: "Study Guide"
               },
               {
                 title: "Why GPA 5.0 Matters",
@@ -235,11 +248,11 @@ export const GpaCalculatorBD = () => {
           <div className="space-y-6">
             <div>
               <h4 className="font-bold text-indigo-900 mb-2">What happens if I fail in one subject?</h4>
-              <p className="text-indigo-700/80">In the Bangladesh board system, if you fail (Grade F) in any main subject, your total GPA becomes 0.00, regardless of your performance in other subjects.</p>
+              <p className="text-indigo-700/80">In many high school systems, if you fail (Grade F) in any main subject, it significantly impacts your total GPA and may require a retake.</p>
             </div>
             <div>
-              <h4 className="font-bold text-indigo-900 mb-2">Is the GPA calculation different for Madrasah Board?</h4>
-              <p className="text-indigo-700/80">No, the Dakhil and Alim exams under the Madrasah Board follow the same 5.0 grading scale as the General Education Board.</p>
+              <h4 className="font-bold text-indigo-900 mb-2">How accurate is this calculator?</h4>
+              <p className="text-indigo-700/80">This calculator uses the standard 5.0 scale. However, always verify your final results with your school or education board for official transcripts.</p>
             </div>
           </div>
         </section>

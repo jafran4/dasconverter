@@ -27,141 +27,154 @@ export const AffinityMortgageCalculator = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 pt-12 pb-12">
-      <div className="text-center mb-8">
-        <motion.div 
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center mx-auto mb-3"
-        >
-          <Home className="w-6 h-6 text-emerald-600" />
-        </motion.div>
-        <h1 className="text-3xl font-bold text-zinc-900 mb-2">Affinity Mortgage Calculator</h1>
-        <p className="text-zinc-500 max-w-2xl mx-auto text-sm">
-          Calculate your monthly mortgage payments, interest, and total cost with our advanced estimator.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
-        <div className="bg-white p-6 rounded-3xl border border-zinc-200 shadow-sm">
-          <h2 className="text-lg font-bold text-zinc-900 mb-4 flex items-center gap-2">
-            <Calculator className="w-4 h-4 text-emerald-600" />
-            Loan Details
-          </h2>
-          
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-bold text-zinc-700 mb-1.5 uppercase tracking-wider">Home Price ($)</label>
-                <input
-                  type="number"
-                  value={homePrice}
-                  onChange={(e) => setHomePrice(e.target.value)}
-                  className="w-full px-3 py-2.5 bg-zinc-50 border border-zinc-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all text-sm"
-                  placeholder="400000"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-bold text-zinc-700 mb-1.5 uppercase tracking-wider">Down Payment ($)</label>
-                <input
-                  type="number"
-                  value={downPayment}
-                  onChange={(e) => setDownPayment(e.target.value)}
-                  className="w-full px-3 py-2.5 bg-zinc-50 border border-zinc-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all text-sm"
-                  placeholder="80000"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-bold text-zinc-700 mb-1.5 uppercase tracking-wider">Interest Rate (%)</label>
-                <input
-                  type="number"
-                  step="0.01"
-                  value={interestRate}
-                  onChange={(e) => setInterestRate(e.target.value)}
-                  className="w-full px-3 py-2.5 bg-zinc-50 border border-zinc-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all text-sm"
-                  placeholder="6.5"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-bold text-zinc-700 mb-1.5 uppercase tracking-wider">Term (Years)</label>
-                <select 
-                  value={loanTerm}
-                  onChange={(e) => setLoanTerm(e.target.value)}
-                  className="w-full px-3 py-2.5 bg-zinc-50 border border-zinc-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all text-sm"
-                >
-                  <option value="10">10 Years</option>
-                  <option value="15">15 Years</option>
-                  <option value="20">20 Years</option>
-                  <option value="30">30 Years</option>
-                </select>
-              </div>
-            </div>
-
-            <button
-              onClick={calculateMortgage}
-              className="w-full py-3.5 bg-zinc-900 text-white rounded-xl font-bold hover:bg-zinc-800 transition-all active:scale-[0.98] text-sm mt-2"
-            >
-              Calculate Payment
-            </button>
-          </div>
+    <div className="max-w-4xl mx-auto px-4 font-sans">
+      {/* Main Tool Section - Full Screen Height */}
+      <section className="min-h-screen flex flex-col justify-center pt-24 pb-12">
+        <Link to="/" className="inline-flex items-center gap-2 text-zinc-500 hover:text-zinc-900 mb-8 transition-colors group">
+          <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+          Back to Tools
+        </Link>
+        
+        <div className="text-center mb-12">
+          <motion.div 
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="w-20 h-20 bg-emerald-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-emerald-100"
+          >
+            <Home className="w-10 h-10 text-white" />
+          </motion.div>
+          <h1 className="text-4xl font-bold text-zinc-900 mb-4 tracking-tight">Affinity Mortgage Calculator</h1>
+          <p className="text-zinc-600 max-w-2xl mx-auto text-lg leading-relaxed">
+            Calculate your monthly mortgage payments, interest, and total cost with our advanced estimator.
+          </p>
         </div>
 
-        <div className="flex flex-col gap-4">
-          {estimate ? (
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="bg-emerald-600 rounded-3xl p-6 text-white shadow-xl shadow-emerald-100 flex flex-col items-center justify-center text-center"
-            >
-              <span className="text-emerald-100 text-xs font-bold uppercase tracking-wider mb-1">Monthly Payment</span>
-              <div className="text-5xl font-black mb-2">${estimate.monthly}</div>
-              <div className="text-emerald-100 text-xs">Principal & Interest</div>
-              <div className="mt-6 pt-6 border-t border-white/10 w-full grid grid-cols-2 gap-4">
-                <div className="text-center">
-                  <div className="text-[10px] text-emerald-200 uppercase mb-0.5">Total Interest</div>
-                  <div className="font-bold text-sm">${estimate.totalInterest.toLocaleString()}</div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="bg-white p-8 rounded-[32px] border border-zinc-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+            <h2 className="text-xl font-bold text-zinc-900 mb-6 flex items-center gap-2">
+              <Calculator className="w-5 h-5 text-emerald-600" />
+              Loan Details
+            </h2>
+            
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-bold text-zinc-700 mb-2 uppercase tracking-wider">Home Price ($)</label>
+                  <input
+                    type="number"
+                    value={homePrice}
+                    onChange={(e) => setHomePrice(e.target.value)}
+                    className="w-full px-4 py-4 bg-zinc-50 border border-zinc-200 rounded-2xl focus:ring-4 focus:ring-emerald-500/5 focus:border-emerald-500 outline-none transition-all text-lg font-medium"
+                    placeholder="400000"
+                  />
                 </div>
-                <div className="text-center">
-                  <div className="text-[10px] text-emerald-200 uppercase mb-0.5">Total Cost</div>
-                  <div className="font-bold text-sm">${estimate.totalPayment.toLocaleString()}</div>
+                <div>
+                  <label className="block text-sm font-bold text-zinc-700 mb-2 uppercase tracking-wider">Down Payment ($)</label>
+                  <input
+                    type="number"
+                    value={downPayment}
+                    onChange={(e) => setDownPayment(e.target.value)}
+                    className="w-full px-4 py-4 bg-zinc-50 border border-zinc-200 rounded-2xl focus:ring-4 focus:ring-emerald-500/5 focus:border-emerald-500 outline-none transition-all text-lg font-medium"
+                    placeholder="80000"
+                  />
                 </div>
               </div>
-            </motion.div>
-          ) : (
-            <div className="bg-zinc-50 rounded-3xl p-6 border border-zinc-200 border-dashed flex flex-col items-center justify-center text-center h-full min-h-[180px]">
-              <div className="w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center mb-3">
-                <Info className="w-5 h-5 text-zinc-400" />
-              </div>
-              <p className="text-zinc-500 text-sm">Enter your loan details and click calculate to see your estimated monthly payment.</p>
-            </div>
-          )}
 
-          <div className="bg-white p-5 rounded-3xl border border-zinc-200 shadow-sm">
-            <h3 className="font-bold text-zinc-900 mb-3 text-sm flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-500" />
-              Why use this calculator?
-            </h3>
-            <ul className="space-y-2">
-              {[
-                'Accurate principal and interest breakdown',
-                'Compare different loan terms easily',
-                'Plan your home buying budget'
-              ].map((item, i) => (
-                <li key={i} className="flex items-center gap-2 text-xs text-zinc-500">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-                  {item}
-                </li>
-              ))}
-            </ul>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-bold text-zinc-700 mb-2 uppercase tracking-wider">Interest Rate (%)</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={interestRate}
+                    onChange={(e) => setInterestRate(e.target.value)}
+                    className="w-full px-4 py-4 bg-zinc-50 border border-zinc-200 rounded-2xl focus:ring-4 focus:ring-emerald-500/5 focus:border-emerald-500 outline-none transition-all text-lg font-medium"
+                    placeholder="6.5"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-zinc-700 mb-2 uppercase tracking-wider">Term (Years)</label>
+                  <select 
+                    value={loanTerm}
+                    onChange={(e) => setLoanTerm(e.target.value)}
+                    className="w-full px-4 py-4 bg-zinc-50 border border-zinc-200 rounded-2xl focus:ring-4 focus:ring-emerald-500/5 focus:border-emerald-500 outline-none transition-all text-lg font-medium"
+                  >
+                    <option value="10">10 Years</option>
+                    <option value="15">15 Years</option>
+                    <option value="20">20 Years</option>
+                    <option value="30">30 Years</option>
+                  </select>
+                </div>
+              </div>
+
+              <button
+                onClick={calculateMortgage}
+                className="w-full py-5 bg-emerald-600 text-white rounded-2xl font-bold hover:bg-emerald-700 shadow-lg shadow-emerald-100 transition-all active:scale-[0.98] text-lg mt-4"
+              >
+                Calculate Payment
+              </button>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-6">
+            {estimate ? (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="bg-zinc-900 rounded-[32px] p-8 text-white shadow-xl flex flex-col items-center justify-center text-center relative overflow-hidden"
+              >
+                <div className="relative z-10">
+                  <span className="text-zinc-500 text-xs font-bold uppercase tracking-widest mb-2 block">Estimated Monthly Payment</span>
+                  <div className="text-6xl font-black text-emerald-400 mb-2">${estimate.monthly}</div>
+                  <div className="text-zinc-400 text-sm">Principal & Interest Only</div>
+                  <div className="mt-8 pt-8 border-t border-white/10 w-full grid grid-cols-2 gap-4">
+                    <div className="text-center">
+                      <div className="text-[10px] text-zinc-500 uppercase tracking-widest font-bold mb-1">Total Interest</div>
+                      <div className="font-bold text-xl">${estimate.totalInterest.toLocaleString()}</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-[10px] text-zinc-500 uppercase tracking-widest font-bold mb-1">Total Cost</div>
+                      <div className="font-bold text-xl">${estimate.totalPayment.toLocaleString()}</div>
+                    </div>
+                  </div>
+                </div>
+                {/* Background Accent */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 blur-3xl -mr-16 -mt-16 rounded-full" />
+              </motion.div>
+            ) : (
+              <div className="bg-zinc-50 rounded-[32px] p-8 border border-zinc-200 border-dashed flex flex-col items-center justify-center text-center h-full min-h-[300px]">
+                <div className="w-16 h-16 bg-zinc-100 rounded-full flex items-center justify-center mb-6">
+                  <Info className="w-8 h-8 text-zinc-300" />
+                </div>
+                <p className="text-zinc-400 text-sm max-w-xs leading-relaxed font-medium">Enter your loan details and click calculate to see your estimated monthly payment.</p>
+              </div>
+            )}
+
+            <div className="bg-emerald-50 p-8 rounded-[32px] border border-emerald-100">
+              <h3 className="font-bold text-emerald-900 mb-4 text-lg flex items-center gap-2">
+                <ShieldCheck className="w-5 h-5 text-emerald-600" />
+                Calculator Features
+              </h3>
+              <ul className="space-y-3">
+                {[
+                  'Accurate principal and interest breakdown',
+                  'Compare different loan terms easily',
+                  'Plan your home buying budget effectively',
+                  'Calculate total interest over the life of the loan'
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-sm text-emerald-700 font-medium">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* SEO Content Section */}
-      <div className="prose prose-zinc max-w-none border-t border-zinc-100 pt-16">
+      <div className="prose prose-zinc max-w-none border-t border-zinc-100 pt-16 pb-24 font-sans">
         <h2 className="text-3xl font-bold text-zinc-900 mb-8">Comprehensive Guide to Affinity Mortgage Calculations</h2>
         
         <p className="text-zinc-600 text-lg leading-relaxed mb-8">

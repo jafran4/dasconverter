@@ -81,179 +81,182 @@ export const IntervalOfConvergenceCalculator = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 pt-24 pb-12">
-      <Link to="/" className="inline-flex items-center gap-2 text-zinc-500 hover:text-zinc-900 mb-8 transition-colors group">
-        <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-        Back to Tools
-      </Link>
+    <div className="max-w-4xl mx-auto px-4">
+      {/* Main Tool Section - Full Screen Height */}
+      <section className="min-h-screen flex flex-col justify-center pt-24 pb-12">
+        <Link to="/" className="inline-flex items-center gap-2 text-zinc-500 hover:text-zinc-900 mb-8 transition-colors group">
+          <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+          Back to Tools
+        </Link>
 
-      <div className="text-center mb-12">
-        <motion.div 
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          className="w-20 h-20 bg-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-blue-100"
-        >
-          <Calculator className="w-10 h-10 text-white" />
-        </motion.div>
-        <h1 className="text-4xl font-bold text-zinc-900 mb-4 tracking-tight">Interval of Convergence Calculator</h1>
-        <p className="text-zinc-600 max-w-2xl mx-auto text-lg leading-relaxed">
-          Find the radius and interval of convergence for any power series. Perfect for calculus students and math enthusiasts.
-        </p>
-      </div>
+        <div className="text-center mb-12">
+          <motion.div 
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="w-20 h-20 bg-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-blue-100"
+          >
+            <Calculator className="w-10 h-10 text-white" />
+          </motion.div>
+          <h1 className="text-4xl font-bold text-zinc-900 mb-4 tracking-tight">Interval of Convergence Calculator</h1>
+          <p className="text-zinc-600 max-w-2xl mx-auto text-lg leading-relaxed">
+            Find the radius and interval of convergence for any power series. Perfect for calculus students and math enthusiasts.
+          </p>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-        <div className="md:col-span-2 bg-white p-8 rounded-[32px] border border-zinc-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
-          <div className="space-y-6">
-            <div>
-              <label className="block text-sm font-bold text-zinc-700 mb-2 uppercase tracking-wider">
-                Series Center (c)
-              </label>
-              <input
-                type="number"
-                value={center}
-                onChange={(e) => setCenter(e.target.value)}
-                placeholder="e.g. 0"
-                className="w-full px-5 py-4 bg-zinc-50 border border-zinc-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/5 focus:border-blue-500 transition-all text-zinc-900 text-lg font-medium"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-bold text-zinc-700 mb-2 uppercase tracking-wider">
-                Radius of Convergence (R)
-              </label>
-              <div className="relative">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="md:col-span-2 bg-white p-8 rounded-[32px] border border-zinc-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-bold text-zinc-700 mb-2 uppercase tracking-wider">
+                  Series Center (c)
+                </label>
                 <input
-                  type="text"
-                  value={radius}
-                  onChange={(e) => setRadius(e.target.value)}
-                  placeholder="e.g. 5 or Infinity"
-                  className="w-full px-5 py-4 bg-zinc-50 border border-zinc-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/5 focus:border-blue-500 transition-all text-zinc-900 text-lg font-medium pr-12"
+                  type="number"
+                  value={center}
+                  onChange={(e) => setCenter(e.target.value)}
+                  placeholder="e.g. 0"
+                  className="w-full px-5 py-4 bg-zinc-50 border border-zinc-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/5 focus:border-blue-500 transition-all text-zinc-900 text-lg font-medium"
                 />
-                <button 
-                  onClick={() => setRadius('Infinity')}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-blue-600 font-bold hover:text-blue-700 p-1"
-                  title="Set to Infinity"
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-zinc-700 mb-2 uppercase tracking-wider">
+                  Radius of Convergence (R)
+                </label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={radius}
+                    onChange={(e) => setRadius(e.target.value)}
+                    placeholder="e.g. 5 or Infinity"
+                    className="w-full px-5 py-4 bg-zinc-50 border border-zinc-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/5 focus:border-blue-500 transition-all text-zinc-900 text-lg font-medium pr-12"
+                  />
+                  <button 
+                    onClick={() => setRadius('Infinity')}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-blue-600 font-bold hover:text-blue-700 p-1"
+                    title="Set to Infinity"
+                  >
+                    <Maximize2 className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-bold text-zinc-700 mb-2 uppercase tracking-wider">
+                    Left Endpoint (c-R)
+                  </label>
+                  <div className="flex bg-zinc-50 p-1 rounded-xl border border-zinc-200">
+                    <button
+                      onClick={() => setLeftEndIncluded(true)}
+                      className={`flex-1 py-3 text-sm font-bold rounded-lg transition-all ${leftEndIncluded === true ? 'bg-white text-blue-600 shadow-sm' : 'text-zinc-500 hover:text-zinc-700'}`}
+                    >
+                      Included [
+                    </button>
+                    <button
+                      onClick={() => setLeftEndIncluded(false)}
+                      className={`flex-1 py-3 text-sm font-bold rounded-lg transition-all ${leftEndIncluded === false ? 'bg-white text-blue-600 shadow-sm' : 'text-zinc-500 hover:text-zinc-700'}`}
+                    >
+                      Excluded (
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-zinc-700 mb-2 uppercase tracking-wider">
+                    Right Endpoint (c+R)
+                  </label>
+                  <div className="flex bg-zinc-50 p-1 rounded-xl border border-zinc-200">
+                    <button
+                      onClick={() => setRightEndIncluded(true)}
+                      className={`flex-1 py-3 text-sm font-bold rounded-lg transition-all ${rightEndIncluded === true ? 'bg-white text-blue-600 shadow-sm' : 'text-zinc-500 hover:text-zinc-700'}`}
+                    >
+                      Included ]
+                    </button>
+                    <button
+                      onClick={() => setRightEndIncluded(false)}
+                      className={`flex-1 py-3 text-sm font-bold rounded-lg transition-all ${rightEndIncluded === false ? 'bg-white text-blue-600 shadow-sm' : 'text-zinc-500 hover:text-zinc-700'}`}
+                    >
+                      Excluded )
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-4 pt-4">
+                <button
+                  onClick={calculateInterval}
+                  className="flex-grow py-5 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-100"
                 >
-                  <Maximize2 className="w-5 h-5" />
+                  <ChevronRight className="w-6 h-6" />
+                  Calculate Interval
+                </button>
+                <button
+                  onClick={reset}
+                  className="px-6 py-5 bg-zinc-100 text-zinc-600 rounded-2xl font-bold hover:bg-zinc-200 transition-all flex items-center justify-center"
+                >
+                  <RefreshCw className="w-6 h-6" />
                 </button>
               </div>
             </div>
+          </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-bold text-zinc-700 mb-2 uppercase tracking-wider">
-                  Left Endpoint (c-R)
-                </label>
-                <div className="flex bg-zinc-50 p-1 rounded-xl border border-zinc-200">
-                  <button
-                    onClick={() => setLeftEndIncluded(true)}
-                    className={`flex-1 py-3 text-sm font-bold rounded-lg transition-all ${leftEndIncluded === true ? 'bg-white text-blue-600 shadow-sm' : 'text-zinc-500 hover:text-zinc-700'}`}
-                  >
-                    Included [
-                  </button>
-                  <button
-                    onClick={() => setLeftEndIncluded(false)}
-                    className={`flex-1 py-3 text-sm font-bold rounded-lg transition-all ${leftEndIncluded === false ? 'bg-white text-blue-600 shadow-sm' : 'text-zinc-500 hover:text-zinc-700'}`}
-                  >
-                    Excluded (
-                  </button>
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-zinc-700 mb-2 uppercase tracking-wider">
-                  Right Endpoint (c+R)
-                </label>
-                <div className="flex bg-zinc-50 p-1 rounded-xl border border-zinc-200">
-                  <button
-                    onClick={() => setRightEndIncluded(true)}
-                    className={`flex-1 py-3 text-sm font-bold rounded-lg transition-all ${rightEndIncluded === true ? 'bg-white text-blue-600 shadow-sm' : 'text-zinc-500 hover:text-zinc-700'}`}
-                  >
-                    Included ]
-                  </button>
-                  <button
-                    onClick={() => setRightEndIncluded(false)}
-                    className={`flex-1 py-3 text-sm font-bold rounded-lg transition-all ${rightEndIncluded === false ? 'bg-white text-blue-600 shadow-sm' : 'text-zinc-500 hover:text-zinc-700'}`}
-                  >
-                    Excluded )
-                  </button>
-                </div>
+          <div className="space-y-6">
+            <div className="bg-zinc-900 p-6 rounded-[32px] text-white overflow-hidden relative">
+              <div className="relative z-10">
+                <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                  <Info className="w-5 h-5 text-blue-400" />
+                  Result
+                </h3>
+                <AnimatePresence mode="wait">
+                  {result ? (
+                    <motion.div
+                      key="result"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                    >
+                      <div className="text-4xl font-mono font-bold text-blue-400 mb-2 truncate">
+                        {result.interval}
+                      </div>
+                      <p className="text-zinc-400 text-sm mb-6 leading-relaxed">
+                        Radius R = <span className="text-white font-bold">{result.radius}</span>
+                      </p>
+                      <div className="p-4 bg-white/5 rounded-2xl border border-white/10 text-sm">
+                        <p className="text-white/80">{result.explanation}</p>
+                      </div>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="empty"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="py-12 text-center"
+                    >
+                      <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Zap className="w-6 h-6 text-zinc-500" />
+                      </div>
+                      <p className="text-zinc-500 text-sm">Enter the radius and center to see the interval</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
 
-            <div className="flex gap-4 pt-4">
-              <button
-                onClick={calculateInterval}
-                className="flex-grow py-5 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-100"
-              >
-                <ChevronRight className="w-6 h-6" />
-                Calculate Interval
-              </button>
-              <button
-                onClick={reset}
-                className="px-6 py-5 bg-zinc-100 text-zinc-600 rounded-2xl font-bold hover:bg-zinc-200 transition-all flex items-center justify-center"
-              >
-                <RefreshCw className="w-6 h-6" />
-              </button>
+            <div className="bg-blue-50 p-6 rounded-[32px] border border-blue-100">
+              <h4 className="font-bold text-blue-900 mb-3 flex items-center gap-2">
+                <HelpCircle className="w-4 h-4" />
+                Quick Tip
+              </h4>
+              <p className="text-blue-700 text-sm leading-relaxed">
+                For a series <span className="font-mono">∑ aₙ(x-c)ⁿ</span>, the Ratio Test is often used to find the radius <span className="font-mono">R</span>.
+              </p>
             </div>
           </div>
         </div>
+      </section>
 
-        <div className="space-y-6">
-          <div className="bg-zinc-900 p-6 rounded-[32px] text-white overflow-hidden relative">
-            <div className="relative z-10">
-              <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <Info className="w-5 h-5 text-blue-400" />
-                Result
-              </h3>
-              <AnimatePresence mode="wait">
-                {result ? (
-                  <motion.div
-                    key="result"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                  >
-                    <div className="text-4xl font-mono font-bold text-blue-400 mb-2 truncate">
-                      {result.interval}
-                    </div>
-                    <p className="text-zinc-400 text-sm mb-6 leading-relaxed">
-                      Radius R = <span className="text-white font-bold">{result.radius}</span>
-                    </p>
-                    <div className="p-4 bg-white/5 rounded-2xl border border-white/10 text-sm">
-                      <p className="text-white/80">{result.explanation}</p>
-                    </div>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="empty"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="py-12 text-center"
-                  >
-                    <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Zap className="w-6 h-6 text-zinc-500" />
-                    </div>
-                    <p className="text-zinc-500 text-sm">Enter the radius and center to see the interval</p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
-
-          <div className="bg-blue-50 p-6 rounded-[32px] border border-blue-100">
-            <h4 className="font-bold text-blue-900 mb-3 flex items-center gap-2">
-              <HelpCircle className="w-4 h-4" />
-              Quick Tip
-            </h4>
-            <p className="text-blue-700 text-sm leading-relaxed">
-              For a series <span className="font-mono">∑ aₙ(x-c)ⁿ</span>, the Ratio Test is often used to find the radius <span className="font-mono">R</span>.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* SEO Content Section */}
-      <div className="prose prose-zinc max-w-none border-t border-zinc-100 pt-16">
+      {/* Blog & FAQ Section - Below the Tool */}
+      <div className="prose prose-zinc max-w-none border-t border-zinc-100 pt-16 pb-24">
         <h2 className="text-4xl font-bold text-zinc-900 mb-8 tracking-tight">Understanding Power Series: Radius and Interval of Convergence</h2>
         
         <p className="text-zinc-600 text-lg leading-relaxed mb-8">

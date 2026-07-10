@@ -26,126 +26,139 @@ export const LoanEmiCalculator = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 pt-12 pb-12">
-      <div className="text-center mb-8">
-        <motion.div 
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center mx-auto mb-3"
-        >
-          <Calculator className="w-6 h-6 text-emerald-600" />
-        </motion.div>
-        <h1 className="text-3xl font-bold text-zinc-900 mb-2">Loan EMI Calculator</h1>
-        <p className="text-zinc-500 max-w-2xl mx-auto text-sm">
-          Calculate your Equated Monthly Installments (EMI) for home, car, or personal loans instantly.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
-        <div className="bg-white p-6 rounded-3xl border border-zinc-200 shadow-sm">
-          <h2 className="text-lg font-bold text-zinc-900 mb-4 flex items-center gap-2">
-            <Landmark className="w-4 h-4 text-emerald-600" />
-            Loan Parameters
-          </h2>
-          
-          <div className="space-y-4">
-            <div>
-              <label className="block text-xs font-bold text-zinc-700 mb-1.5 uppercase tracking-wider">Loan Amount (₹/$)</label>
-              <input
-                type="number"
-                value={loanAmount}
-                onChange={(e) => setLoanAmount(e.target.value)}
-                className="w-full px-3 py-2.5 bg-zinc-50 border border-zinc-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all text-sm"
-                placeholder="1000000"
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-bold text-zinc-700 mb-1.5 uppercase tracking-wider">Interest Rate (%)</label>
-                <input
-                  type="number"
-                  step="0.1"
-                  value={interestRate}
-                  onChange={(e) => setInterestRate(e.target.value)}
-                  className="w-full px-3 py-2.5 bg-zinc-50 border border-zinc-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all text-sm"
-                  placeholder="8.5"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-bold text-zinc-700 mb-1.5 uppercase tracking-wider">Tenure (Years)</label>
-                <input
-                  type="number"
-                  value={loanTenure}
-                  onChange={(e) => setLoanTenure(e.target.value)}
-                  className="w-full px-3 py-2.5 bg-zinc-50 border border-zinc-200 rounded-xl focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all text-sm"
-                  placeholder="20"
-                />
-              </div>
-            </div>
-
-            <button
-              onClick={calculateEMI}
-              className="w-full py-3.5 bg-zinc-900 text-white rounded-xl font-bold hover:bg-zinc-800 transition-all active:scale-[0.98] text-sm mt-2"
-            >
-              Calculate EMI
-            </button>
-          </div>
+    <div className="max-w-4xl mx-auto px-4 font-sans">
+      {/* Main Tool Section - Full Screen Height */}
+      <section className="min-h-screen flex flex-col justify-center pt-24 pb-12">
+        <Link to="/" className="inline-flex items-center gap-2 text-zinc-500 hover:text-zinc-900 mb-8 transition-colors group">
+          <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+          Back to Tools
+        </Link>
+        
+        <div className="text-center mb-12">
+          <motion.div 
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="w-20 h-20 bg-emerald-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-emerald-100"
+          >
+            <Calculator className="w-10 h-10 text-white" />
+          </motion.div>
+          <h1 className="text-4xl font-bold text-zinc-900 mb-4 tracking-tight">Loan EMI Calculator</h1>
+          <p className="text-zinc-600 max-w-2xl mx-auto text-lg leading-relaxed">
+            Calculate your Equated Monthly Installments (EMI) for home, car, or personal loans instantly.
+          </p>
         </div>
 
-        <div className="flex flex-col gap-4">
-          {estimate ? (
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="bg-emerald-600 rounded-3xl p-6 text-white shadow-xl shadow-emerald-100 flex flex-col items-center justify-center text-center"
-            >
-              <span className="text-emerald-100 text-xs font-bold uppercase tracking-wider mb-1">Monthly EMI</span>
-              <div className="text-5xl font-black mb-2">{estimate.emi.toLocaleString()}</div>
-              <div className="text-emerald-100 text-xs">Total Interest: {estimate.totalInterest.toLocaleString()}</div>
-              <div className="mt-6 pt-6 border-t border-white/10 w-full grid grid-cols-2 gap-4">
-                <div className="text-center">
-                  <div className="text-[10px] text-emerald-200 uppercase mb-0.5">Total Payable</div>
-                  <div className="font-bold text-sm">{estimate.totalPayment.toLocaleString()}</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-[10px] text-emerald-200 uppercase mb-0.5">Interest %</div>
-                  <div className="font-bold text-sm">{Math.round((estimate.totalInterest / estimate.totalPayment) * 100)}%</div>
-                </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="bg-white p-8 rounded-[32px] border border-zinc-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+            <h2 className="text-xl font-bold text-zinc-900 mb-6 flex items-center gap-2">
+              <Landmark className="w-5 h-5 text-emerald-600" />
+              Loan Parameters
+            </h2>
+            
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-bold text-zinc-700 mb-2 uppercase tracking-wider">Loan Amount (₹/$)</label>
+                <input
+                  type="number"
+                  value={loanAmount}
+                  onChange={(e) => setLoanAmount(e.target.value)}
+                  className="w-full px-4 py-4 bg-zinc-50 border border-zinc-200 rounded-2xl focus:ring-4 focus:ring-emerald-500/5 focus:border-emerald-500 outline-none transition-all text-lg font-medium"
+                  placeholder="1000000"
+                />
               </div>
-            </motion.div>
-          ) : (
-            <div className="bg-zinc-50 rounded-3xl p-6 border border-zinc-200 border-dashed flex flex-col items-center justify-center text-center h-full min-h-[180px]">
-              <div className="w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center mb-3">
-                <Info className="w-5 h-5 text-zinc-400" />
-              </div>
-              <p className="text-zinc-500 text-sm">Enter your loan details and click calculate to see your monthly EMI breakdown.</p>
-            </div>
-          )}
 
-          <div className="bg-white p-5 rounded-3xl border border-zinc-200 shadow-sm">
-            <h3 className="font-bold text-zinc-900 mb-3 text-sm flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-emerald-500" />
-              Banking Standards
-            </h3>
-            <ul className="space-y-2">
-              {[
-                'Matches SBI & HDFC calculation logic',
-                'Accurate for Housing & Jewel loans',
-                'Instant amortization summary'
-              ].map((item, i) => (
-                <li key={i} className="flex items-center gap-2 text-xs text-zinc-500">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-                  {item}
-                </li>
-              ))}
-            </ul>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-bold text-zinc-700 mb-2 uppercase tracking-wider">Interest Rate (%)</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    value={interestRate}
+                    onChange={(e) => setInterestRate(e.target.value)}
+                    className="w-full px-4 py-4 bg-zinc-50 border border-zinc-200 rounded-2xl focus:ring-4 focus:ring-emerald-500/5 focus:border-emerald-500 outline-none transition-all text-lg font-medium"
+                    placeholder="8.5"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-zinc-700 mb-2 uppercase tracking-wider">Tenure (Years)</label>
+                  <input
+                    type="number"
+                    value={loanTenure}
+                    onChange={(e) => setLoanTenure(e.target.value)}
+                    className="w-full px-4 py-4 bg-zinc-50 border border-zinc-200 rounded-2xl focus:ring-4 focus:ring-emerald-500/5 focus:border-emerald-500 outline-none transition-all text-lg font-medium"
+                    placeholder="20"
+                  />
+                </div>
+              </div>
+
+              <button
+                onClick={calculateEMI}
+                className="w-full py-5 bg-zinc-900 text-white rounded-2xl font-bold hover:bg-zinc-800 transition-all active:scale-[0.98] text-lg mt-4 shadow-lg"
+              >
+                Calculate EMI
+              </button>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-6">
+            {estimate ? (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="bg-emerald-600 rounded-[32px] p-8 text-white shadow-xl flex flex-col items-center justify-center text-center relative overflow-hidden"
+              >
+                <div className="relative z-10 w-full">
+                  <span className="text-emerald-100 text-[10px] font-black uppercase tracking-widest mb-2 block">Monthly EMI</span>
+                  <div className="text-6xl font-black mb-2">{estimate.emi.toLocaleString()}</div>
+                  <div className="text-emerald-100 text-sm font-medium">Interest Component: {estimate.totalInterest.toLocaleString()}</div>
+                  <div className="mt-8 pt-8 border-t border-white/10 w-full grid grid-cols-2 gap-4">
+                    <div className="text-center">
+                      <div className="text-[10px] text-emerald-200 uppercase tracking-widest font-bold mb-1">Total Payable</div>
+                      <div className="font-bold text-xl">{estimate.totalPayment.toLocaleString()}</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-[10px] text-emerald-200 uppercase tracking-widest font-bold mb-1">Interest %</div>
+                      <div className="font-bold text-xl">{Math.round((estimate.totalInterest / estimate.totalPayment) * 100)}%</div>
+                    </div>
+                  </div>
+                </div>
+                {/* Background Accent */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 blur-3xl -mr-16 -mt-16 rounded-full" />
+              </motion.div>
+            ) : (
+              <div className="bg-zinc-50 rounded-[32px] p-8 border border-zinc-200 border-dashed flex flex-col items-center justify-center text-center h-full min-h-[300px]">
+                <div className="w-16 h-16 bg-zinc-100 rounded-full flex items-center justify-center mb-6">
+                  <Info className="w-8 h-8 text-zinc-300" />
+                </div>
+                <p className="text-zinc-400 text-sm max-w-xs leading-relaxed font-medium">Enter your loan details and click calculate to see your monthly EMI breakdown.</p>
+              </div>
+            )}
+
+            <div className="bg-white p-8 rounded-[32px] border border-zinc-200 shadow-sm">
+              <h3 className="font-bold text-zinc-900 mb-4 text-lg flex items-center gap-2">
+                <ShieldCheck className="w-5 h-5 text-emerald-500" />
+                Banking Standards
+              </h3>
+              <ul className="space-y-3">
+                {[
+                  'Matches SBI & HDFC calculation logic',
+                  'Accurate for Housing & Jewel loans',
+                  'Instant amortization summary',
+                  'Industry standard EMI algorithms'
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-sm text-zinc-500 font-medium">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* SEO Content Section */}
-      <div className="prose prose-zinc max-w-none border-t border-zinc-100 pt-16">
+      <div className="prose prose-zinc max-w-none border-t border-zinc-100 pt-16 pb-24 font-sans">
         <h2 className="text-3xl font-bold text-zinc-900 mb-8">Comprehensive Guide to Loan EMI Calculations</h2>
         
         <p className="text-zinc-600 text-lg leading-relaxed mb-8">

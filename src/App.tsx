@@ -162,6 +162,10 @@ import { CarInsuranceEstimator } from '@/src/tools/CarInsuranceEstimator';
 import { TermLifeInsuranceCalculator } from '@/src/tools/TermLifeInsuranceCalculator';
 import { AffinityMortgageCalculator } from '@/src/tools/AffinityMortgageCalculator';
 import { LoanEmiCalculator } from '@/src/tools/LoanEmiCalculator';
+import { CapitalGainsTaxCalculator } from '@/src/tools/CapitalGainsTaxCalculator';
+import { PokemonGoCpCalculator } from '@/src/tools/PokemonGoCpCalculator';
+import { StepsToMilesCalculator } from '@/src/tools/StepsToMilesCalculator';
+import { ReverseMortgageCalculator } from '@/src/tools/ReverseMortgageCalculator';
 
 // Math & Time Tool Components
 import { AgeCalculator } from '@/src/tools/AgeCalculator';
@@ -692,6 +696,10 @@ export default function App() {
             <Route path="/term-life-insurance" element={<ToolWrapper toolId="term-life-insurance"><TermLifeInsuranceCalculator /></ToolWrapper>} />
             <Route path="/affinity-mortgage" element={<ToolWrapper toolId="affinity-mortgage"><AffinityMortgageCalculator /></ToolWrapper>} />
             <Route path="/loan-emi-calculator" element={<ToolWrapper toolId="loan-emi-calculator"><LoanEmiCalculator /></ToolWrapper>} />
+            <Route path="/capital-gains-tax" element={<ToolWrapper toolId="capital-gains-tax"><CapitalGainsTaxCalculator /></ToolWrapper>} />
+            <Route path="/pokemon-go-cp" element={<ToolWrapper toolId="pokemon-go-cp"><PokemonGoCpCalculator /></ToolWrapper>} />
+            <Route path="/steps-to-miles" element={<ToolWrapper toolId="steps-to-miles"><StepsToMilesCalculator /></ToolWrapper>} />
+            <Route path="/reverse-mortgage" element={<ToolWrapper toolId="reverse-mortgage"><ReverseMortgageCalculator /></ToolWrapper>} />
 
             <Route path="/age-calculator" element={<ToolWrapper toolId="age-calculator"><AgeCalculator /></ToolWrapper>} />
             <Route path="/date-difference" element={<ToolWrapper toolId="date-difference"><DateDifferenceCalculator /></ToolWrapper>} />

@@ -1,5 +1,6 @@
 {
   "name": "Das Converters",
-  "description": "A comprehensive site of web tools for PDF manipulation, image metadata checking, and Instragram video downloading.",
-  "requestFramePermissions": []
+  "description": "A comprehensive site of web tools for PDF manipulation, finance calculators, and social media downloading.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
