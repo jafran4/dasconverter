@@ -305,14 +305,14 @@ const Dashboard = () => {
   })).filter(category => category.tools.length > 0);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
+    <div className="max-w-7xl mx-auto px-4 py-12">
       <div className="text-center mb-16">
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-5xl font-bold tracking-tight text-zinc-900 mb-4"
         >
-          Das Converters
+          Infinite Labs
         </motion.h1>
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
@@ -413,7 +413,7 @@ const Dashboard = () => {
                 <category.icon className={cn("w-6 h-6", category.color)} />
                 <h2 className="text-2xl font-bold text-zinc-900">{category.name}</h2>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {category.tools.map((tool, index) => (
                   <motion.div
                     key={tool.id}
@@ -485,7 +485,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
                 <div className="w-9 h-9 bg-zinc-900 rounded-xl flex items-center justify-center group-hover:rotate-12 transition-transform shadow-lg shadow-zinc-900/20">
                   <LayoutGrid className="w-5 h-5 text-white" />
                 </div>
-                <span className="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-zinc-900 to-zinc-600">Das Converters</span>
+                <span className="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-zinc-900 to-zinc-600">Infinite Labs</span>
               </Link>
             </div>
 
@@ -581,7 +581,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
               <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center">
                 <LayoutGrid className="w-4 h-4 text-white" />
               </div>
-              <span className="font-bold text-zinc-900">Das Converters</span>
+              <span className="font-bold text-zinc-900">Infinite Labs</span>
               <span className="text-zinc-400 text-sm ml-2">© 2024</span>
             </div>
             <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">

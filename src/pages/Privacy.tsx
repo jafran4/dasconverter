@@ -15,7 +15,7 @@ export const Privacy = () => {
         </div>
         <h1 className="text-4xl font-bold text-zinc-900 mb-6">Privacy Policy</h1>
         <p className="text-xl text-zinc-600 leading-relaxed">
-          At Das Converters, we take your privacy seriously. Our tools are designed with a "Privacy-First" approach, meaning your data stays where it belongs: with you.
+          At Infinite Labs, we take your privacy seriously. Our tools are designed with a "Privacy-First" approach, meaning your data stays where it belongs: with you.
         </p>
       </motion.div>
 

@@ -14,7 +14,7 @@ export const About = () => {
         <div className="w-20 h-20 bg-zinc-900 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-zinc-200">
           <LayoutGrid className="w-10 h-10 text-white" />
         </div>
-        <h1 className="text-5xl font-bold text-zinc-900 mb-6 tracking-tight">About Das Converters</h1>
+        <h1 className="text-5xl font-bold text-zinc-900 mb-6 tracking-tight">About Infinite Labs</h1>
         <p className="text-xl text-zinc-600 max-w-2xl mx-auto leading-relaxed">
           We build simple, fast, and secure tools to help you get things done. No fluff, no tracking, just utility.
         </p>
@@ -56,7 +56,7 @@ export const About = () => {
           </div>
           <h3 className="text-xl font-bold text-zinc-900 mb-3">Accessible Anywhere</h3>
           <p className="text-zinc-600 leading-relaxed">
-            Whether you're on a desktop, tablet, or smartphone, Das Converters works seamlessly across all your devices.
+            Whether you're on a desktop, tablet, or smartphone, Infinite Labs works seamlessly across all your devices.
           </p>
         </motion.div>
 

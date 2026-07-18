@@ -15,7 +15,7 @@ export const Disclaimer = () => {
         </div>
         <h1 className="text-4xl font-bold text-zinc-900 mb-6">Disclaimer</h1>
         <p className="text-xl text-zinc-600 leading-relaxed">
-          The information and tools provided on Das Converters are for general informational purposes only.
+          The information and tools provided on Infinite Labs are for general informational purposes only.
         </p>
       </motion.div>
 
@@ -26,7 +26,7 @@ export const Disclaimer = () => {
             <h2 className="text-2xl font-bold text-zinc-900">Accuracy of Information</h2>
           </div>
           <p className="text-zinc-600 leading-relaxed">
-            While we strive to provide accurate results, Das Converters makes no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability, or availability of the tools or the information they generate. Any reliance you place on such information is strictly at your own risk.
+            While we strive to provide accurate results, Infinite Labs makes no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability, or availability of the tools or the information they generate. Any reliance you place on such information is strictly at your own risk.
           </p>
         </section>
 
@@ -46,7 +46,7 @@ export const Disclaimer = () => {
             <h2 className="text-2xl font-bold text-zinc-900">External Links</h2>
           </div>
           <p className="text-zinc-600 leading-relaxed">
-            Through this website, you may be able to link to other websites which are not under the control of Das Converters. We have no control over the nature, content, and availability of those sites. The inclusion of any links does not necessarily imply a recommendation or endorse the views expressed within them.
+            Through this website, you may be able to link to other websites which are not under the control of Infinite Labs. We have no control over the nature, content, and availability of those sites. The inclusion of any links does not necessarily imply a recommendation or endorse the views expressed within them.
           </p>
         </section>
       </div>

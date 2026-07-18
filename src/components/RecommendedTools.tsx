@@ -18,14 +18,14 @@ export const RecommendedTools: React.FC<RecommendedToolsProps> = ({ currentToolI
   // Get other tools in the same category
   const otherTools = category.tools
     .filter(tool => tool.id !== currentToolId)
-    .slice(0, 3); // Show up to 3 recommended tools
+    .slice(0, 4); // Show up to 4 recommended tools
 
   if (otherTools.length === 0) return null;
 
   return (
     <div className="mt-16 border-t border-zinc-200 pt-12">
       <h3 className="text-2xl font-bold text-zinc-900 mb-8">Recommended Tools</h3>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {otherTools.map((tool) => (
           <Link
             key={tool.id}
