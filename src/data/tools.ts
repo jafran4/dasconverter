@@ -80,10 +80,27 @@ import {
   Maximize,
   MousePointerClick,
   ArrowDownUp,
-  Footprints
+  Footprints,
+  Sparkles
 } from 'lucide-react';
 
 export const CATEGORIES = [
+  {
+    name: 'AI Tools',
+    icon: Sparkles,
+    color: 'text-purple-600',
+    tools: [
+      {
+        id: 'ai-image-generator',
+        name: 'AI Image Generator',
+        description: 'Generate stunning high-resolution artwork using FLUX and Stable Diffusion.',
+        icon: Sparkles,
+        color: 'text-purple-600',
+        bg: 'bg-purple-50',
+        path: '/ai-image-generator'
+      }
+    ]
+  },
   {
     name: 'Data & Development',
     icon: Code,

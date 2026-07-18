@@ -1,6 +1,25 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script>
+      // Prevent libraries from crashing if they try to write/modify window.fetch
+      try {
+        const nativeFetch = window.fetch;
+        let currentFetch = nativeFetch;
+        Object.defineProperty(window, 'fetch', {
+          get() {
+            return currentFetch;
+          },
+          set(val) {
+            currentFetch = val;
+          },
+          configurable: true,
+          enumerable: true
+        });
+      } catch (e) {
+        console.warn("Fetch guard initialization skipped:", e);
+      }
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-site-verification" content="0I1lVrFhowQcrjPmGjIw6sIL8y2mA7RUr4CGtHpaBsM" />

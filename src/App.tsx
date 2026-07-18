@@ -84,7 +84,13 @@ import {
   Info,
   Maximize,
   MousePointerClick,
-  ArrowDownUp
+  ArrowDownUp,
+  Sparkles,
+  Wand2,
+  Copy,
+  Check,
+  Eye,
+  ChevronLeft
 } from 'lucide-react';
 
 // Tool Components
@@ -115,6 +121,8 @@ import { MetadataChecker } from '@/src/tools/MetadataChecker';
 import { ImageResizer } from '@/src/tools/ImageResizer';
 import { TextConverter } from '@/src/tools/TextConverter';
 import { JsonFormatter } from '@/src/tools/JsonFormatter';
+
+import { ShowcaseImage, SHOWCASE_IMAGES, STYLE_PRESETS, MODELS } from '@/src/data/showcase';
 
 // Pages
 import { About } from '@/src/pages/About';
@@ -166,6 +174,7 @@ import { CapitalGainsTaxCalculator } from '@/src/tools/CapitalGainsTaxCalculator
 import { PokemonGoCpCalculator } from '@/src/tools/PokemonGoCpCalculator';
 import { StepsToMilesCalculator } from '@/src/tools/StepsToMilesCalculator';
 import { ReverseMortgageCalculator } from '@/src/tools/ReverseMortgageCalculator';
+import { AiImageGenerator } from '@/src/tools/AiImageGenerator';
 
 // Math & Time Tool Components
 import { AgeCalculator } from '@/src/tools/AgeCalculator';
@@ -284,8 +293,28 @@ const SearchProvider = ({ children }: { children: ReactNode }) => {
 };
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const { searchQuery, setSearchQuery, searchRef } = useSearch();
   const [isFocused, setIsFocused] = useState(false);
+  const [selectedShowcase, setSelectedShowcase] = useState<ShowcaseImage | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const handleCopyPrompt = (text: string, id: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  const handleUseShowcasePrompt = (item: ShowcaseImage) => {
+    navigate("/ai-image-generator", {
+      state: {
+        presetPrompt: item.prompt,
+        presetStyle: item.style,
+        presetModel: item.model,
+        presetRatio: item.aspectRatio
+      }
+    });
+  };
 
   const allTools = CATEGORIES.flatMap(c => c.tools);
   
@@ -404,6 +433,227 @@ const Dashboard = () => {
           </button>
         </motion.div>
       </div>
+
+      {/* Community Masterpiece Inspiration Slider */}
+      <div className="bg-gradient-to-r from-purple-50/50 via-zinc-50/30 to-indigo-50/50 border border-zinc-200/80 rounded-[32px] p-6 sm:p-8 relative overflow-hidden shadow-xs mb-16">
+        {/* Decorative backdrop glow */}
+        <div className="absolute top-0 right-0 w-80 h-80 bg-purple-200/20 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-200/20 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
+
+        {/* Title and Controls */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 relative z-10">
+          <div>
+            <h2 className="text-xl font-bold text-zinc-900 flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-purple-600 animate-pulse" />
+              AI Masterpiece Showcase
+            </h2>
+            <p className="text-sm text-zinc-500 mt-1">Scroll through incredible creations. Click any photo to see its prompt blueprint and instantly re-create it!</p>
+          </div>
+          
+          {/* Slider Navigation Controls */}
+          <div className="flex items-center gap-2 self-end sm:self-auto">
+            <button
+              type="button"
+              onClick={() => {
+                const el = document.getElementById("home-showcase-scroll-track");
+                if (el) el.scrollBy({ left: -320, behavior: "smooth" });
+              }}
+              className="w-10 h-10 rounded-full border border-zinc-200 bg-white hover:bg-zinc-50 flex items-center justify-center text-zinc-600 hover:text-zinc-950 transition-all shadow-xs active:scale-95"
+              title="Scroll Left"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                const el = document.getElementById("home-showcase-scroll-track");
+                if (el) el.scrollBy({ left: 320, behavior: "smooth" });
+              }}
+              className="w-10 h-10 rounded-full border border-zinc-200 bg-white hover:bg-zinc-50 flex items-center justify-center text-zinc-600 hover:text-zinc-950 transition-all shadow-xs active:scale-95"
+              title="Scroll Right"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Horizontally Scrollable Track */}
+        <div 
+          id="home-showcase-scroll-track"
+          className="flex gap-5 overflow-x-auto pb-4 pr-4 -mr-4 scroll-smooth snap-x snap-mandatory custom-scrollbar select-none relative z-10"
+          style={{ scrollbarWidth: 'thin' }}
+        >
+          {SHOWCASE_IMAGES.map((img, i) => (
+            <motion.div
+              key={img.id}
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: i * 0.08, type: "spring", stiffness: 80 }}
+              onClick={() => setSelectedShowcase(img)}
+              className="flex-shrink-0 w-[260px] sm:w-[300px] group cursor-pointer snap-start"
+            >
+              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-50 shadow-sm group-hover:shadow-xl group-hover:border-purple-400 transition-all duration-300">
+                <img 
+                  src={img.url} 
+                  alt={img.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                />
+                
+                {/* Elegant View Blueprint Badge */}
+                <div className="absolute top-3 right-3 bg-zinc-950/75 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1.5 rounded-xl flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-350 shadow-sm">
+                  <Eye className="w-3.5 h-3.5 text-purple-400" /> View Blueprint
+                </div>
+
+                {/* Dark Vignette and Content overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent p-4 sm:p-5 flex flex-col justify-end">
+                  <span className="text-[10px] font-bold text-purple-300 uppercase tracking-widest mb-1">
+                    {STYLE_PRESETS.find(s => s.id === img.style)?.name || img.style}
+                  </span>
+                  <h4 className="text-sm font-bold text-white line-clamp-1 leading-snug group-hover:text-purple-200 transition-colors">
+                    {img.title}
+                  </h4>
+                  <p className="text-xs text-zinc-300 mt-1.5 line-clamp-2 leading-relaxed opacity-90 group-hover:opacity-100 transition-opacity">
+                    "{img.prompt}"
+                  </p>
+                  
+                  <div className="flex items-center justify-between border-t border-white/10 mt-3 pt-3">
+                    <span className="text-[10px] text-zinc-400 font-medium">
+                      By @{img.author}
+                    </span>
+                    <span className="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded-md border border-purple-400/20 font-bold">
+                      {img.aspectRatio}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Showcase Details Lightbox Modal */}
+      <AnimatePresence>
+        {selectedShowcase && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-zinc-950/75 backdrop-blur-md z-50 flex items-center justify-center p-4"
+            onClick={() => setSelectedShowcase(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="bg-white border border-zinc-200 max-w-4xl w-full rounded-[32px] overflow-hidden grid grid-cols-1 md:grid-cols-12 shadow-2xl relative"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Image Column */}
+              <div className="md:col-span-7 bg-zinc-50 flex items-center justify-center p-6 min-h-[300px] relative group/show">
+                <img
+                  src={selectedShowcase.url}
+                  alt={selectedShowcase.title}
+                  className="max-h-[70vh] object-contain rounded-2xl shadow-md transition-all duration-550 group-hover/show:scale-[1.01]"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute bottom-4 left-4 bg-zinc-950/70 backdrop-blur-md px-3.5 py-2 rounded-xl text-white text-[11px] font-bold flex items-center gap-2 shadow-sm">
+                  <Sparkles className="w-4 h-4 text-purple-400" /> Inspired Design Blueprint
+                </div>
+              </div>
+
+              {/* Info Column */}
+              <div className="md:col-span-5 p-6 sm:p-8 flex flex-col justify-between border-t md:border-t-0 md:border-l border-zinc-100 bg-zinc-50/20">
+                <div className="space-y-6">
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-[10px] bg-purple-100 text-purple-700 border border-purple-200 py-1 px-3 rounded-full font-extrabold uppercase tracking-wider inline-block">
+                        {STYLE_PRESETS.find(s => s.id === selectedShowcase.style)?.name || selectedShowcase.style}
+                      </span>
+                      <span className="text-xs text-zinc-400">by @{selectedShowcase.author}</span>
+                    </div>
+                    <h3 className="text-xl font-extrabold text-zinc-950 tracking-tight">{selectedShowcase.title}</h3>
+                    
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-400 mt-6">Prompt Blueprint</h4>
+                    <div className="max-h-[160px] sm:max-h-[220px] overflow-y-auto custom-scrollbar mt-2 bg-white p-4 rounded-xl border border-zinc-100 shadow-xs">
+                      <p className="text-zinc-850 text-sm leading-relaxed font-medium italic text-zinc-800">
+                        "{selectedShowcase.prompt}"
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-400">Generation Parameters</h4>
+                    
+                    <div className="grid grid-cols-2 gap-2.5 text-xs">
+                      <div className="bg-white p-3 rounded-xl border border-zinc-150 shadow-xs">
+                        <span className="text-zinc-400 block text-[9px] uppercase font-bold tracking-wider">Base Pipeline</span>
+                        <span className="text-zinc-800 font-bold mt-0.5 block truncate">
+                          {MODELS.find(m => m.id === selectedShowcase.model)?.name || selectedShowcase.model}
+                        </span>
+                      </div>
+                      <div className="bg-white p-3 rounded-xl border border-zinc-150 shadow-xs">
+                        <span className="text-zinc-400 block text-[9px] uppercase font-bold tracking-wider">Aspect Ratio</span>
+                        <span className="text-zinc-800 font-bold mt-0.5 block">
+                          {selectedShowcase.aspectRatio}
+                        </span>
+                      </div>
+                      <div className="bg-white p-3 rounded-xl border border-zinc-150 shadow-xs">
+                        <span className="text-zinc-400 block text-[9px] uppercase font-bold tracking-wider">Engine Quality</span>
+                        <span className="text-emerald-600 font-bold mt-0.5 block flex items-center gap-1.5">
+                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" /> Verified Ultra
+                        </span>
+                      </div>
+                      <div className="bg-white p-3 rounded-xl border border-zinc-150 shadow-xs">
+                        <span className="text-zinc-400 block text-[9px] uppercase font-bold tracking-wider">Speed</span>
+                        <span className="text-zinc-800 font-bold mt-0.5 block">
+                          ~1.8s (Blitz)
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-t border-zinc-100 pt-6 mt-6 flex flex-col gap-3">
+                  <button
+                    onClick={() => handleUseShowcasePrompt(selectedShowcase)}
+                    className="w-full py-4 px-4 rounded-xl bg-zinc-950 hover:bg-zinc-800 text-white font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-md group active:scale-[0.99]"
+                  >
+                    <Wand2 className="w-4 h-4 text-purple-400 group-hover:rotate-12 transition-transform" />
+                    Try in AI Studio
+                  </button>
+
+                  <button
+                    onClick={() => handleCopyPrompt(selectedShowcase.prompt, selectedShowcase.id)}
+                    className="w-full py-3 px-4 rounded-xl bg-white hover:bg-zinc-50 border border-zinc-200 text-zinc-700 font-bold text-xs flex items-center justify-center gap-2 transition-all relative shadow-xs"
+                  >
+                    {copiedId === selectedShowcase.id ? (
+                      <>
+                        <Check className="w-4 h-4 text-emerald-500 font-bold" />
+                        Prompt Copied!
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-4 h-4 text-zinc-500" />
+                        Copy Vision Prompt Only
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedShowcase(null)}
+                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/80 hover:bg-white border border-zinc-200/80 backdrop-blur-md flex items-center justify-center text-zinc-500 hover:text-zinc-900 transition-all shadow-md font-bold text-sm z-10"
+              >
+                ✕
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="space-y-16">
         {filteredCategories.length > 0 ? (
@@ -700,6 +950,7 @@ export default function App() {
             <Route path="/pokemon-go-cp" element={<ToolWrapper toolId="pokemon-go-cp"><PokemonGoCpCalculator /></ToolWrapper>} />
             <Route path="/steps-to-miles" element={<ToolWrapper toolId="steps-to-miles"><StepsToMilesCalculator /></ToolWrapper>} />
             <Route path="/reverse-mortgage" element={<ToolWrapper toolId="reverse-mortgage"><ReverseMortgageCalculator /></ToolWrapper>} />
+            <Route path="/ai-image-generator" element={<ToolWrapper toolId="ai-image-generator"><AiImageGenerator /></ToolWrapper>} />
 
             <Route path="/age-calculator" element={<ToolWrapper toolId="age-calculator"><AgeCalculator /></ToolWrapper>} />
             <Route path="/date-difference" element={<ToolWrapper toolId="date-difference"><DateDifferenceCalculator /></ToolWrapper>} />
