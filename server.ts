@@ -1,13 +1,7 @@
 import express from "express";
 import path from "path";
-import { fileURLToPath } from "url";
 import axios from "axios";
 import * as cheerio from "cheerio";
-import { createRequire } from "module";
-
-const require = createRequire(import.meta.url);
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // Import the snapsave logic
 // I will inline the essential logic here or use the file I'll create
