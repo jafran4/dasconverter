@@ -115,8 +115,8 @@ export function StaggeredGrid({
                 '--grid-item-translate': '0px',
             } as React.CSSProperties}
         >
-            <section className="w-full overflow-x-auto overflow-y-hidden custom-scrollbar py-4 select-none">
-                <div ref={gridFullRef} className="grid--full relative min-w-[900px] lg:min-w-0 w-full my-[5vh] h-auto aspect-[1.1] max-w-none p-4 grid gap-4 grid-cols-7 grid-rows-3">
+            <section className="w-full overflow-x-auto custom-scrollbar py-2 sm:py-4 select-none">
+                <div ref={gridFullRef} className="grid--full relative w-full my-2 sm:my-[5vh] h-auto p-2 sm:p-4 grid gap-2.5 sm:gap-4 grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 min-w-0">
                     <div className="grid-overlay absolute inset-0 z-[15] pointer-events-none opacity-0 bg-white/80 rounded-lg transition-opacity duration-500" />
                     {mixedGridItems.map((item, i) => {
                         if (typeof item === 'object') {

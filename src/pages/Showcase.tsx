@@ -65,24 +65,24 @@ export const Showcase = () => {
     : STYLE_PRESETS.find(s => s.id === selectedStyle)?.name || selectedStyle;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-16">
+    <div className="max-w-7xl mx-auto px-3 sm:px-4 py-8 sm:py-16">
       {/* Header Banner */}
-      <div className="text-center mb-16 relative">
+      <div className="text-center mb-10 sm:mb-16 relative">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-72 h-72 bg-purple-200/20 rounded-full blur-3xl pointer-events-none -mt-10" />
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-50 border border-purple-100 text-purple-700 text-xs font-semibold mb-6 shadow-xs">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-50 border border-purple-100 text-purple-700 text-xs font-semibold mb-4 sm:mb-6 shadow-xs">
           <Sparkles className="w-3.5 h-3.5 animate-pulse" />
           <span>Curated AI Masterpieces</span>
         </div>
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-zinc-900 mb-6">
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-zinc-900 mb-4 sm:mb-6">
           AI Masterpiece Showcase
         </h1>
-        <p className="text-lg md:text-xl text-zinc-500 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-base sm:text-lg md:text-xl text-zinc-500 max-w-2xl mx-auto leading-relaxed">
           Step into a curated gallery of high-fidelity generations. Explore professional prompt blueprints and recreate them instantly in our studio.
         </p>
       </div>
 
       {/* Interactive Staggered Grid Showcase */}
-      <div className="mb-20 overflow-hidden rounded-[2.5rem] bg-gradient-to-b from-zinc-50/50 to-white border border-zinc-200/80 p-4 sm:p-6 shadow-xs">
+      <div className="mb-12 sm:mb-20 overflow-hidden rounded-2xl sm:rounded-[2.5rem] bg-gradient-to-b from-zinc-50/50 to-white border border-zinc-200/80 p-2 sm:p-6 shadow-xs">
         <StaggeredGrid 
           images={SHOWCASE_IMAGES} 
           showFooter={false} 
@@ -91,7 +91,7 @@ export const Showcase = () => {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white border border-zinc-200 rounded-[2rem] p-6 mb-12 shadow-sm">
+      <div className="bg-white border border-zinc-200 rounded-2xl sm:rounded-[2rem] p-4 sm:p-6 mb-8 sm:mb-12 shadow-sm">
         <div className="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center">
           {/* Search Input */}
           <div className="relative flex-grow">

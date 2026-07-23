@@ -90,8 +90,14 @@ import {
   Copy,
   Check,
   Eye,
-  ChevronLeft
+  ChevronLeft,
+  ArrowRight,
+  CornerDownLeft,
+  Command,
+  SlidersHorizontal,
+  Filter
 } from 'lucide-react';
+import { HandLoader } from '@/src/components/HandLoader';
 
 // Tool Components
 import { PdfMerger } from '@/src/tools/PdfMerger';
@@ -297,8 +303,21 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const { searchQuery, setSearchQuery, searchRef } = useSearch();
   const [isFocused, setIsFocused] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [selectedShowcase, setSelectedShowcase] = useState<ShowcaseImage | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  // Keyboard shortcut listener (Cmd+K / Ctrl+K)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        searchRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [searchRef]);
 
   const handleCopyPrompt = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
@@ -323,8 +342,8 @@ const Dashboard = () => {
     ? allTools.filter(tool => 
         tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         tool.description.toLowerCase().includes(searchQuery.toLowerCase())
-      ).slice(0, 5)
-    : allTools.slice(0, 5); // Default popular tools
+      ).slice(0, 6)
+    : allTools.slice(0, 6); // Default popular tools
 
   const filteredCategories = CATEGORIES.map(category => ({
     ...category,
@@ -334,13 +353,47 @@ const Dashboard = () => {
     )
   })).filter(category => category.tools.length > 0);
 
+  const totalMatches = filteredCategories.reduce((acc, cat) => acc + cat.tools.length, 0);
+
+  // Input Keyboard Navigation
+  const handleInputKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setSelectedIndex(prev => (prev + 1) % Math.max(1, suggestions.length));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setSelectedIndex(prev => (prev - 1 + suggestions.length) % Math.max(1, suggestions.length));
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (selectedIndex >= 0 && suggestions[selectedIndex]) {
+        navigate(suggestions[selectedIndex].path);
+      } else if (suggestions.length > 0) {
+        navigate(suggestions[0].path);
+      } else {
+        document.getElementById('tools-results-section')?.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else if (e.key === 'Escape') {
+      setIsFocused(false);
+      searchRef.current?.blur();
+    }
+  };
+
+  const handleSearchButtonClick = () => {
+    if (searchQuery.trim() && suggestions.length > 0) {
+      document.getElementById('tools-results-section')?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      searchRef.current?.focus();
+      setIsFocused(true);
+    }
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
-      <div className="text-center mb-16">
+    <div className="max-w-7xl mx-auto px-3 sm:px-4 py-8 sm:py-12">
+      <div className="text-center mb-10 sm:mb-16 relative">
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-5xl font-bold tracking-tight text-zinc-900 mb-4"
+          className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 mb-3 sm:mb-4 bg-clip-text text-transparent bg-gradient-to-r from-zinc-950 via-zinc-800 to-purple-950"
         >
           Infinite Labs
         </motion.h1>
@@ -348,91 +401,175 @@ const Dashboard = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-xl text-zinc-500 max-w-2xl mx-auto mb-8"
+          className="text-sm sm:text-base md:text-xl text-zinc-500 max-w-2xl mx-auto mb-6 sm:mb-10 font-normal leading-relaxed px-2"
         >
-          A powerful suite of simple, privacy-focused online tools. All processing happens in your browser.
+          A high-performance suite of simple, privacy-focused online tools.
         </motion.p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="relative max-w-2xl mx-auto flex flex-col sm:flex-row gap-3 z-10 p-1.5 rounded-[22px] hover:bg-zinc-100/50 transition-colors duration-300"
-        >
-          <div className="relative flex-grow">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-              <Search className="h-5 w-5 text-zinc-400" />
-            </div>
-            <input
-              ref={searchRef}
-              type="text"
-              placeholder="Search for a tool (e.g., BMI, PDF, Tree...)"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setTimeout(() => setIsFocused(false), 200)}
-              className="block w-full pl-11 pr-4 py-4 bg-white border border-zinc-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-zinc-900/5 focus:border-zinc-900 transition-all shadow-sm text-zinc-900 placeholder:text-zinc-400 hover:bg-zinc-50"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className="absolute inset-y-0 right-0 pr-4 flex items-center text-zinc-400 hover:text-zinc-600"
-              >
-                <X className="h-5 w-5" />
-              </button>
+        {/* Ambient Backlight Glow when Focused */}
+        <div className="relative max-w-2xl mx-auto z-30">
+          <AnimatePresence>
+            {isFocused && (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="absolute -inset-2 bg-gradient-to-r from-purple-500/20 via-indigo-500/20 to-pink-500/20 rounded-[32px] blur-xl pointer-events-none"
+              />
             )}
+          </AnimatePresence>
 
-            {/* Suggestions Dropdown */}
-            <AnimatePresence>
-              {isFocused && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  className="absolute top-full left-0 right-0 mt-2 bg-white border border-zinc-200 rounded-2xl shadow-xl overflow-hidden z-50"
-                >
-                  <div className="p-2">
-                    <div className="px-3 py-2 text-xs font-semibold text-zinc-400 uppercase tracking-wider">
-                      {searchQuery ? 'Matching Tools' : 'Popular Tools'}
+          {/* Search Box Container */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className={cn(
+              "relative flex flex-col sm:flex-row gap-2.5 p-2 rounded-[28px] transition-all duration-300 border",
+              isFocused 
+                ? "bg-white border-purple-500/40 shadow-[0_20px_50px_rgba(168,85,247,0.15)] ring-4 ring-purple-500/10" 
+                : "bg-white/80 backdrop-blur-md border-zinc-200/90 hover:border-zinc-300 shadow-lg shadow-zinc-900/5 hover:bg-white"
+            )}
+          >
+            <div className="relative flex-grow flex items-center">
+              <div className="absolute left-4 flex items-center pointer-events-none text-zinc-400">
+                <Search className={cn("h-5 w-5 transition-colors duration-300", isFocused ? "text-purple-600 animate-pulse" : "text-zinc-400")} />
+              </div>
+
+              <input
+                ref={searchRef}
+                type="text"
+                placeholder="Search tools (e.g., PDF, BMI, Tree, Image, Tax)..."
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setSelectedIndex(-1);
+                }}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setTimeout(() => setIsFocused(false), 220)}
+                onKeyDown={handleInputKeyDown}
+                className="block w-full pl-12 pr-20 py-4 bg-transparent text-zinc-950 font-medium placeholder:text-zinc-400 focus:outline-none text-base"
+              />
+
+              {/* Right Input Badges & Clear Button */}
+              <div className="absolute right-3 flex items-center gap-1.5">
+                {searchQuery ? (
+                  <button
+                    onClick={() => {
+                      setSearchQuery('');
+                      setSelectedIndex(-1);
+                      searchRef.current?.focus();
+                    }}
+                    className="p-1.5 text-zinc-400 hover:text-zinc-700 hover:bg-zinc-100 rounded-full transition-colors"
+                    title="Clear search"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                ) : (
+                  <kbd className="hidden sm:inline-flex items-center gap-0.5 px-2 py-1 text-[11px] font-bold text-zinc-400 bg-zinc-100/80 border border-zinc-200/80 rounded-lg shadow-2xs select-none">
+                    <Command className="w-3 h-3" /> K
+                  </kbd>
+                )}
+              </div>
+
+              {/* Suggestions Dropdown */}
+              <AnimatePresence>
+                {isFocused && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 12, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                    transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                    className="absolute top-full left-0 right-0 mt-3 bg-white/95 backdrop-blur-xl border border-zinc-200/90 rounded-[24px] shadow-2xl overflow-hidden z-50 p-2 text-left"
+                  >
+                    {/* Header bar inside dropdown */}
+                    <div className="flex items-center justify-between px-3 py-2 text-xs font-bold text-zinc-400 uppercase tracking-wider border-b border-zinc-100 mb-1">
+                      <span className="flex items-center gap-1.5 text-purple-600">
+                        <Sparkles className="w-3.5 h-3.5" />
+                        {searchQuery ? `Matching Tools (${suggestions.length})` : 'Popular Quick Tools'}
+                      </span>
+                      <span className="text-[10px] text-zinc-400 font-normal normal-case">Press ↑↓ to navigate</span>
                     </div>
+
+                    {/* Suggestions List */}
                     {suggestions.length > 0 ? (
-                      suggestions.map((tool) => {
-                        return (
-                          <Link
-                            key={tool.id}
-                            to={tool.path}
-                            className={cn(
-                              "flex items-center gap-3 px-3 py-3 rounded-xl transition-colors group",
-                              HOVER_BG_MAP[tool.bg] || 'hover:bg-zinc-50'
-                            )}
-                          >
-                            <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center shrink-0", tool.bg)}>
-                              <tool.icon className={cn("w-5 h-5", tool.color)} />
-                            </div>
-                            <div className="text-left">
-                              <div className="font-medium text-zinc-900 group-hover:text-zinc-900">{tool.name}</div>
-                              <div className="text-xs text-zinc-500 line-clamp-1">{tool.description}</div>
-                            </div>
-                          </Link>
-                        );
-                      })
+                      <div className="space-y-1">
+                        {suggestions.map((tool, index) => {
+                          const isSelected = selectedIndex === index;
+                          const categoryName = CATEGORIES.find(c => c.tools.some(t => t.id === tool.id))?.name || 'Tool';
+                          return (
+                            <Link
+                              key={tool.id}
+                              to={tool.path}
+                              onMouseEnter={() => setSelectedIndex(index)}
+                              className={cn(
+                                "flex items-center justify-between px-3.5 py-3 rounded-2xl transition-all duration-200 group border",
+                                isSelected
+                                  ? "bg-purple-50/90 border-purple-200/80 text-purple-950 shadow-xs"
+                                  : "border-transparent hover:bg-zinc-50/80 text-zinc-900"
+                              )}
+                            >
+                              <div className="flex items-center gap-3 min-w-0">
+                                <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 shadow-2xs", tool.bg)}>
+                                  <tool.icon className={cn("w-5 h-5", tool.color)} />
+                                </div>
+                                <div className="min-w-0">
+                                  <div className="font-bold text-sm text-zinc-950 flex items-center gap-2">
+                                    <span>{tool.name}</span>
+                                    <span className="text-[10px] font-semibold text-zinc-400 bg-zinc-100 group-hover:bg-purple-100 group-hover:text-purple-700 px-2 py-0.5 rounded-md transition-colors">
+                                      {categoryName}
+                                    </span>
+                                  </div>
+                                  <div className="text-xs text-zinc-500 line-clamp-1 mt-0.5">{tool.description}</div>
+                                </div>
+                              </div>
+
+                              <div className="flex items-center gap-1 shrink-0 ml-2">
+                                <ChevronRight className={cn(
+                                  "w-4 h-4 transition-all duration-200",
+                                  isSelected ? "text-purple-600 translate-x-1" : "text-zinc-300 group-hover:text-zinc-600 group-hover:translate-x-0.5"
+                                )} />
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </div>
                     ) : (
-                      <div className="px-3 py-4 text-sm text-zinc-500 text-center">
-                        No suggestions found
+                      <div className="px-4 py-6 text-center">
+                        <HandLoader size="sm" text="No tools matched" subtext={`Try searching "PDF", "BMI", or "Tree"`} />
                       </div>
                     )}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-          <button 
-            onClick={() => searchRef.current?.focus()}
-            className="px-8 py-4 bg-zinc-900 text-white rounded-2xl font-semibold hover:bg-zinc-800 transition-all shadow-lg shadow-zinc-900/20 active:scale-95 shrink-0"
-          >
-            Search
-          </button>
-        </motion.div>
+
+                    {/* Footer Tip */}
+                    <div className="mt-2 pt-2 border-t border-zinc-100 px-3 flex items-center justify-between text-[11px] text-zinc-400 font-medium">
+                      <span className="flex items-center gap-1">
+                        <CornerDownLeft className="w-3 h-3 text-purple-500" /> Enter to open
+                      </span>
+                      <span>Esc to dismiss</span>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Re-designed Multi-Color Red-Shade Search Button */}
+            <button 
+              type="button"
+              onClick={handleSearchButtonClick}
+              className="relative group overflow-hidden px-8 py-4 bg-gradient-to-r from-red-600 via-rose-600 to-amber-500 hover:from-red-500 hover:via-rose-500 hover:to-orange-400 text-white rounded-2xl font-extrabold text-sm flex items-center justify-center gap-2.5 transition-all duration-300 shadow-xl shadow-red-600/30 hover:shadow-2xl hover:shadow-rose-600/40 border border-red-400/40 hover:border-amber-300/70 active:scale-95 shrink-0"
+            >
+              {/* Multi-color ambient background glow on hover */}
+              <div className="absolute inset-0 bg-gradient-to-r from-rose-600 via-purple-600 to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm pointer-events-none" />
+              
+              {/* Button Shimmer Light Sweep */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:animate-shimmer pointer-events-none" />
+              
+              <Sparkles className="w-4 h-4 text-amber-200 group-hover:rotate-12 transition-transform duration-300 relative z-10" />
+              <span className="relative z-10 tracking-wide drop-shadow-xs">Search</span>
+              <ArrowRight className="w-4 h-4 text-red-100 group-hover:translate-x-1 transition-transform duration-300 relative z-10" />
+            </button>
+          </motion.div>
+        </div>
       </div>
 
       {/* Community Masterpiece Inspiration Slider */}
@@ -664,34 +801,81 @@ const Dashboard = () => {
         )}
       </AnimatePresence>
 
-      <div className="space-y-16">
+      <div id="tools-results-section" className="space-y-16">
+        {/* Search Active Filter Banner */}
+        {searchQuery.trim() && (
+          <motion.div 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white/80 backdrop-blur-md border border-purple-200/80 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-purple-100/80 text-purple-700 flex items-center justify-center shrink-0 font-bold">
+                <Search className="w-5 h-5 text-purple-600" />
+              </div>
+              <div>
+                <h3 className="font-bold text-zinc-950 text-base flex items-center gap-2">
+                  <span>Search Results</span>
+                  <span className="text-xs bg-purple-100 text-purple-800 font-extrabold px-2.5 py-0.5 rounded-full">
+                    {totalMatches} {totalMatches === 1 ? 'Tool' : 'Tools'}
+                  </span>
+                </h3>
+                <p className="text-xs text-zinc-500 mt-0.5">
+                  Filtered by <span className="font-semibold text-zinc-800">"{searchQuery}"</span>
+                </p>
+              </div>
+            </div>
+
+            {/* Quick Keyword Pills */}
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-xs text-zinc-400 font-medium hidden md:inline">Quick Try:</span>
+              {['PDF', 'BMI', 'Tree', 'Calculator', 'Image'].map(tag => (
+                <button
+                  key={tag}
+                  onClick={() => setSearchQuery(tag)}
+                  className="text-xs bg-zinc-100 hover:bg-purple-100 hover:text-purple-700 text-zinc-600 px-3 py-1.5 rounded-xl font-medium transition-all"
+                >
+                  {tag}
+                </button>
+              ))}
+              <button
+                onClick={() => setSearchQuery('')}
+                className="text-xs bg-zinc-900 hover:bg-zinc-800 text-white font-bold px-3.5 py-1.5 rounded-xl transition-all shadow-2xs flex items-center gap-1 ml-1"
+              >
+                <X className="w-3.5 h-3.5" />
+                Clear
+              </button>
+            </div>
+          </motion.div>
+        )}
+
         {filteredCategories.length > 0 ? (
           filteredCategories.map((category, catIndex) => (
             <div key={category.name}>
-              <div className="flex items-center gap-3 mb-8">
-                <category.icon className={cn("w-6 h-6", category.color)} />
-                <h2 className="text-2xl font-bold text-zinc-900">{category.name}</h2>
+              <div className="flex items-center gap-2.5 sm:gap-3 mb-4 sm:mb-8">
+                <category.icon className={cn("w-5 h-5 sm:w-6 sm:h-6", category.color)} />
+                <h2 className="text-xl sm:text-2xl font-bold text-zinc-900">{category.name}</h2>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-6">
                 {category.tools.map((tool, index) => (
                   <motion.div
                     key={tool.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 + (catIndex * 0.1) + (index * 0.05) }}
+                    transition={{ delay: 0.1 + (catIndex * 0.05) + (index * 0.03) }}
                   >
                     <Link 
                       to={tool.path}
                       className={cn(
-                        "group block h-full p-8 bg-white border border-zinc-200 rounded-3xl hover:border-zinc-300 hover:shadow-2xl hover:shadow-zinc-300/50 transition-all duration-300 hover:-translate-y-1.5",
+                        "group block h-full p-5 sm:p-8 bg-white border border-zinc-200 rounded-2xl sm:rounded-3xl hover:border-purple-300 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300 hover:-translate-y-1.5 active:scale-[0.98] relative overflow-hidden",
                         HOVER_BG_MAP[tool.bg] || 'hover:bg-zinc-50'
                       )}
                     >
-                      <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110", tool.bg)}>
-                        <tool.icon className={cn("w-7 h-7", tool.color)} />
+                      <div className={cn("w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 transition-transform group-hover:scale-110 shadow-2xs", tool.bg)}>
+                        <tool.icon className={cn("w-6 h-6 sm:w-7 sm:h-7", tool.color)} />
                       </div>
-                      <h3 className="text-xl font-semibold text-zinc-900 mb-2">{tool.name}</h3>
-                      <p className="text-zinc-500 leading-relaxed">{tool.description}</p>
+                      <h3 className="text-lg sm:text-xl font-semibold text-zinc-900 mb-1.5 sm:mb-2 group-hover:text-purple-950 transition-colors">{tool.name}</h3>
+                      <p className="text-zinc-500 leading-relaxed text-xs sm:text-sm">{tool.description}</p>
                     </Link>
                   </motion.div>
                 ))}
@@ -699,19 +883,41 @@ const Dashboard = () => {
             </div>
           ))
         ) : (
-          <div className="text-center py-20">
-            <div className="w-16 h-16 bg-zinc-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <Search className="w-8 h-8 text-zinc-400" />
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="text-center py-16 px-6 bg-white border border-zinc-200 rounded-[32px] max-w-xl mx-auto shadow-lg shadow-zinc-900/5 relative overflow-hidden"
+          >
+            <div className="relative z-10 flex flex-col items-center">
+              <HandLoader size="md" skinColor="#E4C560" />
+              
+              <h3 className="text-xl font-extrabold text-zinc-950 mt-4 mb-1">No Matching Tools Found</h3>
+              <p className="text-sm text-zinc-500 max-w-sm mb-6">
+                We couldn't find any tools matching <span className="font-bold text-zinc-800">"{searchQuery}"</span>.
+              </p>
+
+              <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
+                <span className="text-xs text-zinc-400 font-semibold w-full mb-1">Try popular categories:</span>
+                {['PDF Tools', 'BMI Calculator', 'Tree Carbon', 'AI Image', 'Tax'].map(item => (
+                  <button
+                    key={item}
+                    onClick={() => setSearchQuery(item.split(' ')[0])}
+                    className="text-xs bg-purple-50 hover:bg-purple-100 text-purple-700 font-semibold px-3 py-1.5 rounded-xl transition-all border border-purple-100"
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+
+              <button
+                onClick={() => setSearchQuery('')}
+                className="px-6 py-3 bg-zinc-950 hover:bg-zinc-800 text-white font-bold text-xs rounded-xl transition-all shadow-md active:scale-95 flex items-center gap-2"
+              >
+                <X className="w-4 h-4" />
+                Clear Search & View All Tools
+              </button>
             </div>
-            <h3 className="text-xl font-semibold text-zinc-900 mb-2">No tools found</h3>
-            <p className="text-zinc-500">We couldn't find any tools matching "{searchQuery}".</p>
-            <button
-              onClick={() => setSearchQuery('')}
-              className="mt-6 text-zinc-900 font-medium hover:underline"
-            >
-              Clear search and see all tools
-            </button>
-          </div>
+          </motion.div>
         )}
       </div>
     </div>
@@ -724,52 +930,56 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { focusSearch } = useSearch();
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="sticky top-4 z-50 px-4">
+    <div className="min-h-screen flex flex-col pb-20 md:pb-0">
+      <header className="sticky top-2 sm:top-4 z-50 px-2 sm:px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="bg-white/40 backdrop-blur-xl border border-white/40 rounded-3xl shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.15)] transition-all duration-500 h-16 flex items-center justify-between px-6 relative overflow-hidden group/header">
+          <div className="bg-white/70 backdrop-blur-xl border border-white/60 rounded-2xl sm:rounded-3xl shadow-[0_8px_32px_0_rgba(31,38,135,0.08)] transition-all duration-300 h-14 sm:h-16 flex items-center justify-between px-3.5 sm:px-6 relative overflow-hidden group/header">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/header:animate-shimmer pointer-events-none" />
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               {location.pathname !== '/' && (
                 <Link 
                   to="/"
-                  className="flex items-center gap-1.5 px-3 py-1.5 bg-white/50 hover:bg-white/80 backdrop-blur-sm text-zinc-600 rounded-xl transition-all text-sm font-medium group/back border border-white/20"
+                  className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 bg-white/80 hover:bg-white backdrop-blur-sm text-zinc-700 rounded-xl transition-all text-xs sm:text-sm font-semibold group/back border border-zinc-200/60 shadow-2xs"
                 >
-                  <ArrowLeft className="w-4 h-4 group-hover/back:-translate-x-0.5 transition-transform" />
+                  <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover/back:-translate-x-0.5 transition-transform" />
                   <span>Back</span>
                 </Link>
               )}
               <Link to="/" className="flex items-center gap-2 group">
-                <div className="w-9 h-9 bg-zinc-900 rounded-xl flex items-center justify-center group-hover:rotate-12 transition-transform shadow-lg shadow-zinc-900/20">
-                  <LayoutGrid className="w-5 h-5 text-white" />
+                <div className="w-8 h-8 sm:w-9 sm:h-9 bg-zinc-900 rounded-xl flex items-center justify-center group-hover:rotate-12 transition-transform shadow-md shadow-zinc-900/20 shrink-0">
+                  <LayoutGrid className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                 </div>
                 <span className={cn(
-                  "font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-zinc-900 to-zinc-600",
-                  location.pathname !== '/' ? "hidden sm:inline" : "inline"
+                  "font-extrabold text-lg sm:text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-zinc-950 via-zinc-800 to-purple-950",
+                  location.pathname !== '/' ? "hidden xs:inline sm:inline" : "inline"
                 )}>
                   Infinite Labs
                 </span>
               </Link>
             </div>
 
-            <div className="flex items-center gap-2 md:gap-4">
+            <div className="flex items-center gap-1.5 sm:gap-4">
               <button 
                 onClick={focusSearch}
-                className="p-2.5 text-zinc-600 hover:bg-white/60 rounded-xl transition-all border border-transparent hover:border-white/40"
+                className="p-2 sm:p-2.5 text-zinc-700 hover:bg-white/80 rounded-xl transition-all border border-transparent hover:border-zinc-200/60 active:scale-95"
                 title="Search tools"
               >
-                <Search className="w-5 h-5" />
+                <Search className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
               </button>
               
               <nav className="hidden md:flex items-center gap-1">
-                <Link to="/" className="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-white/60 rounded-xl transition-all">Tools</Link>
-                <Link to="/showcase" className="px-4 py-2 text-sm font-medium text-purple-600 hover:text-purple-900 hover:bg-purple-50/50 rounded-xl transition-all flex items-center gap-1">
-                  <Sparkles className="w-3.5 h-3.5 text-purple-500" />
+                <Link to="/" className="px-4 py-2 text-sm font-semibold text-zinc-600 hover:text-zinc-950 hover:bg-white/60 rounded-xl transition-all">Tools</Link>
+                <Link to="/showcase" className="px-4 py-2 text-sm font-bold text-purple-600 hover:text-purple-900 hover:bg-purple-50/50 rounded-xl transition-all flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-purple-500 animate-pulse" />
                   Showcase
                 </Link>
-                <Link to="/about" className="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-white/60 rounded-xl transition-all">About</Link>
-                <Link to="/privacy" className="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-white/60 rounded-xl transition-all">Privacy</Link>
+                <Link to="/about" className="px-4 py-2 text-sm font-semibold text-zinc-600 hover:text-zinc-950 hover:bg-white/60 rounded-xl transition-all">About</Link>
+                <Link to="/privacy" className="px-4 py-2 text-sm font-semibold text-zinc-600 hover:text-zinc-950 hover:bg-white/60 rounded-xl transition-all">Privacy</Link>
                 <div className="h-4 w-px bg-zinc-200/50 mx-2" />
                 <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-2.5 text-zinc-400 hover:text-zinc-900 hover:bg-white/60 rounded-xl transition-all">
                   <Github className="w-5 h-5" />
@@ -777,66 +987,103 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
               </nav>
 
               <button 
-                className="md:hidden p-2.5 text-zinc-600 hover:bg-white/60 rounded-xl transition-all"
+                className="md:hidden p-2 text-zinc-800 hover:bg-white/80 rounded-xl transition-all active:scale-95"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
+                aria-label="Toggle Menu"
               >
-                {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu Dropdown */}
         <AnimatePresence>
           {isMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="md:hidden mt-2 max-w-7xl mx-auto"
-            >
-              <div className="bg-white/60 backdrop-blur-xl border border-white/40 rounded-3xl shadow-xl p-6 space-y-4">
-                <Link 
-                  to="/" 
-                  className="block text-lg font-medium text-zinc-900 hover:bg-white/40 p-2 rounded-xl transition-all"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Tools
-                </Link>
-                <Link 
-                  to="/showcase" 
-                  className="block text-lg font-semibold text-purple-600 hover:bg-purple-50/50 p-2 rounded-xl transition-all flex items-center gap-1.5"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <Sparkles className="w-4 h-4 text-purple-500" />
-                  Showcase Gallery
-                </Link>
-                <Link 
-                  to="/about" 
-                  className="block text-lg font-medium text-zinc-600 hover:bg-white/40 p-2 rounded-xl transition-all"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  About
-                </Link>
-                <Link 
-                  to="/privacy" 
-                  className="block text-lg font-medium text-zinc-600 hover:bg-white/40 p-2 rounded-xl transition-all"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Privacy
-                </Link>
-                <div className="pt-4 border-t border-white/20 flex gap-6">
-                  <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-zinc-900 transition-colors">
-                    <Github className="w-6 h-6" />
-                  </a>
+            <>
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setIsMenuOpen(false)}
+                className="fixed inset-0 bg-zinc-950/20 backdrop-blur-xs z-40 md:hidden"
+              />
+
+              <motion.div
+                initial={{ opacity: 0, y: -10, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                className="md:hidden relative z-50 mt-2 max-w-7xl mx-auto"
+              >
+                <div className="bg-white/95 backdrop-blur-2xl border border-zinc-200/80 rounded-2xl sm:rounded-3xl shadow-2xl p-5 space-y-3">
+                  <button
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      focusSearch();
+                    }}
+                    className="w-full flex items-center justify-between p-3 bg-purple-50/80 text-purple-900 rounded-xl font-bold text-sm border border-purple-100"
+                  >
+                    <span className="flex items-center gap-2">
+                      <Search className="w-4 h-4 text-purple-600" />
+                      Search All 50+ Tools
+                    </span>
+                    <ChevronRight className="w-4 h-4 text-purple-400" />
+                  </button>
+
+                  <Link 
+                    to="/" 
+                    className="flex items-center justify-between text-base font-bold text-zinc-900 hover:bg-zinc-50 p-2.5 rounded-xl transition-all"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <span className="flex items-center gap-2.5">
+                      <LayoutGrid className="w-4 h-4 text-zinc-500" />
+                      All Tools Dashboard
+                    </span>
+                    <ChevronRight className="w-4 h-4 text-zinc-300" />
+                  </Link>
+                  <Link 
+                    to="/showcase" 
+                    className="flex items-center justify-between text-base font-bold text-purple-700 bg-purple-50/40 p-2.5 rounded-xl transition-all"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <span className="flex items-center gap-2.5">
+                      <Sparkles className="w-4 h-4 text-purple-600" />
+                      Showcase Gallery
+                    </span>
+                    <ChevronRight className="w-4 h-4 text-purple-400" />
+                  </Link>
+                  <Link 
+                    to="/about" 
+                    className="flex items-center justify-between text-base font-semibold text-zinc-700 hover:bg-zinc-50 p-2.5 rounded-xl transition-all"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <span>About Infinite Labs</span>
+                    <ChevronRight className="w-4 h-4 text-zinc-300" />
+                  </Link>
+                  <Link 
+                    to="/privacy" 
+                    className="flex items-center justify-between text-base font-semibold text-zinc-700 hover:bg-zinc-50 p-2.5 rounded-xl transition-all"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <span>Privacy Policy</span>
+                    <ChevronRight className="w-4 h-4 text-zinc-300" />
+                  </Link>
+
+                  <div className="pt-3 border-t border-zinc-100 flex items-center justify-between text-xs text-zinc-500">
+                    <span>Infinite Labs Suite</span>
+                    <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-zinc-600 hover:text-zinc-950 flex items-center gap-1 font-semibold">
+                      <Github className="w-4 h-4" /> GitHub
+                    </a>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </>
           )}
         </AnimatePresence>
       </header>
 
-      <main className="flex-grow pt-4">
+      <main className="flex-grow pt-2 sm:pt-4">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
@@ -850,9 +1097,50 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
         </AnimatePresence>
       </main>
 
-      <footer className="mt-auto py-12 px-4">
+      {/* Floating Mobile Bottom Navigation Bar */}
+      <div className="md:hidden fixed bottom-3 inset-x-3 z-50 bg-white/90 backdrop-blur-2xl border border-zinc-200/90 rounded-2xl shadow-2xl p-1.5 flex items-center justify-around">
+        <Link 
+          to="/" 
+          className={cn(
+            "flex flex-col items-center justify-center py-1.5 px-3 rounded-xl transition-all text-[11px] font-bold gap-0.5",
+            location.pathname === '/' ? "text-purple-700 bg-purple-50" : "text-zinc-500 hover:text-zinc-900"
+          )}
+        >
+          <LayoutGrid className="w-4 h-4" />
+          <span>Tools</span>
+        </Link>
+
+        <button 
+          onClick={focusSearch}
+          className="flex flex-col items-center justify-center py-1.5 px-3 rounded-xl transition-all text-[11px] font-bold text-zinc-500 hover:text-purple-700 gap-0.5"
+        >
+          <Search className="w-4 h-4 text-purple-600" />
+          <span>Search</span>
+        </button>
+
+        <Link 
+          to="/showcase" 
+          className={cn(
+            "flex flex-col items-center justify-center py-1.5 px-3 rounded-xl transition-all text-[11px] font-bold gap-0.5",
+            location.pathname === '/showcase' ? "text-purple-700 bg-purple-50" : "text-zinc-500 hover:text-zinc-900"
+          )}
+        >
+          <Sparkles className="w-4 h-4 text-purple-600" />
+          <span>Gallery</span>
+        </Link>
+
+        <button 
+          onClick={scrollToTop}
+          className="flex flex-col items-center justify-center py-1.5 px-3 rounded-xl transition-all text-[11px] font-bold text-zinc-500 hover:text-zinc-900 gap-0.5"
+        >
+          <ArrowLeft className="w-4 h-4 rotate-90" />
+          <span>Top</span>
+        </button>
+      </div>
+
+      <footer className="mt-auto py-8 sm:py-12 px-3 sm:px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="bg-white/40 backdrop-blur-xl border border-white/40 rounded-3xl p-8 flex flex-col md:flex-row justify-between items-center gap-8 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)]">
+          <div className="bg-white/40 backdrop-blur-xl border border-white/40 rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row justify-between items-center gap-6 sm:gap-8 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] text-center sm:text-left">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center">
                 <LayoutGrid className="w-4 h-4 text-white" />
@@ -860,13 +1148,13 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
               <span className="font-bold text-zinc-900">Infinite Labs</span>
               <span className="text-zinc-400 text-sm ml-2">© 2024</span>
             </div>
-            <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
-              <Link to="/showcase" className="text-sm font-semibold text-purple-600 hover:text-purple-900 transition-colors">Showcase</Link>
-              <Link to="/about" className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">About</Link>
-              <Link to="/privacy" className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">Privacy</Link>
-              <Link to="/terms" className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">Terms & Conditions</Link>
-              <Link to="/disclaimer" className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">Disclaimer</Link>
-              <Link to="/contact" className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">Contact Us</Link>
+            <div className="flex flex-wrap justify-center gap-x-6 sm:gap-x-8 gap-y-3 sm:gap-y-4">
+              <Link to="/showcase" className="text-xs sm:text-sm font-semibold text-purple-600 hover:text-purple-900 transition-colors">Showcase</Link>
+              <Link to="/about" className="text-xs sm:text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">About</Link>
+              <Link to="/privacy" className="text-xs sm:text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">Privacy</Link>
+              <Link to="/terms" className="text-xs sm:text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">Terms & Conditions</Link>
+              <Link to="/disclaimer" className="text-xs sm:text-xs sm:text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">Disclaimer</Link>
+              <Link to="/contact" className="text-xs sm:text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">Contact Us</Link>
             </div>
           </div>
         </div>

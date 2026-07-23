@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
+import { HandLoader } from "@/src/components/HandLoader";
 import { 
   Sparkles, 
   Wand2, 
@@ -683,11 +684,9 @@ export function AiImageGenerator() {
                             <>
                               {/* Pulsing core glow */}
                               <div className="absolute inset-0 bg-gradient-to-tr from-purple-50/5 to-indigo-50/5 animate-pulse pointer-events-none" />
-                              <div className="w-10 h-10 rounded-full border-2 border-zinc-200 border-t-purple-600 animate-spin mb-3" />
-                              <span className="text-xs font-bold text-zinc-700">Weaving Image #{idx + 1}</span>
-                              <span className="text-[10px] text-zinc-400 mt-1">Status: Rendering ({task.progress}%)</span>
+                              <HandLoader size="sm" text={`Weaving Image #${idx + 1}`} subtext={`Status: Rendering (${task.progress}%)`} />
                               
-                              <div className="w-24 bg-zinc-100 h-1 rounded-full overflow-hidden mt-3">
+                              <div className="w-24 bg-zinc-100 h-1 rounded-full overflow-hidden mt-2">
                                 <div 
                                   className="bg-purple-600 h-full transition-all duration-300"
                                   style={{ width: `${task.progress}%` }}
