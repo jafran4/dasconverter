@@ -889,7 +889,7 @@ export function AiImageGenerator() {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-white border border-zinc-200 max-w-5xl w-full rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-12 shadow-2xl relative animate-in fade-in zoom-in duration-200"
+              className="bg-white border border-zinc-200 max-w-5xl w-full rounded-2xl max-h-[90vh] overflow-y-auto grid grid-cols-1 md:grid-cols-12 shadow-2xl relative animate-in fade-in zoom-in duration-200"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Image Section */}
@@ -1011,7 +1011,7 @@ export function AiImageGenerator() {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-white border border-zinc-200 max-w-5xl w-full rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-12 shadow-2xl relative animate-in fade-in zoom-in duration-200"
+              className="bg-white border border-zinc-200 max-w-5xl w-full rounded-3xl max-h-[90vh] overflow-y-auto grid grid-cols-1 md:grid-cols-12 shadow-2xl relative animate-in fade-in zoom-in duration-200"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Image Section */}

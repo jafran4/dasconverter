@@ -130,6 +130,7 @@ import { Privacy } from '@/src/pages/Privacy';
 import { Contact } from '@/src/pages/Contact';
 import { Terms } from '@/src/pages/Terms';
 import { Disclaimer } from '@/src/pages/Disclaimer';
+import { Showcase } from '@/src/pages/Showcase';
 
 // Health Tool Components
 import { BmiCalculator } from '@/src/tools/BmiCalculator';
@@ -451,7 +452,15 @@ const Dashboard = () => {
           </div>
           
           {/* Slider Navigation Controls */}
-          <div className="flex items-center gap-2 self-end sm:self-auto">
+          <div className="flex items-center gap-3 self-end sm:self-auto">
+            <Link
+              to="/showcase"
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-purple-50 hover:bg-purple-100 text-purple-700 hover:text-purple-800 text-xs font-semibold rounded-xl transition-all border border-purple-100/50 shadow-xs"
+            >
+              <span>View Full Gallery</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </Link>
+            <div className="h-6 w-px bg-zinc-200" />
             <button
               type="button"
               onClick={() => {
@@ -547,7 +556,7 @@ const Dashboard = () => {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-white border border-zinc-200 max-w-4xl w-full rounded-[32px] overflow-hidden grid grid-cols-1 md:grid-cols-12 shadow-2xl relative"
+              className="bg-white border border-zinc-200 max-w-4xl w-full rounded-[32px] max-h-[90vh] overflow-y-auto grid grid-cols-1 md:grid-cols-12 shadow-2xl relative"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Image Column */}
@@ -735,7 +744,12 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
                 <div className="w-9 h-9 bg-zinc-900 rounded-xl flex items-center justify-center group-hover:rotate-12 transition-transform shadow-lg shadow-zinc-900/20">
                   <LayoutGrid className="w-5 h-5 text-white" />
                 </div>
-                <span className="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-zinc-900 to-zinc-600">Infinite Labs</span>
+                <span className={cn(
+                  "font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-zinc-900 to-zinc-600",
+                  location.pathname !== '/' ? "hidden sm:inline" : "inline"
+                )}>
+                  Infinite Labs
+                </span>
               </Link>
             </div>
 
@@ -750,6 +764,10 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
               
               <nav className="hidden md:flex items-center gap-1">
                 <Link to="/" className="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-white/60 rounded-xl transition-all">Tools</Link>
+                <Link to="/showcase" className="px-4 py-2 text-sm font-medium text-purple-600 hover:text-purple-900 hover:bg-purple-50/50 rounded-xl transition-all flex items-center gap-1">
+                  <Sparkles className="w-3.5 h-3.5 text-purple-500" />
+                  Showcase
+                </Link>
                 <Link to="/about" className="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-white/60 rounded-xl transition-all">About</Link>
                 <Link to="/privacy" className="px-4 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-white/60 rounded-xl transition-all">Privacy</Link>
                 <div className="h-4 w-px bg-zinc-200/50 mx-2" />
@@ -784,6 +802,14 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Tools
+                </Link>
+                <Link 
+                  to="/showcase" 
+                  className="block text-lg font-semibold text-purple-600 hover:bg-purple-50/50 p-2 rounded-xl transition-all flex items-center gap-1.5"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Sparkles className="w-4 h-4 text-purple-500" />
+                  Showcase Gallery
                 </Link>
                 <Link 
                   to="/about" 
@@ -835,6 +861,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
               <span className="text-zinc-400 text-sm ml-2">© 2024</span>
             </div>
             <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
+              <Link to="/showcase" className="text-sm font-semibold text-purple-600 hover:text-purple-900 transition-colors">Showcase</Link>
               <Link to="/about" className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">About</Link>
               <Link to="/privacy" className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">Privacy</Link>
               <Link to="/terms" className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">Terms & Conditions</Link>
@@ -1004,6 +1031,8 @@ export default function App() {
             <Route path="/viewport-size" element={<ToolWrapper toolId="viewport-size"><ViewportSize /></ToolWrapper>} />
             <Route path="/browser-info" element={<ToolWrapper toolId="browser-info"><BrowserInfo /></ToolWrapper>} />
             
+            <Route path="/showcase" element={<Showcase />} />
+
             {/* Static Pages */}
             <Route path="/about" element={<About />} />
             <Route path="/privacy" element={<Privacy />} />
