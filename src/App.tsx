@@ -4,6 +4,8 @@ import React, { useState, ReactNode, useEffect, createContext, useContext, useRe
 import { CATEGORIES } from '@/src/data/tools';
 import { cn } from '@/src/lib/utils';
 import { RecommendedTools } from '@/src/components/RecommendedTools';
+import { CopiedPromptModal } from '@/src/components/CopiedPromptModal';
+import { copyPromptToClipboard } from '@/src/utils/copyPrompt';
 import { 
   FileText, 
   Image as ImageIcon, 
@@ -320,7 +322,7 @@ const Dashboard = () => {
   }, [searchRef]);
 
   const handleCopyPrompt = (text: string, id: string) => {
-    navigator.clipboard.writeText(text);
+    copyPromptToClipboard(text);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
   };
@@ -583,9 +585,9 @@ const Dashboard = () => {
           <div>
             <h2 className="text-xl font-bold text-zinc-900 flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-purple-600 animate-pulse" />
-              AI Masterpiece Showcase
+              Featured AI Prompts
             </h2>
-            <p className="text-sm text-zinc-500 mt-1">Scroll through incredible creations. Click any photo to see its prompt blueprint and instantly re-create it!</p>
+            <p className="text-sm text-zinc-500 mt-1">Scroll through proven prompt blueprints. Click any item to view its prompt engineering parameters and re-create it!</p>
           </div>
           
           {/* Slider Navigation Controls */}
@@ -594,7 +596,7 @@ const Dashboard = () => {
               to="/showcase"
               className="inline-flex items-center gap-1.5 px-4 py-2 bg-purple-50 hover:bg-purple-100 text-purple-700 hover:text-purple-800 text-xs font-semibold rounded-xl transition-all border border-purple-100/50 shadow-xs"
             >
-              <span>View Full Gallery</span>
+              <span>View All Prompts</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </Link>
             <div className="h-6 w-px bg-zinc-200" />
@@ -976,7 +978,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
                 <Link to="/" className="px-4 py-2 text-sm font-semibold text-zinc-600 hover:text-zinc-950 hover:bg-white/60 rounded-xl transition-all">Tools</Link>
                 <Link to="/showcase" className="px-4 py-2 text-sm font-bold text-purple-600 hover:text-purple-900 hover:bg-purple-50/50 rounded-xl transition-all flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5 text-purple-500 animate-pulse" />
-                  Showcase
+                  AI Prompts
                 </Link>
                 <Link to="/about" className="px-4 py-2 text-sm font-semibold text-zinc-600 hover:text-zinc-950 hover:bg-white/60 rounded-xl transition-all">About</Link>
                 <Link to="/privacy" className="px-4 py-2 text-sm font-semibold text-zinc-600 hover:text-zinc-950 hover:bg-white/60 rounded-xl transition-all">Privacy</Link>
@@ -1049,7 +1051,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
                   >
                     <span className="flex items-center gap-2.5">
                       <Sparkles className="w-4 h-4 text-purple-600" />
-                      Showcase Gallery
+                      AI Prompts Gallery
                     </span>
                     <ChevronRight className="w-4 h-4 text-purple-400" />
                   </Link>
@@ -1126,7 +1128,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
           )}
         >
           <Sparkles className="w-4 h-4 text-purple-600" />
-          <span>Gallery</span>
+          <span>AI Prompts</span>
         </Link>
 
         <button 
@@ -1149,7 +1151,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
               <span className="text-zinc-400 text-sm ml-2">© 2024</span>
             </div>
             <div className="flex flex-wrap justify-center gap-x-6 sm:gap-x-8 gap-y-3 sm:gap-y-4">
-              <Link to="/showcase" className="text-xs sm:text-sm font-semibold text-purple-600 hover:text-purple-900 transition-colors">Showcase</Link>
+              <Link to="/showcase" className="text-xs sm:text-sm font-semibold text-purple-600 hover:text-purple-900 transition-colors">AI Prompts</Link>
               <Link to="/about" className="text-xs sm:text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">About</Link>
               <Link to="/privacy" className="text-xs sm:text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">Privacy</Link>
               <Link to="/terms" className="text-xs sm:text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">Terms & Conditions</Link>
@@ -1159,6 +1161,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
           </div>
         </div>
       </footer>
+      <CopiedPromptModal />
     </div>
   );
 };

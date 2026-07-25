@@ -19,6 +19,7 @@ import {
 import { useNavigate, Link } from 'react-router-dom';
 import { SHOWCASE_IMAGES, STYLE_PRESETS, MODELS, ShowcaseImage } from '@/src/data/showcase';
 import { StaggeredGrid } from '@/src/components/StaggeredGrid';
+import { copyPromptToClipboard } from '@/src/utils/copyPrompt';
 
 export const Showcase = () => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export const Showcase = () => {
 
   const handleCopyPrompt = (text: string, id: string, e?: React.MouseEvent) => {
     e?.stopPropagation();
-    navigator.clipboard.writeText(text);
+    copyPromptToClipboard(text);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
   };
@@ -71,13 +72,13 @@ export const Showcase = () => {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-72 h-72 bg-purple-200/20 rounded-full blur-3xl pointer-events-none -mt-10" />
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-50 border border-purple-100 text-purple-700 text-xs font-semibold mb-4 sm:mb-6 shadow-xs">
           <Sparkles className="w-3.5 h-3.5 animate-pulse" />
-          <span>Curated AI Masterpieces</span>
+          <span>Curated AI Prompts & Blueprints</span>
         </div>
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-zinc-900 mb-4 sm:mb-6">
-          AI Masterpiece Showcase
+          AI Prompt Gallery
         </h1>
         <p className="text-base sm:text-lg md:text-xl text-zinc-500 max-w-2xl mx-auto leading-relaxed">
-          Step into a curated gallery of high-fidelity generations. Explore professional prompt blueprints and recreate them instantly in our studio.
+          Step into a curated library of high-fidelity AI prompts. Copy proven prompt blueprints with one click or launch them directly in our image studio.
         </p>
       </div>
 
@@ -98,7 +99,7 @@ export const Showcase = () => {
             <Search className="absolute inset-y-0 left-4 h-5 w-5 text-zinc-400 self-center my-auto" />
             <input
               type="text"
-              placeholder="Search masterpiece title, author, or keywords..."
+              placeholder="Search AI prompts, keywords, styles, or creators..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="block w-full pl-11 pr-10 py-3.5 bg-zinc-50 border border-zinc-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500/10 focus:border-purple-500 focus:bg-white transition-all text-sm text-zinc-900 placeholder:text-zinc-400"
@@ -186,9 +187,9 @@ export const Showcase = () => {
                   referrerPolicy="no-referrer"
                 />
                 
-                {/* View Blueprint Badge */}
+                {/* View Prompt Badge */}
                 <div className="absolute top-4 right-4 bg-zinc-950/75 backdrop-blur-md text-white text-[10px] font-bold px-3 py-2 rounded-xl flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-sm">
-                  <Eye className="w-3.5 h-3.5 text-purple-400" /> View Blueprint
+                  <Eye className="w-3.5 h-3.5 text-purple-400" /> View AI Prompt
                 </div>
 
                 {/* Info Overlay */}
@@ -221,9 +222,9 @@ export const Showcase = () => {
           <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-sm">
             <Search className="w-8 h-8 text-zinc-400" />
           </div>
-          <h3 className="text-xl font-bold text-zinc-900 mb-2">No masterpieces found</h3>
+          <h3 className="text-xl font-bold text-zinc-900 mb-2">No AI prompts found</h3>
           <p className="text-zinc-500 max-w-md mx-auto">
-            We couldn't find any creations matching your search criteria. Try choosing a different style or adjusting filters.
+            We couldn't find any AI prompts matching your search criteria. Try searching for different keywords or resetting your style filters.
           </p>
           <button
             onClick={() => {
@@ -241,16 +242,16 @@ export const Showcase = () => {
       {/* Bottom Callout banner */}
       <div className="mt-24 bg-zinc-900 rounded-[2.5rem] p-8 sm:p-12 text-white relative overflow-hidden">
         <div className="relative z-10 max-w-2xl">
-          <span className="text-purple-400 text-xs font-bold uppercase tracking-widest block mb-3">Instant Creation</span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Have your own custom masterpiece in mind?</h2>
+          <span className="text-purple-400 text-xs font-bold uppercase tracking-widest block mb-3">AI Prompt Engineering</span>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Ready to craft your own unique AI prompts?</h2>
           <p className="text-zinc-400 mb-8 leading-relaxed">
-            Head to our advanced AI image generation studio. Pick a custom model, specify styles, craft aspect ratios, and generate stunning visuals on the fly.
+            Head to our advanced AI Image Studio. Experiment with custom prompt engineering, select style presets, set aspect ratios, and generate stunning visuals on demand.
           </p>
           <Link 
             to="/ai-image-generator" 
             className="inline-flex items-center gap-2 px-8 py-4 bg-white text-zinc-900 hover:bg-zinc-100 rounded-2xl font-bold transition-all hover:translate-x-1"
           >
-            Open Image Studio
+            Open AI Image Studio
             <ArrowRight className="w-5 h-5 text-zinc-900" />
           </Link>
         </div>
@@ -346,12 +347,12 @@ export const Showcase = () => {
                     {copiedId === selectedShowcase.id ? (
                       <>
                         <Check className="w-4 h-4 text-emerald-500 font-bold" />
-                        Prompt Copied!
+                        AI Prompt Copied!
                       </>
                     ) : (
                       <>
                         <Copy className="w-4 h-4 text-zinc-500" />
-                        Copy Vision Prompt Only
+                        Copy AI Prompt
                       </>
                     )}
                   </button>

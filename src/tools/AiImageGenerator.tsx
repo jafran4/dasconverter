@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { HandLoader } from "@/src/components/HandLoader";
+import { copyPromptToClipboard } from "@/src/utils/copyPrompt";
 import { 
   Sparkles, 
   Wand2, 
@@ -248,7 +249,7 @@ export function AiImageGenerator() {
   };
 
   const handleCopyPrompt = (promptText: string, id: string) => {
-    navigator.clipboard.writeText(promptText);
+    copyPromptToClipboard(promptText);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
   };
@@ -348,9 +349,9 @@ export function AiImageGenerator() {
                   <div>
                     <h2 className="text-base font-bold text-zinc-800 flex items-center gap-2">
                       <Sparkles className="w-4 h-4 text-purple-600 animate-pulse" />
-                      Community Masterpiece Inspiration
+                      Community AI Prompt Blueprints
                     </h2>
-                    <p className="text-xs text-zinc-500 mt-0.5">Click any masterpiece to see its prompt blueprint, style preset, and re-create it instantly</p>
+                    <p className="text-xs text-zinc-500 mt-0.5">Click any AI prompt to inspect its blueprint, style preset, and load it into your creation canvas</p>
                   </div>
                   
                   {/* Floating navigation buttons for easy scroll */}
