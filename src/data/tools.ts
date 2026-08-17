@@ -48,6 +48,7 @@ import {
   FileJson,
   Minimize,
   ShieldCheck,
+  ShieldAlert,
   Unlock,
   Eraser,
   Trees,
@@ -85,6 +86,38 @@ import {
 } from 'lucide-react';
 
 export const CATEGORIES = [
+  {
+    name: 'Marketing & SMM',
+    icon: TrendingUp,
+    color: 'text-purple-600',
+    tools: [
+      {
+        id: 'smm-panel',
+        name: 'SMM Panel Pro',
+        description: 'Modern SMM panel for Instagram, YouTube, TikTok & Facebook with RBPanel API v2 integration & auto sync.',
+        icon: TrendingUp,
+        color: 'text-purple-600',
+        bg: 'bg-purple-50',
+        path: '/smm-panel'
+      }
+    ]
+  },
+  {
+    name: 'Security & Anti-Fraud',
+    icon: ShieldAlert,
+    color: 'text-red-600',
+    tools: [
+      {
+        id: 'scammer-finder',
+        name: 'Scammer Finder',
+        description: 'Verify Bangladeshi phone numbers & MFS transaction codes (bKash, Nagad, Rocket) against fraud databases.',
+        icon: ShieldAlert,
+        color: 'text-red-600',
+        bg: 'bg-red-50',
+        path: '/scammer-finder'
+      }
+    ]
+  },
   {
     name: 'AI Tools',
     icon: Sparkles,

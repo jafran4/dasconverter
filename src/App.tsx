@@ -1,6 +1,49 @@
 import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate, useNavigationType } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import React, { useState, ReactNode, useEffect, createContext, useContext, useRef } from 'react';
+
+// Real-time Mouse Tracking Eye Component
+function TrackingEye({ onFocusSearch }: { onFocusSearch: () => void }) {
+  const eyeRef = useRef<HTMLButtonElement>(null);
+  const pupilRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!eyeRef.current || !pupilRef.current) return;
+      const rect = eyeRef.current.getBoundingClientRect();
+      const eyeCenterX = rect.left + rect.width / 2;
+      const eyeCenterY = rect.top + rect.height / 2;
+
+      const angle = Math.atan2(e.clientY - eyeCenterY, e.clientX - eyeCenterX);
+      const distToMouse = Math.hypot(e.clientX - eyeCenterX, e.clientY - eyeCenterY);
+      // Smooth displacement up to 10px maximum radius
+      const distance = Math.min(distToMouse / 12, 10);
+
+      const pupilX = Math.cos(angle) * distance;
+      const pupilY = Math.sin(angle) * distance;
+
+      pupilRef.current.style.transform = `translate(${pupilX}px, ${pupilY}px)`;
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  return (
+    <div className="btn-container">
+      <button 
+        ref={eyeRef}
+        type="button"
+        className="btn-button"
+        onClick={onFocusSearch}
+        title="Click to focus search"
+      >
+        <div className="btn-lid" />
+        <div ref={pupilRef} className="btn-pupil" style={{ transition: 'transform 0.05s ease-out' }} />
+      </button>
+    </div>
+  );
+}
 import { CATEGORIES } from '@/src/data/tools';
 import { cn } from '@/src/lib/utils';
 import { RecommendedTools } from '@/src/components/RecommendedTools';
@@ -184,6 +227,8 @@ import { PokemonGoCpCalculator } from '@/src/tools/PokemonGoCpCalculator';
 import { StepsToMilesCalculator } from '@/src/tools/StepsToMilesCalculator';
 import { ReverseMortgageCalculator } from '@/src/tools/ReverseMortgageCalculator';
 import { AiImageGenerator } from '@/src/tools/AiImageGenerator';
+import { ScammerFinder } from '@/src/tools/ScammerFinder';
+import { SmmPanel } from '@/src/tools/SmmPanel';
 
 // Math & Time Tool Components
 import { AgeCalculator } from '@/src/tools/AgeCalculator';
@@ -390,23 +435,34 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-3 sm:px-4 py-8 sm:py-12">
-      <div className="text-center mb-10 sm:mb-16 relative">
+    <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
+      <div className="text-center mb-6 sm:mb-8 relative">
         <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 mb-3 sm:mb-4 bg-clip-text text-transparent bg-gradient-to-r from-zinc-950 via-zinc-800 to-purple-950"
+          className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 mb-2 bg-clip-text text-transparent bg-gradient-to-r from-zinc-950 via-zinc-800 to-purple-950"
         >
           Infinite Labs
         </motion.h1>
         <motion.p 
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-sm sm:text-base md:text-xl text-zinc-500 max-w-2xl mx-auto mb-6 sm:mb-10 font-normal leading-relaxed px-2"
+          className="text-sm sm:text-base md:text-lg text-zinc-500 max-w-2xl mx-auto mb-3 font-normal leading-relaxed px-2"
         >
           A high-performance suite of simple, privacy-focused online tools.
         </motion.p>
+
+        {/* Interactive Eye Tracking Animation (Uiverse.io inspired with active cursor tracking) */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.15, type: "spring", stiffness: 120 }}
+          className="flex justify-center items-center gap-3 mb-4 sm:mb-5"
+        >
+          <TrackingEye onFocusSearch={() => { searchRef.current?.focus(); setIsFocused(true); }} />
+          <TrackingEye onFocusSearch={() => { searchRef.current?.focus(); setIsFocused(true); }} />
+        </motion.div>
 
         {/* Ambient Backlight Glow when Focused */}
         <div className="relative max-w-2xl mx-auto z-30">
@@ -423,11 +479,11 @@ const Dashboard = () => {
 
           {/* Search Box Container */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className={cn(
-              "relative flex flex-col sm:flex-row gap-2.5 p-2 rounded-[28px] transition-all duration-300 border",
+              "relative flex flex-col sm:flex-row gap-2 p-1.5 rounded-[24px] transition-all duration-300 border",
               isFocused 
                 ? "bg-white border-purple-500/40 shadow-[0_20px_50px_rgba(168,85,247,0.15)] ring-4 ring-purple-500/10" 
                 : "bg-white/80 backdrop-blur-md border-zinc-200/90 hover:border-zinc-300 shadow-lg shadow-zinc-900/5 hover:bg-white"
@@ -450,7 +506,7 @@ const Dashboard = () => {
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setTimeout(() => setIsFocused(false), 220)}
                 onKeyDown={handleInputKeyDown}
-                className="block w-full pl-12 pr-20 py-4 bg-transparent text-zinc-950 font-medium placeholder:text-zinc-400 focus:outline-none text-base"
+                className="block w-full pl-12 pr-20 py-3 bg-transparent text-zinc-950 font-medium placeholder:text-zinc-400 focus:outline-none text-base"
               />
 
               {/* Right Input Badges & Clear Button */}
@@ -558,7 +614,7 @@ const Dashboard = () => {
             <button 
               type="button"
               onClick={handleSearchButtonClick}
-              className="relative group overflow-hidden px-8 py-4 bg-gradient-to-r from-red-600 via-rose-600 to-amber-500 hover:from-red-500 hover:via-rose-500 hover:to-orange-400 text-white rounded-2xl font-extrabold text-sm flex items-center justify-center gap-2.5 transition-all duration-300 shadow-xl shadow-red-600/30 hover:shadow-2xl hover:shadow-rose-600/40 border border-red-400/40 hover:border-amber-300/70 active:scale-95 shrink-0"
+              className="relative group overflow-hidden px-6 py-3 bg-gradient-to-r from-red-600 via-rose-600 to-amber-500 hover:from-red-500 hover:via-rose-500 hover:to-orange-400 text-white rounded-xl font-extrabold text-sm flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-red-600/30 hover:shadow-xl hover:shadow-rose-600/40 border border-red-400/40 hover:border-amber-300/70 active:scale-95 shrink-0"
             >
               {/* Multi-color ambient background glow on hover */}
               <div className="absolute inset-0 bg-gradient-to-r from-rose-600 via-purple-600 to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm pointer-events-none" />
@@ -575,102 +631,109 @@ const Dashboard = () => {
       </div>
 
       {/* Community Masterpiece Inspiration Slider */}
-      <div className="bg-gradient-to-r from-purple-50/50 via-zinc-50/30 to-indigo-50/50 border border-zinc-200/80 rounded-[32px] p-6 sm:p-8 relative overflow-hidden shadow-xs mb-16">
+      <div className="bg-gradient-to-r from-purple-50/50 via-zinc-50/30 to-indigo-50/50 border border-zinc-200/80 rounded-[24px] p-4 sm:p-5 relative overflow-hidden shadow-xs mb-8">
         {/* Decorative backdrop glow */}
         <div className="absolute top-0 right-0 w-80 h-80 bg-purple-200/20 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-200/20 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
 
+        {/* Background Ambient Glows & Cyber Particles */}
+        <div className="absolute top-0 right-0 w-80 h-80 bg-purple-200/30 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20 animate-pulse" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-200/30 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20 animate-pulse" style={{ animationDelay: '2s' }} />
+        
+        {/* Continuous Cyberpunk Grid Background Lines */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none opacity-60 rounded-3xl" />
+
         {/* Title and Controls */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 relative z-10">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3.5 relative z-10">
           <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-purple-100 text-purple-700 border border-purple-200 uppercase tracking-widest">
+                <span className="w-1.5 h-1.5 rounded-full bg-purple-600 animate-ping" />
+                3D Cyber Engine
+              </span>
+            </div>
             <h2 className="text-xl font-bold text-zinc-900 flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-purple-600 animate-pulse" />
+              <Sparkles className="w-5 h-5 text-purple-600 animate-spin" style={{ animationDuration: '8s' }} />
               Featured AI Prompts
             </h2>
-            <p className="text-sm text-zinc-500 mt-1">Scroll through proven prompt blueprints. Click any item to view its prompt engineering parameters and re-create it!</p>
+            <p className="text-sm text-zinc-500 mt-1">Explore top prompt blueprints in continuous 3D perspective. Click any card to inspect & copy parameters!</p>
           </div>
           
-          {/* Slider Navigation Controls */}
           <div className="flex items-center gap-3 self-end sm:self-auto">
             <Link
               to="/showcase"
-              className="inline-flex items-center gap-1.5 px-4 py-2 bg-purple-50 hover:bg-purple-100 text-purple-700 hover:text-purple-800 text-xs font-semibold rounded-xl transition-all border border-purple-100/50 shadow-xs"
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-purple-50 hover:bg-purple-100 text-purple-700 hover:text-purple-800 text-xs font-semibold rounded-xl transition-all border border-purple-200/70 shadow-xs hover:shadow-md active:scale-95"
             >
-              <span>View All Prompts</span>
+              <span>View All Prompts ({SHOWCASE_IMAGES.length})</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </Link>
-            <div className="h-6 w-px bg-zinc-200" />
-            <button
-              type="button"
-              onClick={() => {
-                const el = document.getElementById("home-showcase-scroll-track");
-                if (el) el.scrollBy({ left: -320, behavior: "smooth" });
-              }}
-              className="w-10 h-10 rounded-full border border-zinc-200 bg-white hover:bg-zinc-50 flex items-center justify-center text-zinc-600 hover:text-zinc-950 transition-all shadow-xs active:scale-95"
-              title="Scroll Left"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                const el = document.getElementById("home-showcase-scroll-track");
-                if (el) el.scrollBy({ left: 320, behavior: "smooth" });
-              }}
-              className="w-10 h-10 rounded-full border border-zinc-200 bg-white hover:bg-zinc-50 flex items-center justify-center text-zinc-600 hover:text-zinc-950 transition-all shadow-xs active:scale-95"
-              title="Scroll Right"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
           </div>
         </div>
 
-        {/* Horizontally Scrollable Track */}
-        <div 
-          id="home-showcase-scroll-track"
-          className="flex gap-5 overflow-x-auto pb-4 pr-4 -mr-4 scroll-smooth snap-x snap-mandatory custom-scrollbar select-none relative z-10"
-          style={{ scrollbarWidth: 'thin' }}
-        >
-          {SHOWCASE_IMAGES.map((img, i) => (
+        {/* 6 Images per Row across 2 Rows (12 Cards Grid) with Continuous 3D Cyberpunk CSS Animation */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3.5 relative z-10 [perspective:1000px]">
+          {SHOWCASE_IMAGES.slice(0, 12).map((img, i) => (
             <motion.div
               key={img.id}
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.08, type: "spring", stiffness: 80 }}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.04, type: "spring", stiffness: 100 }}
               onClick={() => setSelectedShowcase(img)}
-              className="flex-shrink-0 w-[260px] sm:w-[300px] group cursor-pointer snap-start"
+              className="group cursor-pointer [perspective:1000px]"
             >
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-50 shadow-sm group-hover:shadow-xl group-hover:border-purple-400 transition-all duration-300">
+              <div 
+                style={{ animationDelay: `${(i % 6) * 0.4}s` }}
+                className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-200/80 bg-zinc-950 shadow-xs group-hover:shadow-[0_22px_40px_-10px_rgba(168,85,247,0.5)] group-hover:border-purple-400 transition-all duration-500 ease-out [transform-style:preserve-3d] animate-cyberpunk-3d group-hover:[animation-play-state:paused] group-hover:[transform:rotateX(12deg)_rotateY(-10deg)_translateZ(22px)_scale(1.04)]"
+              >
+                {/* Cyberpunk Holographic Continuous Light Sweep Line */}
+                <div 
+                  style={{ animationDelay: `${(i % 6) * 0.5}s` }}
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent animate-cyber-sweep pointer-events-none z-30" 
+                />
+
+                {/* Continuous Downward Cyber Scanline Light Beam */}
+                <div 
+                  style={{ animationDelay: `${(i % 4) * 0.7}s` }}
+                  className="absolute inset-x-0 h-10 bg-gradient-to-b from-transparent via-purple-400/20 to-transparent animate-scanline pointer-events-none z-30"
+                />
+
+                {/* Cyberpunk Tech Corner Accents & Ping Radar Dots */}
+                <div className="absolute top-0 left-0 w-2.5 h-2.5 border-t border-l border-white/60 group-hover:border-purple-400 transition-colors z-30 pointer-events-none" />
+                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 border-b border-r border-white/60 group-hover:border-purple-400 transition-colors z-30 pointer-events-none" />
+                <div className="absolute top-1.5 left-1.5 w-1 h-1 rounded-full bg-purple-400/70 animate-ping z-30 pointer-events-none" style={{ animationDelay: `${i * 0.3}s` }} />
+
                 <img 
                   src={img.url} 
                   alt={img.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  style={{ animationDelay: `${i * 0.8}s` }}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-115 animate-image-pan"
                   loading="lazy"
                   referrerPolicy="no-referrer"
                 />
                 
-                {/* Elegant View Blueprint Badge */}
-                <div className="absolute top-3 right-3 bg-zinc-950/75 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1.5 rounded-xl flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-350 shadow-sm">
-                  <Eye className="w-3.5 h-3.5 text-purple-400" /> View Blueprint
+                {/* Elegant 3D Pop Compact View Blueprint Badge */}
+                <div className="absolute top-2 right-2 bg-zinc-950/85 backdrop-blur-md text-white text-[9px] font-bold px-2 py-1 rounded-lg flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-md z-30 border border-white/20 group-hover:border-purple-400/50 [transform:translateZ(20px)]">
+                  <Eye className="w-3 h-3 text-purple-400 animate-pulse" /> Blueprint
                 </div>
 
-                {/* Dark Vignette and Content overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent p-4 sm:p-5 flex flex-col justify-end">
-                  <span className="text-[10px] font-bold text-purple-300 uppercase tracking-widest mb-1">
+                {/* Compact Dark Vignette and 3D Layered Content overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent p-2.5 sm:p-3 flex flex-col justify-end z-20 [transform:translateZ(10px)]">
+                  <span className="text-[9px] font-bold text-purple-300 uppercase tracking-wider mb-0.5 flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
                     {STYLE_PRESETS.find(s => s.id === img.style)?.name || img.style}
                   </span>
-                  <h4 className="text-sm font-bold text-white line-clamp-1 leading-snug group-hover:text-purple-200 transition-colors">
+                  <h4 className="text-xs font-bold text-white line-clamp-1 leading-snug group-hover:text-purple-200 transition-colors drop-shadow-sm">
                     {img.title}
                   </h4>
-                  <p className="text-xs text-zinc-300 mt-1.5 line-clamp-2 leading-relaxed opacity-90 group-hover:opacity-100 transition-opacity">
+                  <p className="text-[10px] text-zinc-300 mt-0.5 line-clamp-1 leading-tight opacity-85 font-mono">
                     "{img.prompt}"
                   </p>
                   
-                  <div className="flex items-center justify-between border-t border-white/10 mt-3 pt-3">
-                    <span className="text-[10px] text-zinc-400 font-medium">
-                      By @{img.author}
+                  <div className="flex items-center justify-between border-t border-white/15 mt-1.5 pt-1.5">
+                    <span className="text-[9px] text-zinc-400 font-medium line-clamp-1">
+                      @{img.author}
                     </span>
-                    <span className="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded-md border border-purple-400/20 font-bold">
+                    <span className="text-[9px] bg-purple-500/20 text-purple-300 px-1.5 py-0.2 rounded border border-purple-400/30 font-bold shrink-0">
                       {img.aspectRatio}
                     </span>
                   </div>
@@ -1200,6 +1263,8 @@ export default function App() {
         <AppLayout>
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/smm-panel" element={<ToolWrapper toolId="smm-panel"><SmmPanel /></ToolWrapper>} />
+            <Route path="/scammer-finder" element={<ToolWrapper toolId="scammer-finder"><ScammerFinder /></ToolWrapper>} />
             <Route path="/pdf-merger" element={<ToolWrapper toolId="pdf-merger"><PdfMerger /></ToolWrapper>} />
             <Route path="/pdf-splitter" element={<ToolWrapper toolId="pdf-splitter"><PdfSplitter /></ToolWrapper>} />
             <Route path="/pdf-organizer" element={<ToolWrapper toolId="pdf-organizer"><PdfOrganizer /></ToolWrapper>} />
