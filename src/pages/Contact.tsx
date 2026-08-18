@@ -15,7 +15,7 @@ export const Contact = () => {
         </div>
         <h1 className="text-4xl font-bold text-zinc-900 mb-6">Contact Us</h1>
         <p className="text-xl text-zinc-600 leading-relaxed">
-          Have questions, suggestions, or feedback? We'd love to hear from you. Our team is dedicated to making Infinite Labs the best tool site for everyone.
+          Have questions, suggestions, or feedback? We'd love to hear from you. Our team is dedicated to making Das Converter the best tool site for everyone.
         </p>
       </motion.div>
 
@@ -26,7 +26,7 @@ export const Contact = () => {
           </div>
           <h2 className="text-xl font-bold text-zinc-900 mb-2">General Inquiries</h2>
           <p className="text-zinc-500 mb-4">For general questions or feedback about our tools.</p>
-          <a href="mailto:support@infinitelabs.com" className="text-blue-600 font-medium hover:underline">support@infinitelabs.com</a>
+          <a href="mailto:support@dasconverter.com" className="text-blue-600 font-medium hover:underline">support@dasconverter.com</a>
         </div>
 
         <div className="p-8 bg-white border border-zinc-200 rounded-3xl shadow-sm">
@@ -35,7 +35,7 @@ export const Contact = () => {
           </div>
           <h2 className="text-xl font-bold text-zinc-900 mb-2">Partnerships</h2>
           <p className="text-zinc-500 mb-4">Interested in collaborating or business opportunities?</p>
-          <a href="mailto:hello@infinitelabs.com" className="text-blue-600 font-medium hover:underline">hello@infinitelabs.com</a>
+          <a href="mailto:hello@dasconverter.com" className="text-blue-600 font-medium hover:underline">hello@dasconverter.com</a>
         </div>
       </div>
 

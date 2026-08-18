@@ -37,7 +37,7 @@ export function StaggeredGrid({
     images,
     onImageClick,
     credits = {
-        madeBy: { text: "Infinite Labs Studio", href: "#" },
+        madeBy: { text: "Das Converter Studio", href: "#" },
         moreDemos: { text: "Create Masterpiece", href: "/ai-image-generator" }
     },
     className,

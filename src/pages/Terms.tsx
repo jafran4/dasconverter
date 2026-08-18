@@ -15,7 +15,7 @@ export const Terms = () => {
         </div>
         <h1 className="text-4xl font-bold text-zinc-900 mb-6">Terms & Conditions</h1>
         <p className="text-xl text-zinc-600 leading-relaxed">
-          By using Infinite Labs, you agree to the following terms and conditions. Please read them carefully.
+          By using Das Converter, you agree to the following terms and conditions. Please read them carefully.
         </p>
       </motion.div>
 
@@ -26,7 +26,7 @@ export const Terms = () => {
             <h2 className="text-2xl font-bold text-zinc-900">Acceptance of Terms</h2>
           </div>
           <p className="text-zinc-600 leading-relaxed">
-            Infinite Labs provides its services to you subject to the following Terms and Conditions. By accessing or using our website, you acknowledge that you have read, understood, and agree to be bound by these terms.
+            Das Converter provides its services to you subject to the following Terms and Conditions. By accessing or using our website, you acknowledge that you have read, understood, and agree to be bound by these terms.
           </p>
         </section>
 
@@ -46,7 +46,7 @@ export const Terms = () => {
             <h2 className="text-2xl font-bold text-zinc-900">Intellectual Property</h2>
           </div>
           <p className="text-zinc-600 leading-relaxed">
-            All content on this website, including text, graphics, logos, and software, is the property of Infinite Labs or its content suppliers and is protected by international copyright laws.
+            All content on this website, including text, graphics, logos, and software, is the property of Das Converter or its content suppliers and is protected by international copyright laws.
           </p>
         </section>
 
@@ -56,7 +56,7 @@ export const Terms = () => {
             <h2 className="text-2xl font-bold text-zinc-900">Limitation of Liability</h2>
           </div>
           <p className="text-zinc-600 leading-relaxed">
-            Infinite Labs shall not be liable for any direct, indirect, incidental, special, or consequential damages resulting from the use or inability to use our services.
+            Das Converter shall not be liable for any direct, indirect, incidental, special, or consequential damages resulting from the use or inability to use our services.
           </p>
         </section>
       </div>

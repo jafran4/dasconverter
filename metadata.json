@@ -1,5 +1,5 @@
 {
-  "name": "Infinite Labs",
+  "name": "Das Converter",
   "description": "A comprehensive site of web tools for PDF manipulation, finance calculators, and social media downloading.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

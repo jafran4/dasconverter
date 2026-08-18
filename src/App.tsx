@@ -442,7 +442,7 @@ const Dashboard = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-zinc-950 mb-2 bg-clip-text text-transparent bg-gradient-to-r from-zinc-950 via-zinc-800 to-purple-950"
         >
-          Infinite Labs
+          Das Converter
         </motion.h1>
         <motion.p 
           initial={{ opacity: 0, y: 15 }}
@@ -1023,7 +1023,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
                   "font-extrabold text-lg sm:text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-zinc-950 via-zinc-800 to-purple-950",
                   location.pathname !== '/' ? "hidden xs:inline sm:inline" : "inline"
                 )}>
-                  Infinite Labs
+                  Das Converter
                 </span>
               </Link>
             </div>
@@ -1123,7 +1123,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
                     className="flex items-center justify-between text-base font-semibold text-zinc-700 hover:bg-zinc-50 p-2.5 rounded-xl transition-all"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <span>About Infinite Labs</span>
+                    <span>About Das Converter</span>
                     <ChevronRight className="w-4 h-4 text-zinc-300" />
                   </Link>
                   <Link 
@@ -1136,7 +1136,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
                   </Link>
 
                   <div className="pt-3 border-t border-zinc-100 flex items-center justify-between text-xs text-zinc-500">
-                    <span>Infinite Labs Suite</span>
+                    <span>Das Converter Suite</span>
                     <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-zinc-600 hover:text-zinc-950 flex items-center gap-1 font-semibold">
                       <Github className="w-4 h-4" /> GitHub
                     </a>
@@ -1210,7 +1210,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
               <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center">
                 <LayoutGrid className="w-4 h-4 text-white" />
               </div>
-              <span className="font-bold text-zinc-900">Infinite Labs</span>
+              <span className="font-bold text-zinc-900">Das Converter</span>
               <span className="text-zinc-400 text-sm ml-2">© 2024</span>
             </div>
             <div className="flex flex-wrap justify-center gap-x-6 sm:gap-x-8 gap-y-3 sm:gap-y-4">
