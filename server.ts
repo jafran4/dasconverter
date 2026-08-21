@@ -233,7 +233,64 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
+  // Trust reverse proxies (Cloud Run, Cloudflare, etc.) to get correct proto and host
+  app.set("trust proxy", true);
+
   app.use(express.json());
+
+  // Helper to extract the exact public origin for the current request
+  const getRequestOrigin = (req: express.Request) => {
+    const forwardedHost = (req.headers["x-forwarded-host"] as string)?.split(",")[0]?.trim();
+    const host = forwardedHost || req.headers.host || req.hostname || "ais-pre-kj6sqdhdx63c2pkx7dtk3y-125293530579.asia-southeast1.run.app";
+    const forwardedProto = (req.headers["x-forwarded-proto"] as string)?.split(",")[0]?.trim();
+    const proto = forwardedProto || (req.secure ? "https" : (host.includes("localhost") || host.includes("127.0.0.1") ? "http" : "https"));
+    
+    // Allow custom domain override via ?domain=https://example.com if provided
+    const queryDomain = (req.query.domain as string || req.query.url as string)?.trim()?.replace(/\/+$/, "");
+    if (queryDomain && /^https?:\/\//i.test(queryDomain)) {
+      return queryDomain;
+    }
+
+    return `${proto}://${host}`.replace(/\/+$/, "");
+  };
+
+  app.get("/sitemap.xml", (req, res) => {
+    try {
+      const origin = getRequestOrigin(req);
+      const sitemapPath = path.join(process.cwd(), "public", "sitemap.xml");
+      if (fs.existsSync(sitemapPath)) {
+        let content = fs.readFileSync(sitemapPath, "utf-8");
+        // Dynamically replace any host in <loc> tags with the current request's origin
+        content = content.replace(/<loc>https?:\/\/[^\/<]+([^<]*)<\/loc>/g, `<loc>${origin}$1</loc>`);
+        res.setHeader("Content-Type", "application/xml; charset=utf-8");
+        res.setHeader("Cache-Control", "public, max-age=0, must-revalidate");
+        return res.send(content);
+      }
+      res.status(404).send("Sitemap not found");
+    } catch (err) {
+      console.error("Error serving sitemap:", err);
+      res.status(500).send("Error loading sitemap");
+    }
+  });
+
+  app.get("/robots.txt", (req, res) => {
+    try {
+      const origin = getRequestOrigin(req);
+      const robotsPath = path.join(process.cwd(), "public", "robots.txt");
+      if (fs.existsSync(robotsPath)) {
+        let content = fs.readFileSync(robotsPath, "utf-8");
+        // Dynamically match the sitemap URL domain
+        content = content.replace(/Sitemap:\s*https?:\/\/[^\/<]+([^\s]*)/g, `Sitemap: ${origin}$1`);
+        res.setHeader("Content-Type", "text/plain; charset=utf-8");
+        res.setHeader("Cache-Control", "public, max-age=0, must-revalidate");
+        return res.send(content);
+      }
+      res.status(404).send("Robots.txt not found");
+    } catch (err) {
+      console.error("Error serving robots.txt:", err);
+      res.status(500).send("Error loading robots.txt");
+    }
+  });
 
   app.post("/api/generate-image", async (req, res) => {
     const { prompt, model, width, height, seed, steps, guidance_scale } = req.body;
@@ -429,45 +486,6 @@ async function startServer() {
     } catch (error: any) {
       console.error("API error:", error);
       res.status(500).json({ error: "Internal server error while processing the request." });
-    }
-  });
-
-  app.get("/sitemap.xml", (req, res) => {
-    try {
-      const host = req.get("host") || "ais-pre-kj6sqdhdx63c2pkx7dtk3y-125293530579.asia-southeast1.run.app";
-      const protocol = req.protocol === "http" && !host.includes("run.app") ? "http" : "https";
-      const baseUrl = `${protocol}://${host}`;
-
-      const sitemapPath = path.join(process.cwd(), "public", "sitemap.xml");
-      if (fs.existsSync(sitemapPath)) {
-        let content = fs.readFileSync(sitemapPath, "utf-8");
-        // Dynamically match and adjust the origin to the current request's domain
-        content = content.replace(/https:\/\/ais-pre-kj6sqdhdx63c2pkx7dtk3y-125293530579\.asia-southeast1\.run\.app/g, baseUrl);
-        res.setHeader("Content-Type", "application/xml");
-        return res.send(content);
-      }
-      res.status(404).send("Sitemap not found");
-    } catch (err) {
-      res.status(500).send("Error loading sitemap");
-    }
-  });
-
-  app.get("/robots.txt", (req, res) => {
-    try {
-      const host = req.get("host") || "ais-pre-kj6sqdhdx63c2pkx7dtk3y-125293530579.asia-southeast1.run.app";
-      const protocol = req.protocol === "http" && !host.includes("run.app") ? "http" : "https";
-      const baseUrl = `${protocol}://${host}`;
-
-      const robotsPath = path.join(process.cwd(), "public", "robots.txt");
-      if (fs.existsSync(robotsPath)) {
-        let content = fs.readFileSync(robotsPath, "utf-8");
-        content = content.replace(/https:\/\/ais-pre-kj6sqdhdx63c2pkx7dtk3y-125293530579\.asia-southeast1\.run\.app/g, baseUrl);
-        res.setHeader("Content-Type", "text/plain");
-        return res.send(content);
-      }
-      res.status(404).send("Robots.txt not found");
-    } catch (err) {
-      res.status(500).send("Error loading robots.txt");
     }
   });
 
