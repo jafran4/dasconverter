@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import fs from "fs";
 import axios from "axios";
 import * as cheerio from "cheerio";
 import { GoogleGenAI } from "@google/genai";
@@ -428,6 +429,45 @@ async function startServer() {
     } catch (error: any) {
       console.error("API error:", error);
       res.status(500).json({ error: "Internal server error while processing the request." });
+    }
+  });
+
+  app.get("/sitemap.xml", (req, res) => {
+    try {
+      const host = req.get("host") || "ais-pre-kj6sqdhdx63c2pkx7dtk3y-125293530579.asia-southeast1.run.app";
+      const protocol = req.protocol === "http" && !host.includes("run.app") ? "http" : "https";
+      const baseUrl = `${protocol}://${host}`;
+
+      const sitemapPath = path.join(process.cwd(), "public", "sitemap.xml");
+      if (fs.existsSync(sitemapPath)) {
+        let content = fs.readFileSync(sitemapPath, "utf-8");
+        // Dynamically match and adjust the origin to the current request's domain
+        content = content.replace(/https:\/\/ais-pre-kj6sqdhdx63c2pkx7dtk3y-125293530579\.asia-southeast1\.run\.app/g, baseUrl);
+        res.setHeader("Content-Type", "application/xml");
+        return res.send(content);
+      }
+      res.status(404).send("Sitemap not found");
+    } catch (err) {
+      res.status(500).send("Error loading sitemap");
+    }
+  });
+
+  app.get("/robots.txt", (req, res) => {
+    try {
+      const host = req.get("host") || "ais-pre-kj6sqdhdx63c2pkx7dtk3y-125293530579.asia-southeast1.run.app";
+      const protocol = req.protocol === "http" && !host.includes("run.app") ? "http" : "https";
+      const baseUrl = `${protocol}://${host}`;
+
+      const robotsPath = path.join(process.cwd(), "public", "robots.txt");
+      if (fs.existsSync(robotsPath)) {
+        let content = fs.readFileSync(robotsPath, "utf-8");
+        content = content.replace(/https:\/\/ais-pre-kj6sqdhdx63c2pkx7dtk3y-125293530579\.asia-southeast1\.run\.app/g, baseUrl);
+        res.setHeader("Content-Type", "text/plain");
+        return res.send(content);
+      }
+      res.status(404).send("Robots.txt not found");
+    } catch (err) {
+      res.status(500).send("Error loading robots.txt");
     }
   });
 
