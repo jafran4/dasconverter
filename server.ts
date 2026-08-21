@@ -240,16 +240,24 @@ async function startServer() {
 
   // Helper to extract the exact public origin for the current request
   const getRequestOrigin = (req: express.Request) => {
-    const forwardedHost = (req.headers["x-forwarded-host"] as string)?.split(",")[0]?.trim();
-    const host = forwardedHost || req.headers.host || req.hostname || "ais-pre-kj6sqdhdx63c2pkx7dtk3y-125293530579.asia-southeast1.run.app";
-    const forwardedProto = (req.headers["x-forwarded-proto"] as string)?.split(",")[0]?.trim();
-    const proto = forwardedProto || (req.secure ? "https" : (host.includes("localhost") || host.includes("127.0.0.1") ? "http" : "https"));
-    
-    // Allow custom domain override via ?domain=https://example.com if provided
-    const queryDomain = (req.query.domain as string || req.query.url as string)?.trim()?.replace(/\/+$/, "");
-    if (queryDomain && /^https?:\/\//i.test(queryDomain)) {
-      return queryDomain;
+    // Check if domain is passed explicitly via query string
+    const queryDomain = (req.query.domain as string || req.query.url as string || req.query.host as string)?.trim()?.replace(/\/+$/, "");
+    if (queryDomain) {
+      if (/^https?:\/\//i.test(queryDomain)) {
+        return queryDomain;
+      }
+      return `https://${queryDomain}`;
     }
+
+    const forwardedHost = (req.headers["x-forwarded-host"] as string)?.split(",")[0]?.trim();
+    let host = forwardedHost || req.headers.host || req.hostname || "ais-pre-kj6sqdhdx63c2pkx7dtk3y-125293530579.asia-southeast1.run.app";
+    
+    // Strip standard SSL or HTTP ports (:443 or :80) if attached
+    host = host.replace(/:(443|80)$/, "").trim();
+
+    const isLocalhost = host.includes("localhost") || host.includes("127.0.0.1");
+    const forwardedProto = (req.headers["x-forwarded-proto"] as string)?.split(",")[0]?.trim();
+    const proto = isLocalhost ? (forwardedProto || "http") : "https";
 
     return `${proto}://${host}`.replace(/\/+$/, "");
   };
