@@ -283,6 +283,18 @@ async function startServer() {
   app.get("/sitemap.xml", serveSitemap);
   app.get("/sitemap", serveSitemap);
   app.get("/api/sitemap.xml", serveSitemap);
+  app.get("/sitemap-dev.xml", (req, res) => {
+    const xml = generateSitemapXml("https://ais-dev-kj6sqdhdx63c2pkx7dtk3y-125293530579.asia-southeast1.run.app");
+    res.setHeader("Content-Type", "application/xml; charset=utf-8");
+    res.setHeader("Cache-Control", "public, max-age=0, must-revalidate");
+    res.send(xml);
+  });
+  app.get("/sitemap-pre.xml", (req, res) => {
+    const xml = generateSitemapXml("https://ais-pre-kj6sqdhdx63c2pkx7dtk3y-125293530579.asia-southeast1.run.app");
+    res.setHeader("Content-Type", "application/xml; charset=utf-8");
+    res.setHeader("Cache-Control", "public, max-age=0, must-revalidate");
+    res.send(xml);
+  });
 
   app.get("/robots.txt", (req, res) => {
     try {
