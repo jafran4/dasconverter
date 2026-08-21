@@ -250,12 +250,16 @@ async function startServer() {
     }
 
     const forwardedHost = (req.headers["x-forwarded-host"] as string)?.split(",")[0]?.trim();
-    let host = forwardedHost || req.headers.host || req.hostname || "ais-pre-kj6sqdhdx63c2pkx7dtk3y-125293530579.asia-southeast1.run.app";
+    let host = forwardedHost || req.headers.host || req.hostname || "ais-dev-kj6sqdhdx63c2pkx7dtk3y-125293530579.asia-southeast1.run.app";
     
     // Strip standard SSL or HTTP ports (:443 or :80) if attached
     host = host.replace(/:(443|80)$/, "").trim();
 
-    const isLocalhost = host.includes("localhost") || host.includes("127.0.0.1");
+    if (host.startsWith("0.0.0.0") || host.startsWith("127.0.0.1")) {
+      host = "ais-dev-kj6sqdhdx63c2pkx7dtk3y-125293530579.asia-southeast1.run.app";
+    }
+
+    const isLocalhost = host.includes("localhost");
     const forwardedProto = (req.headers["x-forwarded-proto"] as string)?.split(",")[0]?.trim();
     const proto = isLocalhost ? (forwardedProto || "http") : "https";
 
