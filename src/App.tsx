@@ -182,6 +182,7 @@ import { Contact } from '@/src/pages/Contact';
 import { Terms } from '@/src/pages/Terms';
 import { Disclaimer } from '@/src/pages/Disclaimer';
 import { Showcase } from '@/src/pages/Showcase';
+import { SitemapManager } from '@/src/pages/SitemapManager';
 
 // Health Tool Components
 import { BmiCalculator } from '@/src/tools/BmiCalculator';
@@ -1220,6 +1221,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
               <Link to="/terms" className="text-xs sm:text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">Terms & Conditions</Link>
               <Link to="/disclaimer" className="text-xs sm:text-xs sm:text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">Disclaimer</Link>
               <Link to="/contact" className="text-xs sm:text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">Contact Us</Link>
+              <Link to="/sitemap-generator" className="text-xs sm:text-sm font-medium text-indigo-600 hover:text-indigo-900 transition-colors">Sitemap & SEO</Link>
             </div>
           </div>
         </div>
@@ -1395,6 +1397,8 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/disclaimer" element={<Disclaimer />} />
+            <Route path="/sitemap-generator" element={<SitemapManager />} />
+            <Route path="/sitemap" element={<SitemapManager />} />
           </Routes>
         </AppLayout>
       </SearchProvider>

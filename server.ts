@@ -4,6 +4,7 @@ import fs from "fs";
 import axios from "axios";
 import * as cheerio from "cheerio";
 import { GoogleGenAI } from "@google/genai";
+import { generateSitemapXml, SITEMAP_ROUTES } from "./src/data/sitemapRoutes";
 
 // Import the snapsave logic
 // I will inline the essential logic here or use the file I'll create
@@ -266,41 +267,33 @@ async function startServer() {
     return `${proto}://${host}`.replace(/\/+$/, "");
   };
 
-  app.get("/sitemap.xml", (req, res) => {
+  const serveSitemap = (req: express.Request, res: express.Response) => {
     try {
       const origin = getRequestOrigin(req);
-      const sitemapPath = path.join(process.cwd(), "public", "sitemap.xml");
-      if (fs.existsSync(sitemapPath)) {
-        let content = fs.readFileSync(sitemapPath, "utf-8");
-        // Dynamically replace any host in <loc> tags with the current request's origin
-        content = content.replace(/<loc>https?:\/\/[^\/<]+([^<]*)<\/loc>/g, `<loc>${origin}$1</loc>`);
-        res.setHeader("Content-Type", "application/xml; charset=utf-8");
-        res.setHeader("Cache-Control", "public, max-age=0, must-revalidate");
-        return res.send(content);
-      }
-      res.status(404).send("Sitemap not found");
+      const xml = generateSitemapXml(origin);
+      res.setHeader("Content-Type", "application/xml; charset=utf-8");
+      res.setHeader("Cache-Control", "public, max-age=0, must-revalidate");
+      return res.send(xml);
     } catch (err) {
-      console.error("Error serving sitemap:", err);
-      res.status(500).send("Error loading sitemap");
+      console.error("Error serving dynamic sitemap:", err);
+      res.status(500).send("Error generating sitemap");
     }
-  });
+  };
+
+  app.get("/sitemap.xml", serveSitemap);
+  app.get("/sitemap", serveSitemap);
+  app.get("/api/sitemap.xml", serveSitemap);
 
   app.get("/robots.txt", (req, res) => {
     try {
       const origin = getRequestOrigin(req);
-      const robotsPath = path.join(process.cwd(), "public", "robots.txt");
-      if (fs.existsSync(robotsPath)) {
-        let content = fs.readFileSync(robotsPath, "utf-8");
-        // Dynamically match the sitemap URL domain
-        content = content.replace(/Sitemap:\s*https?:\/\/[^\/<]+([^\s]*)/g, `Sitemap: ${origin}$1`);
-        res.setHeader("Content-Type", "text/plain; charset=utf-8");
-        res.setHeader("Cache-Control", "public, max-age=0, must-revalidate");
-        return res.send(content);
-      }
-      res.status(404).send("Robots.txt not found");
+      const robotsContent = `User-agent: *\nAllow: /\n\nSitemap: ${origin}/sitemap.xml\n`;
+      res.setHeader("Content-Type", "text/plain; charset=utf-8");
+      res.setHeader("Cache-Control", "public, max-age=0, must-revalidate");
+      return res.send(robotsContent);
     } catch (err) {
       console.error("Error serving robots.txt:", err);
-      res.status(500).send("Error loading robots.txt");
+      res.status(500).send("Error generating robots.txt");
     }
   });
 
